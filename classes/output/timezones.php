@@ -66,7 +66,7 @@ class timezones extends tabbase {
             $this->data['timezones'] ?? [],
             $this->data['timestamp'] ?? null,
         );
-        $context->autoupdate = !$this->blockautoupdate;
+        $context->blockautoupdate = $this->blockautoupdate;
         return $context;
     }
 }

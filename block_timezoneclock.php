@@ -91,7 +91,7 @@ class block_timezoneclock extends block_base {
      * @return array
      */
     public static function dateinfo(string $tz, ?int $timestamp = null): array {
-        $timestamp ??= time();
+        $timestamp = $timestamp ?? time();
         $dateobj = new DateTime();
         $dateobj->setTimezone(new DateTimeZone($tz));
         $dateobj->setTimestamp($timestamp);

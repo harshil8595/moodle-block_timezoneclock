@@ -22,16 +22,17 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['additionaltimezones'] = 'Timezones';
+$string['convert'] = 'Convert';
+$string['convertedtimes'] = 'Converted Times';
+$string['datestamp'] = 'Select Time';
+$string['entervalidtimestamp'] = 'Enter valid Unix Stamp';
 $string['pluginname'] = 'Timezone Clock';
-$string['title'] = 'Timezone Clock';
+$string['timestamp'] = 'Unix Stamp';
+$string['timestampnotentered'] = 'Either you have to enter Unix Stamp Or Select Time';
 $string['timezoneclock:addinstance'] = 'Add a Timezone Clock block';
 $string['timezoneclock:myaddinstance'] = 'Add a Timezone Clock block to Dashboard';
-$string['yourtimezone'] = 'Your Timezone';
-$string['additionaltimezones'] = 'Additional Timezones';
 $string['timezoneconveter'] = 'Converter';
-$string['timestamp'] = 'Unix Stamp';
-$string['datestamp'] = 'Select Time';
-$string['convert'] = 'Convert';
-$string['entervalidtimestamp'] = 'Enter valid Unix Stamp';
 $string['timezones'] = 'Timezones';
-$string['timestampnotentered'] = 'Either you have to enter Unix Stamp Or Select Time';
+$string['title'] = 'Timezone Clock';
+$string['yourtimezone'] = 'Your Timezone';

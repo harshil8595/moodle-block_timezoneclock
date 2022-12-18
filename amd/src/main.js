@@ -1,5 +1,10 @@
+/**
+ * Main js functions for block_timezoneclock
+ *
+ * @module block_timezoneclock/main
+ */
 import DynamicForm from 'core_form/dynamicform';
-import {replaceNode} from 'core/templates';
+import {replaceNodeContents} from 'core/templates';
 
 const dtOptions = {
     year: 'numeric',
@@ -43,7 +48,7 @@ export const registerForm = formUniqId => {
         });
         dForm.addEventListener(dForm.events.FORM_SUBMITTED, e => {
             e.preventDefault();
-            replaceNode(form.nextSibling, e.detail.html, e.detail.js);
+            replaceNodeContents(form.nextElementSibling, e.detail.html, e.detail.js);
         });
     }
 };

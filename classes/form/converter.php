@@ -21,6 +21,7 @@ use context;
 use context_block;
 use core_date;
 use core_form\dynamic_form;
+use html_writer;
 use moodle_url;
 
 /**
@@ -106,13 +107,14 @@ class converter extends dynamic_form {
             'timezones' => $formdata->timezones ?? [],
             'timestamp' => $timestamp,
         ]);
-        $timezonestab->set_blockautoupdate(false);
+        $timezonestab->set_blockautoupdate(true);
         $renderer = $PAGE->get_renderer('block_timezoneclock');
 
         $renderer->header();
 
         $PAGE->start_collecting_javascript_requirements();
-        $html = $renderer->render_timezones($timezonestab);
+        $html = html_writer::tag('h3', get_string('convertedtimes', 'block_timezoneclock'));
+        $html .= html_writer::div($renderer->render_timezones($timezonestab), 'additionaltimezones');
         $js = $PAGE->requires->get_end_code();
 
         return compact('html', 'js');
