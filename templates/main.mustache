@@ -44,5 +44,7 @@
 </div>
 {{{tabshtml}}}
 {{#js}}
-    require(['block_timezoneclock/main'], amd => amd.initBlock())
+    require(['block_timezoneclock/main'], function(amd) {
+        amd.initBlock();
+    })
 {{/js}}
