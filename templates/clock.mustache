@@ -1,0 +1,13 @@
+<div class="position-relative" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}>
+    <small class="position-absolute badge tztitle">{{tz}}</small>
+    <p class="clock">
+        <span data-fraction="day">{{day}}</span>&nbsp;
+        <span data-fraction="month">{{month}}</span>&nbsp;
+        <span data-fraction="date">{{date}}</span>&nbsp;
+        <span data-fraction="year">{{year}}</span>&nbsp;
+        <span data-fraction="hour">{{hour}}</span>:{{!
+        }}<span data-fraction="minute">{{minute}}</span>:{{!
+        }}<span data-fraction="second">{{second}}</span>&nbsp;
+        <span data-fraction="meridiem">{{meridiem}}</span>
+    </p>
+</div>

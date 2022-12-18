@@ -1,0 +1,5 @@
+<div class="converterform" id="{{formuniqid}}" data-form-class="{{{formclass}}}"></div>
+<div class="additionaltimezones"></div>
+{{#js}}
+    require(['block_timezoneclock/main'], amd => amd.registerForm('{{formuniqid}}'));
+{{/js}}

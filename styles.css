@@ -1,0 +1,53 @@
+.block_timezoneclock .additionaltimezones {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block_timezoneclock .sectiontitle {
+    font-size: 1.6rem;
+    border-bottom: .08em solid #ccc;
+    margin-bottom: .6em;
+}
+
+.block_timezoneclock [data-region="clock"] {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: .1em;
+    margin-right: .1em;
+    max-width: calc(50% - .2em);
+    background-color: black;
+    border: .1em solid #ccc;
+    border-radius: .3em;
+    padding: .2em .8em;
+    margin-bottom: 0.8em;
+    flex-basis: 50%;
+    font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+    .block_timezoneclock [data-region="clock"] {
+        flex-basis: auto;
+        max-width: unset;
+    }
+}
+
+.block_timezoneclock [data-region="clock"] .clock {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: start;
+    text-shadow: 0 0 13px #00c6ff;
+    color: white;
+    margin-bottom: 0;
+}
+
+.block_timezoneclock [data-region="clock"] .tztitle {
+    background-color: darkcyan;
+    transform: translateX(.8em) translateY(-1.2em);
+    color: white;
+}
+
+.block_timezoneclock .tab-pane {
+    padding-left: 0;
+    padding-right: 0;
+}
