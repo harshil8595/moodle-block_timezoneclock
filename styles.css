@@ -1,6 +1,7 @@
 .block_timezoneclock .additionaltimezones {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .block_timezoneclock .sectiontitle {
