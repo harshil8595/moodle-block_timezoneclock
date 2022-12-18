@@ -21,33 +21,19 @@
 
     Example context (json):
     {
-        "usertimezone": [
-            {
-                "tz": "UTC",
-                "blockautoupdate": false,
-                "day": "Sun",
-                "month": "Dec",
-                "date": "18",
-                "year": "2022",
-                "hour": "12",
-                "minute": "49",
-                "second": "00",
-                "meridiem": "PM"
-            }
-        ],
-        "tabshtml": "<div class="additionaltimezones">
-            <div class="position-relative" data-region="clock" data-timezone="Asia/Kolkata">
-                <small class="position-absolute badge tztitle">Asia/Kolkata</small>
-                <p class="clock">
-                    <span data-fraction="day">Sun</span>&nbsp;
-                    <span data-fraction="month">Dec</span>&nbsp;
-                    <span data-fraction="date">18</span>&nbsp;
-                    <span data-fraction="year">2022</span>&nbsp;
-                    <span data-fraction="hour">12</span>:<span data-fraction="minute">56</span>:<span data-fraction="second">06</span>&nbsp;
-                    <span data-fraction="meridiem">PM</span>
-                </p>
-            </div>
-        </div>"
+        "usertimezone": {
+            "tz": "UTC",
+            "blockautoupdate": false,
+            "day": "Sun",
+            "month": "Dec",
+            "date": "18",
+            "year": "2022",
+            "hour": "12",
+            "minute": "49",
+            "second": "00",
+            "meridiem": "PM"
+        },
+        "tabshtml":"<ul class=\"nav nav-tabs mb-4 moodle-has-zindex\" id=\"dynamictabs-tabs\" role=\"tablist\">\n                <li class=\"nav-item\" role=\"presentation\" id=\"yui_3_17_2_1_1671347975537_21\">\n                    <a class=\"nav-link active\" id=\"timezones-tab\" data-toggle=\"tab\" href=\"#timezones\" role=\"tab\" aria-controls=\"timezones\" aria-selected=\"true\" tabindex=\"0\">\n                        Timezones\n                    </a>\n                </li>\n                <li class=\"nav-item\" role=\"presentation\" id=\"yui_3_17_2_1_1671347975537_124\">\n                    <a class=\"nav-link\" id=\"converter-tab\" data-toggle=\"tab\" href=\"#converter\" role=\"tab\" aria-controls=\"converter\" tabindex=\"-1\" aria-selected=\"false\">\n                        Converter\n                    </a>\n                </li>\n        </ul>"
     }
 }}
 <h2 class="sectiontitle">{{#str}} yourtimezone, block_timezoneclock {{/str}}</h2>
