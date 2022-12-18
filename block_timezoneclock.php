@@ -110,10 +110,7 @@ class block_timezoneclock extends block_base {
     public function timezones(array $timezones = [], ?int $timestamp = null): array {
         return array_map(function ($tz) use ($timestamp) {
             return self::dateinfo($tz, $timestamp);
-        }, array_unique([
-            ...$timezones,
-            ...$this->config->timezone
-        ]));
+        }, array_unique(array_merge($timezones, $this->config->timezone ?? [])));
     }
 
 }
