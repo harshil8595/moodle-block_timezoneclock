@@ -28,6 +28,7 @@ $string['convertedtimes'] = 'Converted Times';
 $string['datestamp'] = 'Select Time';
 $string['entervalidtimestamp'] = 'Enter valid Unix Stamp';
 $string['pluginname'] = 'Timezone Clock';
+$string['privacy:metadata'] = 'The Timezone Clock block only shows data stored in other locations.';
 $string['timestamp'] = 'Unix Stamp';
 $string['timestampnotentered'] = 'Either you have to enter Unix Stamp Or Select Time';
 $string['timezoneclock:addinstance'] = 'Add a Timezone Clock block';
