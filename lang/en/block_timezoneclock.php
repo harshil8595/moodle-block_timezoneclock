@@ -24,16 +24,16 @@
 
 $string['additionaltimezones'] = 'Timezones';
 $string['convert'] = 'Convert';
-$string['convertedtimes'] = 'Converted Times';
-$string['datestamp'] = 'Select Time';
-$string['entervalidtimestamp'] = 'Enter valid Unix Stamp';
-$string['pluginname'] = 'Timezone Clock';
-$string['privacy:metadata'] = 'The Timezone Clock block only shows data stored in other locations.';
-$string['timestamp'] = 'Unix Stamp';
-$string['timestampnotentered'] = 'Either you have to enter Unix Stamp Or Select Time';
-$string['timezoneclock:addinstance'] = 'Add a Timezone Clock block';
-$string['timezoneclock:myaddinstance'] = 'Add a Timezone Clock block to Dashboard';
+$string['convertedtimes'] = 'Converted times';
+$string['datestamp'] = 'Select time';
+$string['entervalidtimestamp'] = 'Enter valid unix stamp';
+$string['pluginname'] = 'Timezone clock';
+$string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
+$string['timestamp'] = 'Unix stamp';
+$string['timestampnotentered'] = 'Either you have to enter unix Stamp Or select time';
+$string['timezoneclock:addinstance'] = 'Add a timezone clock block';
+$string['timezoneclock:myaddinstance'] = 'Add a timezone clock block to dashboard';
 $string['timezoneconveter'] = 'Converter';
 $string['timezones'] = 'Timezones';
-$string['title'] = 'Timezone Clock';
-$string['yourtimezone'] = 'Your Timezone';
+$string['title'] = 'Timezone clock';
+$string['yourtimezone'] = 'Your timezone';
