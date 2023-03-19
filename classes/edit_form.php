@@ -18,6 +18,7 @@ namespace block_timezoneclock;
 
 use block_edit_form;
 use core_date;
+use lang_string;
 use MoodleQuickForm;
 
 /**
@@ -38,6 +39,19 @@ class edit_form extends block_edit_form {
      */
     public function specific_definition($mform) {
         global $USER;
+
+        $mform->addElement('select', 'config_clocktype', get_string('clocktype', 'block_timezoneclock'),
+                output\main::get_clocktypes());
+        $mform->setType('config_clocktype', PARAM_ALPHA);
+        $mform->setDefault('config_clocktype', get_config('block_timezoneclock', 'clocktype'));
+
+        $mform->addElement('select', 'config_showdigits', get_string('showdigits', 'block_timezoneclock'), [
+            0 => new lang_string('no'),
+            1 => new lang_string('yes'),
+        ]);
+        $mform->setType('config_showdigits', PARAM_INT);
+        $mform->setDefault('config_showdigits', get_config('block_timezoneclock', 'showdigits'));
+        $mform->hideIf('config_showdigits', 'config_clocktype', 'neq', output\main::TYPEANALOG);
 
         $choices = core_date::get_list_of_timezones($USER->timezone, true);
         $repeatarray[] = $mform->createElement('searchableselector', 'config_timezone', get_string('timezone'), $choices);

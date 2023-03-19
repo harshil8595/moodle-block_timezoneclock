@@ -18,6 +18,8 @@ namespace block_timezoneclock\output;
 
 use block_timezoneclock;
 use core\output\dynamic_tabs\base;
+use renderer_base;
+use stdClass;
 
 /**
  * Base class for generating tabobject.
@@ -61,5 +63,17 @@ abstract class tabbase extends base {
      */
     public function get_template(): string {
         return "block_timezoneclock/{$this->get_tab_id()}";
+    }
+
+    /**
+     * Generates data needed for template
+     *
+     * @param renderer_base $output
+     * @return stdClass
+     */
+    public function export_for_template(renderer_base $output): stdClass {
+        $context = new stdClass;
+        $context->isanalog = $this->get_block()->is_analog();
+        return $context;
     }
 }

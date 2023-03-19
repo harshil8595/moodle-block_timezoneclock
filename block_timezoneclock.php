@@ -97,7 +97,7 @@ class block_timezoneclock extends block_base {
         $dateobj->setTimestamp($timestamp);
         [$day, $month, $date, $year, $hour, $minute, $second, $meridiem] = explode(' ', $dateobj->format('D M d o h i s A'));
 
-        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem');;
+        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem');
     }
 
     /**
@@ -111,6 +111,32 @@ class block_timezoneclock extends block_base {
         return array_map(function ($tz) use ($timestamp) {
             return self::dateinfo($tz, $timestamp);
         }, array_unique(array_merge($timezones, $this->config->timezone ?? [])));
+    }
+
+    /**
+     * Show analog clock or not
+     *
+     * @return bool
+     */
+    public function is_analog(): bool {
+        $clocktype = get_config('block_timezoneclock', 'clocktype');
+        if (!empty($this->config->clocktype)) {
+            $clocktype = $this->config->clocktype;
+        }
+        return $clocktype == block_timezoneclock\output\main::TYPEANALOG;
+    }
+
+    /**
+     * Show digits in analog clock or not
+     *
+     * @return bool
+     */
+    public function show_digits(): bool {
+        $showdigits = get_config('block_timezoneclock', 'showdigits');
+        if (isset($this->config->showdigits)) {
+            $showdigits = !empty($this->config->showdigits);
+        }
+        return !empty($showdigits);
     }
 
 }

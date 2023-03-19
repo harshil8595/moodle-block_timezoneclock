@@ -47,7 +47,7 @@ class converter extends tabbase {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output): stdClass {
-        $context = new stdClass;
+        $context = parent::export_for_template($output);
         $context->formclass = FormConverter::class;
         $context->formuniqid = html_writer::random_id('form');
         return $context;

@@ -19,6 +19,7 @@ namespace block_timezoneclock\output;
 use block_timezoneclock;
 use core\output\dynamic_tabs;
 use core_date;
+use lang_string;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -32,6 +33,12 @@ use templatable;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class main implements renderable, templatable {
+
+    /** @var string */
+    const TYPEDIGITAL = 'digital';
+
+    /** @var string */
+    const TYPEANALOG = 'analog';
 
     /**
      * @var block_timezoneclock
@@ -61,11 +68,25 @@ class main implements renderable, templatable {
         ]);
 
         $context = new stdClass;
+        $context->isanalog = $this->block->is_analog();
+        $context->showdigits = $this->block->show_digits();
         $context->usertimezone = $this->block->dateinfo($usertimezone);
         $context->tabshtml = $output->render_from_template(
             'core/dynamic_tabs',
             $tabobject->export_for_template($output)
         );
         return $context;
+    }
+
+    /**
+     * Get clock types
+     *
+     * @return array
+     */
+    public static function get_clocktypes() {
+        return [
+            self::TYPEDIGITAL => new lang_string('typedigital', 'block_timezoneclock'),
+            self::TYPEANALOG => new lang_string('typeanalog', 'block_timezoneclock'),
+        ];
     }
 }

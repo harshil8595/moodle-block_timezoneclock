@@ -3,37 +3,39 @@
     flex-wrap: wrap;
     width: 100%;
 }
-
 .block_timezoneclock .sectiontitle {
     font-size: 1.6rem;
-    border-bottom: .08em solid #ccc;
-    margin-bottom: .6em;
+    border-bottom: 0.08em solid #ccc;
+    margin-bottom: 0.6em;
 }
-
-.block_timezoneclock [data-region="clock"] {
+.block_timezoneclock .clockwrap {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    margin-left: .1em;
-    margin-right: .1em;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
     max-width: calc(50% - .2em);
     background-color: black;
-    border: .1em solid #ccc;
-    border-radius: .3em;
-    padding: .2em .8em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.3em;
+    padding: 0.2em 0.8em;
     margin-bottom: 0.8em;
     flex-basis: 50%;
     font-size: 1.2em;
 }
-
-@media (max-width: 768px) {
-    .block_timezoneclock [data-region="clock"] {
-        flex-basis: auto;
-        max-width: unset;
-    }
+.block_timezoneclock .clockwrap .dateline {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: start;
+    text-shadow: 0 0 13px #00c6ff;
+    color: white;
+    background-color: black;
+    padding: 0.2em 0.8em;
+    border-radius: 0.3em;
+    margin: 0.5em auto;
+    max-width: calc(100% - .1em);
 }
-
-.block_timezoneclock [data-region="clock"] .clock {
+.block_timezoneclock .clockwrap .clock {
     display: flex;
     flex-wrap: wrap;
     align-self: start;
@@ -41,14 +43,161 @@
     color: white;
     margin-bottom: 0;
 }
-
-.block_timezoneclock [data-region="clock"] .tztitle {
+.block_timezoneclock .clockwrap .tztitle {
     background-color: darkcyan;
-    transform: translateX(.8em) translateY(-1.2em);
+    transform: translateX(0.8em) translateY(-1.2em);
     color: white;
 }
-
 .block_timezoneclock .tab-pane {
     padding-left: 0;
     padding-right: 0;
+}
+.block_timezoneclock .analogclock {
+    --color1: #74bcdd;
+    --color2: #2d3e51;
+    --color3: #fbca32;
+    --color4: #ebeced;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: var(--color4);
+    margin: 0.5em auto;
+    position: relative;
+    box-sizing: border-box;
+    border: 0.3em solid var(--color1);
+    text-shadow: none;
+    font-size: 0.85em;
+}
+.block_timezoneclock .analogclock [data-fraction="hour"] {
+    --width: 10px;
+    --height: 40px;
+    --color: var(--color2);
+    transform: rotate(calc(180deg + var(--rotation) * 30deg));
+}
+.block_timezoneclock .analogclock [data-fraction="minute"] {
+    --width: 7px;
+    --height: 50px;
+    --color: var(--color1);
+    transform: rotate(calc(180deg + var(--rotation) * 6deg));
+}
+.block_timezoneclock .analogclock [data-fraction="second"] {
+    --width: 5px;
+    --height: 60px;
+    --color: var(--color3);
+    transform: rotate(calc(180deg + var(--rotation) * 6deg));
+}
+.block_timezoneclock .analogclock [data-fraction="meridiem"] {
+    --width: 2em;
+    position: absolute;
+    display: inline-block;
+    bottom: 10%;
+    left: calc(50% - var(--width) / 2);
+    color: white;
+    text-align: center;
+    background-color: black;
+    padding: 0.1em;
+    font-size: 0.6em;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.4em;
+    width: var(--width);
+}
+.block_timezoneclock .analogclock .dialoredge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    list-style-type: none;
+}
+.block_timezoneclock .analogclock .dialoredge li {
+    left: 45%;
+    top: 45%;
+    position: absolute;
+    text-align: center;
+    width: 10%;
+    height: 10%;
+    border-radius: 100%;
+    counter-increment: hourcounter;
+    transform:
+        rotateZ(calc((var(--nth-child) + 6) * calc(360 / 12) * 1deg))
+        translateY(430%)
+        rotateZ(calc((var(--nth-child) + 6) * calc(360 / 12) * -1deg));
+    color: var(--color2);
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(1) {
+    --nth-child: 1;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(2) {
+    --nth-child: 2;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(3) {
+    --nth-child: 3;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(4) {
+    --nth-child: 4;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(5) {
+    --nth-child: 5;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(6) {
+    --nth-child: 6;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(7) {
+    --nth-child: 7;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(8) {
+    --nth-child: 8;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(9) {
+    --nth-child: 9;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(10) {
+    --nth-child: 10;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(11) {
+    --nth-child: 11;
+}
+.block_timezoneclock .analogclock .dialoredge li:nth-child(12) {
+    --nth-child: 12;
+}
+.block_timezoneclock .analogclock .dialoredge li:before {
+    content: '\2022';
+}
+.block_timezoneclock [data-showdigits="1"] .analogclock .dialoredge li:before {
+    content: counter(hourcounter) "";
+}
+.block_timezoneclock .hand {
+    --rotation: 0;
+    position: absolute;
+    top: 50%;
+    left: calc(50% - var(--width) / 2);
+    width: var(--width);
+    height: var(--height);
+    background-color: var(--color);
+    border-radius: calc(var(--width) / 2);
+    transform-origin: center 0;
+}
+.block_timezoneclock .center {
+    --width: 21px;
+    --height: 21px;
+    --color: var(--color3);
+    top: calc(50% - var(--width) / 2);
+}
+.block_timezoneclock [data-isanalog="1"] .clockwrap {
+    background-color: transparent;
+    margin-top: 1em;
+    padding: 0;
+}
+.block_timezoneclock #converter[role="tabpanel"] .analogclock [data-fraction="second"] {
+    height: 0;
+}
+
+@media (max-width: 768px) {
+    .block_timezoneclock .clockwrap {
+        flex-basis: auto;
+        max-width: unset;
+    }
 }

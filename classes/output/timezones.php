@@ -61,7 +61,7 @@ class timezones extends tabbase {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output): stdClass {
-        $context = new stdClass;
+        $context = parent::export_for_template($output);
         $context->additionaltimezones = $this->get_block()->timezones(
             $this->data['timezones'] ?? [],
             $this->data['timestamp'] ?? null,

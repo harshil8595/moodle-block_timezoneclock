@@ -23,12 +23,16 @@
  */
 
 $string['additionaltimezones'] = 'Timezones';
+$string['clocktype'] = 'Clock type';
+$string['clocktype_desc'] = 'Default clock type i.e, digital or analogue';
 $string['convert'] = 'Convert';
 $string['convertedtimes'] = 'Converted times';
 $string['datestamp'] = 'Select time';
 $string['entervalidtimestamp'] = 'Enter valid unix stamp';
 $string['pluginname'] = 'Timezone clock';
 $string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
+$string['showdigits'] = 'Show digits';
+$string['showdigits_desc'] = 'Show digits in analogue clock';
 $string['timestamp'] = 'Unix stamp';
 $string['timestampnotentered'] = 'Either you have to enter unix Stamp Or select time';
 $string['timezoneclock:addinstance'] = 'Add a timezone clock block';
@@ -36,4 +40,6 @@ $string['timezoneclock:myaddinstance'] = 'Add a timezone clock block to dashboar
 $string['timezoneconveter'] = 'Converter';
 $string['timezones'] = 'Timezones';
 $string['title'] = 'Timezone clock';
+$string['typedigital'] = 'Digital';
+$string['typeanalog'] = 'Analogue';
 $string['yourtimezone'] = 'Your timezone';

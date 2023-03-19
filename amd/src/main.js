@@ -45,9 +45,14 @@ const getDateInfo = (timeZone, timestamp = new Date()) => {
 const updateTime = () => document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
     .forEach(clock => {
         const datefractions = getDateInfo(clock.dataset.timezone);
-        clock.querySelectorAll('.clock > span').forEach(sp => {
-            if (sp.innerText !== datefractions[sp.dataset.fraction]) {
-                sp.innerText = datefractions[sp.dataset.fraction];
+        clock.querySelectorAll('.clock > span[data-fraction]').forEach(sp => {
+            const {fraction} = sp.dataset;
+            if (sp.closest('.hand')) {
+                sp.style.setProperty(`--rotation`, datefractions[fraction]);
+                return;
+            }
+            if (sp.innerText !== datefractions[fraction]) {
+                sp.innerText = datefractions[fraction];
             }
         });
 });
