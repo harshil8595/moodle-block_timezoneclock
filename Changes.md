@@ -15,3 +15,10 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Added
 
 - Intoduce option to change watch type [#3](https://github.com/harshil8595/moodle-block_timezoneclock/issues/3).
+
+## [1.1.3] - 2023-03-29
+
+### Fixed
+
+- Error when removing timezone [#4](https://github.com/harshil8595/moodle-block_timezoneclock/issues/4).
+- Layout disturbed when block moved to block drawer [#5](https://github.com/harshil8595/moodle-block_timezoneclock/issues/5).
