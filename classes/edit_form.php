@@ -62,4 +62,17 @@ class edit_form extends block_edit_form {
 
     }
 
+    /**
+     * supplies config to save in block instance
+     *
+     * @return object
+     */
+    public function get_data() {
+        $data = parent::get_data();
+        if (!empty($data->config_timezone)) {
+            $data->config_timezone = array_values(array_filter($data->config_timezone, 'trim'));
+        }
+        return $data;
+    }
+
 }
