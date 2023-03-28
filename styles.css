@@ -1,6 +1,7 @@
 .block_timezoneclock .additionaltimezones {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
 }
 .block_timezoneclock .sectiontitle {
@@ -14,7 +15,7 @@
     flex-grow: 1;
     margin-left: 0.1em;
     margin-right: 0.1em;
-    max-width: calc(50% - .2em);
+    max-width: 360px;
     background-color: black;
     border: 0.1em solid #ccc;
     border-radius: 0.3em;
