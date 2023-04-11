@@ -54,8 +54,10 @@ class edit_form extends block_edit_form {
         $mform->hideIf('config_showdigits', 'config_clocktype', 'neq', output\main::TYPEANALOG);
 
         $choices = core_date::get_list_of_timezones($USER->timezone, true);
-        $repeatarray[] = $mform->createElement('searchableselector', 'config_timezone', get_string('timezone'), $choices);
-        $repeatedoptions['timezone']['type'] = PARAM_INT;
+        $timezoneelement = $mform->createElement('autocomplete', 'config_timezone', get_string('timezone'), $choices);
+        $timezoneelement->removeAttribute('id');
+        $repeatarray[] = $timezoneelement;
+        $repeatedoptions['config_timezone']['type'] = PARAM_INT;
 
         $norepeats = !empty($this->block->config->timezone) ? count($this->block->config->timezone) : 1;
         $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1);
