@@ -22,3 +22,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 
 - Error when removing timezone [#4](https://github.com/harshil8595/moodle-block_timezoneclock/issues/4).
 - Layout disturbed when block moved to block drawer [#5](https://github.com/harshil8595/moodle-block_timezoneclock/issues/5).
+
+## [1.1.4] - 2023-04-20
+
+### Fixed
+
+- Fix timezone selection autocomplete field in configuration modal form [#7](https://github.com/harshil8595/moodle-block_timezoneclock/issues/7).
