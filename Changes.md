@@ -28,3 +28,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Fixed
 
 - Fix timezone selection autocomplete field in configuration modal form [#7](https://github.com/harshil8595/moodle-block_timezoneclock/issues/7).
+
+## [1.1.5] - 2023-05-10
+
+### Fixed
+
+- Fix Configuration changes do not stick [#8](https://github.com/harshil8595/moodle-block_timezoneclock/issues/8).
