@@ -57,7 +57,7 @@ class edit_form extends block_edit_form {
         $timezoneelement = $mform->createElement('autocomplete', 'config_timezone', get_string('timezone'), $choices);
         $timezoneelement->removeAttribute('id');
         $repeatarray[] = $timezoneelement;
-        $repeatedoptions['config_timezone']['type'] = PARAM_INT;
+        $repeatedoptions['config_timezone']['type'] = PARAM_TIMEZONE;
 
         $norepeats = !empty($this->block->config->timezone) ? count($this->block->config->timezone) : 1;
         $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1);
