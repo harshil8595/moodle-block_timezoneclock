@@ -34,3 +34,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Fixed
 
 - Fix Configuration changes do not stick [#8](https://github.com/harshil8595/moodle-block_timezoneclock/issues/8).
+
+## [1.1.6] - 2023-03-19
+
+### Added
+
+- Add supported version numbers in version information
