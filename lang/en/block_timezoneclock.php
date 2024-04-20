@@ -40,6 +40,6 @@ $string['timezoneclock:myaddinstance'] = 'Add a timezone clock block to dashboar
 $string['timezoneconveter'] = 'Converter';
 $string['timezones'] = 'Timezones';
 $string['title'] = 'Timezone clock';
-$string['typedigital'] = 'Digital';
 $string['typeanalog'] = 'Analogue';
+$string['typedigital'] = 'Digital';
 $string['yourtimezone'] = 'Your timezone';
