@@ -30,14 +30,4 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description,
         block_timezoneclock\output\main::TYPEDIGITAL, block_timezoneclock\output\main::get_clocktypes());
     $settings->add($setting);
-
-    $name = 'block_timezoneclock/showdigits';
-    $title = get_string('showdigits', 'block_timezoneclock');
-    $description = get_string('showdigits_desc', 'block_timezoneclock');
-    $setting = new admin_setting_configselect($name, $title, $description,
-        block_timezoneclock\output\main::TYPEDIGITAL, [
-            0 => new lang_string('no'),
-            1 => new lang_string('yes'),
-        ]);
-    $settings->add($setting);
 }

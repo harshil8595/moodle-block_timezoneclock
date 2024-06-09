@@ -137,17 +137,4 @@ class block_timezoneclock extends block_base {
         return $clocktype == block_timezoneclock\output\main::TYPEANALOG;
     }
 
-    /**
-     * Show digits in analog clock or not
-     *
-     * @return bool
-     */
-    public function show_digits(): bool {
-        $showdigits = get_config('block_timezoneclock', 'showdigits');
-        if (isset($this->config->showdigits)) {
-            $showdigits = !empty($this->config->showdigits);
-        }
-        return !empty($showdigits);
-    }
-
 }

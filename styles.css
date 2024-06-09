@@ -167,7 +167,7 @@
 .block_timezoneclock .analogclock .dialoredge li:before {
     content: '\2022';
 }
-.block_timezoneclock [data-showdigits="1"] .analogclock .dialoredge li:before {
+.block_timezoneclock .analogclock .dialoredge li:before {
     content: counter(hourcounter) "";
 }
 .block_timezoneclock .hand {

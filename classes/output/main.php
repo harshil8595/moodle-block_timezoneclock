@@ -69,7 +69,6 @@ class main implements renderable, templatable {
 
         $context = new stdClass;
         $context->isanalog = $this->block->is_analog();
-        $context->showdigits = $this->block->show_digits();
         $context->usertimezone = $this->block->dateinfo($usertimezone);
         $context->tabshtml = $output->render_from_template(
             'core/dynamic_tabs',
