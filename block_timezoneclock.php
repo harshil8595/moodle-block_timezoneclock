@@ -51,6 +51,17 @@ class block_timezoneclock extends block_base {
     }
 
     /**
+     * Apply custom block name if inputed
+     *
+     * @return void
+     */
+    public function specialization() {
+        if (!empty($this->config->title)) {
+            $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+        }
+    }
+
+    /**
      * Allow block to add multiple times
      *
      * @return bool

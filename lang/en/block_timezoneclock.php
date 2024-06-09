@@ -25,6 +25,8 @@
 $string['additionaltimezones'] = 'Timezones';
 $string['clocktype'] = 'Clock type';
 $string['clocktype_desc'] = 'Default clock type i.e, digital or analogue';
+$string['configtitle'] = 'Block title';
+$string['configtitle_placeholder'] = 'Default: Timezone clock';
 $string['convert'] = 'Convert';
 $string['convertedtimes'] = 'Converted times';
 $string['datestamp'] = 'Select time';

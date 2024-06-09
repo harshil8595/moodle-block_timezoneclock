@@ -40,6 +40,10 @@ class edit_form extends block_edit_form {
     public function specific_definition($mform) {
         global $USER;
 
+        $mform->addElement('text', 'config_title', get_string('configtitle', 'block_timezoneclock'),
+                ['placeholder' => get_string('configtitle_placeholder', 'block_timezoneclock')]);
+        $mform->setType('config_title', PARAM_TEXT);
+
         $mform->addElement('select', 'config_clocktype', get_string('clocktype', 'block_timezoneclock'),
                 output\main::get_clocktypes());
         $mform->setType('config_clocktype', PARAM_ALPHA);
