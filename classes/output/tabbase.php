@@ -57,12 +57,30 @@ abstract class tabbase extends base {
     }
 
     /**
+     * Get class name
+     */
+    public function get_classname(): string {
+        $parts = preg_split('/\\\\/', static::class);
+        return array_pop($parts);
+    }
+
+    /**
+     * HTML "id" attribute that should be used for this tab, by default the last part of class name
+     *
+     * @return string
+     */
+    public function get_tab_id(): string {
+        $tabid = sprintf('%s-%d', $this->get_classname(), $this->data['instanceid']);
+        return $tabid;
+    }
+
+    /**
      * Get template name to render
      *
      * @return string
      */
     public function get_template(): string {
-        return "block_timezoneclock/{$this->get_tab_id()}";
+        return "block_timezoneclock/{$this->get_classname()}";
     }
 
     /**
