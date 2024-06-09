@@ -61,10 +61,15 @@ class edit_form extends block_edit_form {
         $timezoneelement = $mform->createElement('autocomplete', 'config_timezone', get_string('timezone'), $choices);
         $timezoneelement->removeAttribute('id');
         $repeatarray[] = $timezoneelement;
+
+        $repeatarray[] = $mform->createElement('submit', 'remove', get_string('remove'));
         $repeatedoptions['config_timezone']['type'] = PARAM_TIMEZONE;
 
-        $norepeats = !empty($this->block->config->timezone) ? count($this->block->config->timezone) : 1;
-        $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1);
+        $norepeats = !empty($this->block->config->timezone) ? count($this->block->config->timezone) : 0;
+        if (empty($this->get_block()->config)) {
+            $norepeats = 1;
+        }
+        $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1, null, false, 'remove');
 
     }
 
@@ -77,6 +82,8 @@ class edit_form extends block_edit_form {
         $data = parent::get_data();
         if (!empty($data->config_timezone)) {
             $data->config_timezone = array_values(array_filter($data->config_timezone, 'trim'));
+        } else {
+            $data->config_timezone = [];
         }
         return $data;
     }
