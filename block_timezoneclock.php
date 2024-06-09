@@ -108,7 +108,9 @@ class block_timezoneclock extends block_base {
         $dateobj->setTimestamp($timestamp);
         [$day, $month, $date, $year, $hour, $minute, $second, $meridiem] = explode(' ', $dateobj->format('D M d o h i s A'));
 
-        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem');
+        $indicators = range(0, MINSECS - 1);
+
+        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem', 'indicators');
     }
 
     /**

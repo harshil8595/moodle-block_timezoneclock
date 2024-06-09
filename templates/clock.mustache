@@ -30,50 +30,80 @@
         "hour": "12",
         "minute": "49",
         "second": "00",
-        "meridiem": "PM"
+        "meridiem": "PM",
+        "indicators": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ]
     }
 }}
 <div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}>
     <small class="position-absolute badge tztitle">{{tz}}</small>
     {{#isanalog}}
         <div class="clock analogclock">
-            <span data-fraction="hour" class="hand" style="--rotation: {{hour}}"></span>
-            <span data-fraction="minute" class="hand" style="--rotation: {{minute}}"></span>
-            <span data-fraction="second" class="hand" style="--rotation: {{second}}"></span>
-            <span data-fraction="meridiem">{{meridiem}}</span>
-            <span class="center hand"></span>
-            <ol class="dialoredge">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ol>
+            <div class="clock__inner">
+                <span data-fraction="hour" class="hand clock__hour" data-unit="{{hour}}" style="--unit: {{hour}}">
+                    <span class="sr-only">{{hour}}</span>
+                </span>
+                <span data-fraction="minute" class="hand clock__minute" data-unit="{{minute}}" style="--unit: {{minute}}">
+                    <span class="sr-only">{{minute}}</span>
+                </span>
+                <span data-fraction="second" class="hand clock__second" data-unit="{{second}}" style="--unit: {{second}}">
+                    <span class="sr-only">{{second}}</span>
+                </span>
+                <span class="center hand clock__axis"></span>
+                {{#indicators}}
+                    <span class="clock__indicator" style="--nth-child: {{{.}}}"></span>
+                {{/indicators}}
+            </div>
+            <span data-fraction="meridiem" class="clock__meridiem unitdisplay" data-unit="{{meridiem}}">
+                <span class="sr-only">{{meridiem}}</span>
+            </span>
         </div>
         <p class="dateline badge mx-auto">
-            <span data-fraction="day">{{day}}</span>&nbsp;
-            <span data-fraction="month">{{month}}</span>&nbsp;
-            <span data-fraction="date">{{date}}</span>&nbsp;
-            <span data-fraction="year">{{year}}</span>
+            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
+                <span class="sr-only">{{day}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="month" data-unit="{{month}}">
+                <span class="sr-only">{{month}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="date" data-unit="{{date}}">
+                <span class="sr-only">{{date}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="year" data-unit="{{year}}">
+                <span class="sr-only">{{year}}</span>
+            </span>
         </p>
     {{/isanalog}}
     {{^isanalog}}
-        <p class="clock">
-            <span data-fraction="day">{{day}}</span>&nbsp;
-            <span data-fraction="month">{{month}}</span>&nbsp;
-            <span data-fraction="date">{{date}}</span>&nbsp;
-            <span data-fraction="year">{{year}}</span>&nbsp;
-            <span data-fraction="hour">{{hour}}</span>:{{!
-            }}<span data-fraction="minute">{{minute}}</span>:{{!
-            }}<span data-fraction="second">{{second}}</span>&nbsp;
-            <span data-fraction="meridiem">{{meridiem}}</span>
+        <p class="clock digitalclock">
+            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
+                <span class="sr-only">{{day}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="month" data-unit="{{month}}">
+                <span class="sr-only">{{month}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="date" data-unit="{{date}}">
+                <span class="sr-only">{{date}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="year" data-unit="{{year}}">
+                <span class="sr-only">{{year}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="hour" data-unit="{{hour}}">
+                <span class="sr-only">{{hour}}</span>
+            </span>:{{!
+            }}<span class="unitdisplay" data-fraction="minute" data-unit="{{minute}}">
+                <span class="sr-only">{{minute}}</span>
+            </span>:{{!
+            }}<span class="unitdisplay" data-fraction="second" data-unit="{{second}}">
+                <span class="sr-only">{{second}}</span>
+            </span>&nbsp;
+            <span class="unitdisplay" data-fraction="meridiem" data-unit="{{meridiem}}">
+                <span class="sr-only">{{meridiem}}</span>
+            </span>
         </p>
     {{/isanalog}}
 </div>

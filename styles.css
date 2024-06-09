@@ -10,25 +10,27 @@
     margin-bottom: 0.6em;
 }
 .block_timezoneclock .clockwrap {
+    --size: 200px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     margin-left: 0.1em;
     margin-right: 0.1em;
     max-width: 360px;
-    background-color: black;
+    background-color: #f3f5f8;
     border: 0.1em solid #ccc;
     border-radius: 0.3em;
-    padding: 0.2em 0.8em;
+    padding: 0;
     margin-bottom: 0.8em;
     flex-basis: 50%;
     font-size: 1.2em;
+    margin-top: 1em;
 }
 .block_timezoneclock .clockwrap .dateline {
     display: flex;
     flex-wrap: wrap;
     align-self: start;
-    text-shadow: 0 0 13px #00c6ff;
+    text-shadow: 0 0 13px #7084ca;
     color: white;
     background-color: black;
     padding: 0.2em 0.8em;
@@ -40,12 +42,12 @@
     display: flex;
     flex-wrap: wrap;
     align-self: start;
-    text-shadow: 0 0 13px #00c6ff;
+    text-shadow: 0 0 13px #7084ca;
     color: white;
     margin-bottom: 0;
 }
 .block_timezoneclock .clockwrap .tztitle {
-    background-color: darkcyan;
+    background-color: #7084ca;
     transform: translateX(0.8em) translateY(-1.2em);
     color: white;
 }
@@ -53,45 +55,147 @@
     padding-left: 0;
     padding-right: 0;
 }
-.block_timezoneclock .analogclock {
-    --color1: #74bcdd;
-    --color2: #2d3e51;
-    --color3: #fbca32;
-    --color4: #ebeced;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: var(--color4);
-    margin: 0.5em auto;
+
+@media (max-width: 768px) {
+    .block_timezoneclock .clockwrap {
+        flex-basis: auto;
+        max-width: unset;
+    }
+}
+
+.block_timezoneclock .clockwrap .analogclock {
+    height: calc(var(--size) + 10px);
+    width: calc(var(--size) + 10px);
     position: relative;
-    box-sizing: border-box;
-    border: 0.3em solid var(--color1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.14);
+    border-width: 0;
+    margin: 0.5em auto;
+}
+
+.block_timezoneclock .clockwrap .analogclock .clock__inner {
+    position: relative;
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+}
+
+.block_timezoneclock .clockwrap .analogclock .clock__axis {
+    background: black;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(var(--size) / 2);
+    left: calc(var(--size) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-6px) translateY(-6px);
+}
+
+.block_timezoneclock .clockwrap .analogclock .clock__axis::after {
+    width: 7px;
+    height: 7px;
+    content: " ";
+    background-color: #7084ca;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.block_timezoneclock .clockwrap .analogclock .clock__indicator,
+.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"],
+.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"],
+.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+    position: absolute;
+    color: black;
+    transform-origin: bottom center;
+    border-radius: 1px;
+    display: block;
+}
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"],
+.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"],
+.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+    --gudder: 0;
+    --divider: 60;
+    --unit: 1;
+    --hand-width: 6px;
+    width: var(--hand-width);
+    left: calc(50% - var(--hand-width) / 2);
+    transform: rotateZ(calc(var(--unit) * 360deg / var(--divider)));
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: calc(var(--size) / 2 - var(--gudder));
+    margin-top: var(--gudder);
+    font-size: 0;
+    background-color: black;
+}
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"] {
+    --divider: 12;
+    --gudder: 50px;
+}
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"] {
+    --gudder: 40px;
+}
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+    --gudder: 20px;
+    --hand-width: 3px;
+    background-color: #7084ca;
+    display: flex;
+    align-items: end;
+    z-index: 1;
+}
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="second"]::after {
+    height: 20px;
+    width: 4px;
+    content: " ";
+    display: inline-block;
+    background-color: inherit;
+    transform: translateY(10px);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.block_timezoneclock .clockwrap .analogclock .clock__indicator {
+    height: calc(var(--size) / 2);
+    border-top: 5px solid #a0a0a0;
+    background: none;
+    width: 1px;
+    left: calc(50%);
+    transform: rotateZ(calc(6deg * (5 + var(--nth-child))));
     text-shadow: none;
-    font-size: 0.85em;
 }
-.block_timezoneclock .analogclock [data-fraction="hour"] {
-    --width: 10px;
-    --height: 40px;
-    --color: var(--color2);
-    transform: rotate(calc(180deg + var(--rotation) * 30deg));
+
+.block_timezoneclock .clockwrap .analogclock .clock__indicator:nth-of-type(5n) {
+    width: 2px;
+    font-weight: bold;
+    border-top: 10px solid #1d1d1d;
+    counter-increment: hourcounter;
 }
-.block_timezoneclock .analogclock [data-fraction="minute"] {
-    --width: 7px;
-    --height: 50px;
-    --color: var(--color1);
-    transform: rotate(calc(180deg + var(--rotation) * 6deg));
+
+.block_timezoneclock .clockwrap .analogclock .clock__indicator:nth-of-type(5n)::after {
+    content: counter(hourcounter) "";
+    transform: rotateZ(calc(-6deg * (5 + var(--nth-child))));
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.block_timezoneclock .analogclock [data-fraction="second"] {
-    --width: 5px;
-    --height: 60px;
-    --color: var(--color3);
-    transform: rotate(calc(180deg + var(--rotation) * 6deg));
-}
-.block_timezoneclock .analogclock [data-fraction="meridiem"] {
+
+.block_timezoneclock .clockwrap .analogclock [data-fraction="meridiem"] {
     --width: 2em;
     position: absolute;
     display: inline-block;
-    bottom: 10%;
+    bottom: 20%;
     left: calc(50% - var(--width) / 2);
     color: white;
     text-align: center;
@@ -104,101 +208,20 @@
     border-radius: 0.4em;
     width: var(--width);
 }
-.block_timezoneclock .analogclock .dialoredge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    list-style-type: none;
-}
-.block_timezoneclock .analogclock .dialoredge li {
-    left: 45%;
-    top: 45%;
-    position: absolute;
-    text-align: center;
-    width: 10%;
-    height: 10%;
-    border-radius: 100%;
-    counter-increment: hourcounter;
-    transform:
-        rotateZ(calc((var(--nth-child) + 6) * calc(360 / 12) * 1deg))
-        translateY(430%)
-        rotateZ(calc((var(--nth-child) + 6) * calc(360 / 12) * -1deg));
-    color: var(--color2);
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(1) {
-    --nth-child: 1;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(2) {
-    --nth-child: 2;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(3) {
-    --nth-child: 3;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(4) {
-    --nth-child: 4;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(5) {
-    --nth-child: 5;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(6) {
-    --nth-child: 6;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(7) {
-    --nth-child: 7;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(8) {
-    --nth-child: 8;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(9) {
-    --nth-child: 9;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(10) {
-    --nth-child: 10;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(11) {
-    --nth-child: 11;
-}
-.block_timezoneclock .analogclock .dialoredge li:nth-child(12) {
-    --nth-child: 12;
-}
-.block_timezoneclock .analogclock .dialoredge li:before {
-    content: '\2022';
-}
-.block_timezoneclock .analogclock .dialoredge li:before {
-    content: counter(hourcounter) "";
-}
-.block_timezoneclock .hand {
-    --rotation: 0;
-    position: absolute;
-    top: 50%;
-    left: calc(50% - var(--width) / 2);
-    width: var(--width);
-    height: var(--height);
-    background-color: var(--color);
-    border-radius: calc(var(--width) / 2);
-    transform-origin: center 0;
-}
-.block_timezoneclock .center {
-    --width: 21px;
-    --height: 21px;
-    --color: var(--color3);
-    top: calc(50% - var(--width) / 2);
-}
-.block_timezoneclock [data-isanalog="1"] .clockwrap {
-    background-color: transparent;
-    margin-top: 1em;
-    padding: 0;
-}
-.block_timezoneclock #converter[role="tabpanel"] .analogclock [data-fraction="second"] {
-    height: 0;
+
+.block_timezoneclock .clockwrap .unitdisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (max-width: 768px) {
-    .block_timezoneclock .clockwrap {
-        flex-basis: auto;
-        max-width: unset;
-    }
+.block_timezoneclock .clockwrap .unitdisplay::before {
+    content: attr(data-unit);
+}
+
+.block_timezoneclock .clockwrap .digitalclock {
+    background-color: black;
+    padding: 0.2em 0.8em;
+    width: 100%;
+    border-radius: inherit;
 }

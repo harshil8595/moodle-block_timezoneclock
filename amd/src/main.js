@@ -39,20 +39,18 @@ const getDateInfo = (timeZone, timestamp = new Date()) => {
     const [day, month, date, year, dateinfo, meridiem] = ctdt
         .toLocaleString(locale, dtOptions).replace(/,/gi, '').split(' ');
     const [hour, minute, second] = dateinfo.split(':').map(unit => unit.padStart(2, 0));
-    return {day, month, date, year, hour, minute, second, meridiem};
+    return {day, month, date: date.padStart(2, 0), year, hour, minute, second, meridiem};
 };
 
 const updateTime = () => document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
     .forEach(clock => {
         const datefractions = getDateInfo(clock.dataset.timezone);
-        clock.querySelectorAll('.clock > span[data-fraction]').forEach(sp => {
-            const {fraction} = sp.dataset;
-            if (sp.closest('.hand')) {
-                sp.style.setProperty(`--rotation`, datefractions[fraction]);
-                return;
-            }
-            if (sp.innerText !== datefractions[fraction]) {
-                sp.innerText = datefractions[fraction];
+        clock.querySelectorAll('[data-fraction]').forEach(sp => {
+            const {fraction, unit} = sp.dataset;
+            if (unit?.toString() !== datefractions[fraction].toString()) {
+                sp.style.setProperty(`--unit`, datefractions[fraction]);
+                sp.setAttribute('data-unit', datefractions[fraction]);
+                sp.firstElementChild.innerText = datefractions[fraction].toString();
             }
         });
 });
