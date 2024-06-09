@@ -61,7 +61,8 @@ class edit_form extends block_edit_form {
         if (empty($this->get_block()->config)) {
             $norepeats = 1;
         }
-        $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1, null, false, 'remove');
+        $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1,
+            get_string('addtimezone', 'block_timezoneclock'), false, 'remove');
 
     }
 

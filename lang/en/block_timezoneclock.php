@@ -23,6 +23,7 @@
  */
 
 $string['additionaltimezones'] = 'Timezones';
+$string['addtimezone'] = 'Add {no} timezone(s) to form';
 $string['clocktype'] = 'Clock type';
 $string['clocktype_desc'] = 'Default clock type i.e, digital or analogue';
 $string['configtitle'] = 'Block title';
