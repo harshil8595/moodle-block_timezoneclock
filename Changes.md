@@ -40,3 +40,23 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Added
 
 - Add supported version numbers in version information
+
+## [1.1.7] - 2023-06-09
+
+### Fixed
+
+- Make block wise unique tab id
+
+### Added
+
+- Add block name customization setting
+- Add timezone remove button
+
+### Changed
+
+- Analogue watch face ui improvement
+- Update add timezone button string
+
+### Removed
+
+- Remove show digits option
