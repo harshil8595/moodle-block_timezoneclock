@@ -58,7 +58,7 @@ class edit_form extends block_edit_form {
         $repeatedoptions['config_timezone']['type'] = PARAM_TIMEZONE;
 
         $norepeats = !empty($this->block->config->timezone) ? count($this->block->config->timezone) : 0;
-        if (empty($this->get_block()->config)) {
+        if (empty($this->block->config)) {
             $norepeats = 1;
         }
         $this->repeat_elements($repeatarray, $norepeats, $repeatedoptions, 'tz_repeats', 'tz_add', 1,
@@ -73,6 +73,9 @@ class edit_form extends block_edit_form {
      */
     public function get_data() {
         $data = parent::get_data();
+        if (is_null($data)) {
+            return $data;
+        }
         if (!empty($data->config_timezone)) {
             $data->config_timezone = array_values(array_filter($data->config_timezone, 'trim'));
         } else {
