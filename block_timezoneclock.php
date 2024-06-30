@@ -106,11 +106,12 @@ class block_timezoneclock extends block_base {
         $dateobj = new DateTime();
         $dateobj->setTimezone(new DateTimeZone($tz));
         $dateobj->setTimestamp($timestamp);
-        [$day, $month, $date, $year, $hour, $minute, $second, $meridiem] = explode(' ', $dateobj->format('D M d o h i s A'));
+        // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase
+        [$weekday, $month, $day, $year, $hour, $minute, $second, $dayPeriod] = explode(' ', $dateobj->format('D M d o h i s A'));
 
         $indicators = range(0, MINSECS - 1);
 
-        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem', 'indicators');
+        return compact('tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod', 'indicators');
     }
 
     /**

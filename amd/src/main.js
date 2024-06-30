@@ -33,13 +33,12 @@ const dtOptions = {
     second: 'numeric',
     hour12: true
 };
-const getDateInfo = (timeZone, timestamp = new Date()) => {
-    const locale = 'en-us';
-    const ctdt = new Date(timestamp.toLocaleString(locale, {timeZone}));
-    const [day, month, date, year, dateinfo, meridiem] = ctdt
-        .toLocaleString(locale, dtOptions).replace(/,/gi, '').split(' ');
-    const [hour, minute, second] = dateinfo.split(':').map(unit => unit.padStart(2, 0));
-    return {day, month, date: date.padStart(2, 0), year, hour, minute, second, meridiem};
+
+const getDateInfo = (timeZone, timestamp = new Date(), customdateOptions = {}) => {
+    customdateOptions = {...dtOptions, ...customdateOptions, timeZone};
+    const t1 = new Intl.DateTimeFormat('en-us', customdateOptions);
+    const dateInfo = t1.formatToParts(timestamp).reduce((a, i) => ({...a, [i.type]: i.value}), {});
+    return {...dateInfo, day: dateInfo.day.padStart(2, 0)};
 };
 
 const updateTime = () => document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
@@ -61,14 +60,51 @@ export const initBlock = () => {
 
 export const registerForm = formUniqId => {
     const form = document.getElementById(formUniqId);
+    const r = new RegExp(`(day|month|year|hour|minute)`);
     if (form) {
         const dForm = new DynamicForm(form, form.dataset.formClass);
+        const getTypeFromElement = sel => sel.name.match(r).pop();
+        const generateTimeStamp = () => {
+            const timestampInput = dForm.getFormNode().elements.timestamp;
+            const timezoneSelection = dForm.getFormNode().elements.timezone;
+            const dateTimeNode = dForm.getFormNode().querySelector('[data-fieldtype="date_time_selector"]');
+            const fractions = [...dateTimeNode.querySelectorAll('select')]
+            .reduce((acc, sel) => ({...acc, [getTypeFromElement(sel)]: sel.value.padStart(2, 0)}), {});
+            const {year, month, day, hour, minute} = fractions;
+
+            const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000`);
+            const dateinfo = getDateInfo(timezoneSelection.value, date, {timeZoneName: 'longOffset'});
+            const gmtOffset = dateinfo.timeZoneName.split('GMT').pop();
+
+            const d = new Date(date + gmtOffset);
+            timestampInput.value = Math.round(d.valueOf() / 1000);
+        };
         dForm.load({
             instanceid: form.closest('[data-instance-id]').getAttribute('data-instance-id')
         });
         dForm.addEventListener(dForm.events.FORM_SUBMITTED, e => {
             e.preventDefault();
             replaceNodeContents(form.nextElementSibling, e.detail.html, e.detail.js);
+        });
+        dForm.addEventListener('change', e => {
+            const dateTimeNode = e.target.closest('[data-fieldtype="date_time_selector"]');
+            const timezoneSelection = e.target.closest('[name="timezone"]');
+            if (dateTimeNode || timezoneSelection) {
+                generateTimeStamp();
+            }
+        });
+        dForm.addEventListener('change', e => {
+            const timestampInput = e.target.closest('[name="timestamp"]');
+            const timezoneSelection = dForm.getFormNode().elements.timezone;
+            const dateTimeNode = dForm.getFormNode().querySelector('[data-fieldtype="date_time_selector"]');
+            if (timestampInput) {
+                const d = new Date(0);
+                d.setUTCSeconds(timestampInput.value);
+                const info = getDateInfo(timezoneSelection.value, d, {month: 'numeric', hour12: false});
+                dateTimeNode.querySelectorAll('select').forEach(sel => {
+                    sel.value = info[getTypeFromElement(sel)];
+                });
+            }
         });
     }
 };

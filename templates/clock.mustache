@@ -23,14 +23,14 @@
     {
         "tz": "Asia/Kolkata",
         "blockautoupdate": false,
-        "day": "Sun",
+        "weekday": "Sun",
         "month": "Dec",
-        "date": "18",
+        "day": "18",
         "year": "2022",
         "hour": "12",
         "minute": "49",
         "second": "00",
-        "meridiem": "PM",
+        "dayPeriod": "PM",
         "indicators": [
             0,
             1,
@@ -59,19 +59,19 @@
                     <span class="clock__indicator" style="--nth-child: {{{.}}}"></span>
                 {{/indicators}}
             </div>
-            <span data-fraction="meridiem" class="clock__meridiem unitdisplay" data-unit="{{meridiem}}">
-                <span class="sr-only">{{meridiem}}</span>
+            <span data-fraction="dayPeriod" class="clock__dayPeriod unitdisplay" data-unit="{{dayPeriod}}">
+                <span class="sr-only">{{dayPeriod}}</span>
             </span>
         </div>
         <p class="dateline badge mx-auto">
-            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
-                <span class="sr-only">{{day}}</span>
+            <span class="unitdisplay" data-fraction="weekday" data-unit="{{weekday}}">
+                <span class="sr-only">{{weekday}}</span>
             </span>&nbsp;
             <span class="unitdisplay" data-fraction="month" data-unit="{{month}}">
                 <span class="sr-only">{{month}}</span>
             </span>&nbsp;
-            <span class="unitdisplay" data-fraction="date" data-unit="{{date}}">
-                <span class="sr-only">{{date}}</span>
+            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
+                <span class="sr-only">{{day}}</span>
             </span>&nbsp;
             <span class="unitdisplay" data-fraction="year" data-unit="{{year}}">
                 <span class="sr-only">{{year}}</span>
@@ -80,14 +80,14 @@
     {{/isanalog}}
     {{^isanalog}}
         <p class="clock digitalclock">
-            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
-                <span class="sr-only">{{day}}</span>
+            <span class="unitdisplay" data-fraction="weekday" data-unit="{{weekday}}">
+                <span class="sr-only">{{weekday}}</span>
             </span>&nbsp;
             <span class="unitdisplay" data-fraction="month" data-unit="{{month}}">
                 <span class="sr-only">{{month}}</span>
             </span>&nbsp;
-            <span class="unitdisplay" data-fraction="date" data-unit="{{date}}">
-                <span class="sr-only">{{date}}</span>
+            <span class="unitdisplay" data-fraction="day" data-unit="{{day}}">
+                <span class="sr-only">{{day}}</span>
             </span>&nbsp;
             <span class="unitdisplay" data-fraction="year" data-unit="{{year}}">
                 <span class="sr-only">{{year}}</span>
@@ -101,8 +101,8 @@
             }}<span class="unitdisplay" data-fraction="second" data-unit="{{second}}">
                 <span class="sr-only">{{second}}</span>
             </span>&nbsp;
-            <span class="unitdisplay" data-fraction="meridiem" data-unit="{{meridiem}}">
-                <span class="sr-only">{{meridiem}}</span>
+            <span class="unitdisplay" data-fraction="dayPeriod" data-unit="{{dayPeriod}}">
+                <span class="sr-only">{{dayPeriod}}</span>
             </span>
         </p>
     {{/isanalog}}

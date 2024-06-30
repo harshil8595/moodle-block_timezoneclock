@@ -191,7 +191,7 @@
     justify-content: center;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="meridiem"] {
+.block_timezoneclock .clockwrap .analogclock [data-fraction="dayPeriod"] {
     --width: 2em;
     position: absolute;
     display: inline-block;
@@ -209,6 +209,11 @@
     width: var(--width);
 }
 
+.block_timezoneclock .clockwrap[data-autoupdate="false"] .analogclock [data-fraction="second"],
+.block_timezoneclock .clockwrap[data-autoupdate="false"] .analogclock .clock__axis::after {
+    display: none;
+}
+
 .block_timezoneclock .clockwrap .unitdisplay {
     display: flex;
     align-items: center;
@@ -224,4 +229,31 @@
     padding: 0.2em 0.8em;
     width: 100%;
     border-radius: inherit;
+}
+
+.block_timezoneclockconverterform #id_toggletimestamp {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.block_timezoneclockconverterform  #id_toggletimestamp ~ span {
+    cursor: pointer;
+}
+
+.block_timezoneclockconverterform  #id_toggletimestamp:disabled ~ span {
+    opacity: .65;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.block_timezoneclockconverterform  .icon {
+    margin-right: 0;
+}
+
+.block_timezoneclockconverterform  #id_toggletimestamp:not(:checked) ~ span > i:nth-child(1),
+.block_timezoneclockconverterform  #id_toggletimestamp:checked ~ span > i:nth-child(2) {
+    display: none;
 }
