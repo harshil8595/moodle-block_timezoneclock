@@ -209,11 +209,6 @@
     width: var(--width);
 }
 
-.block_timezoneclock .clockwrap[data-autoupdate="false"] .analogclock [data-fraction="second"],
-.block_timezoneclock .clockwrap[data-autoupdate="false"] .analogclock .clock__axis::after {
-    display: none;
-}
-
 .block_timezoneclock .clockwrap .unitdisplay {
     display: flex;
     align-items: center;
@@ -239,21 +234,36 @@
     width: 0;
 }
 
-.block_timezoneclockconverterform  #id_toggletimestamp ~ span {
+.block_timezoneclockconverterform #id_toggletimestamp ~ span {
     cursor: pointer;
 }
 
-.block_timezoneclockconverterform  #id_toggletimestamp:disabled ~ span {
+.block_timezoneclockconverterform #id_toggletimestamp:disabled ~ span {
     opacity: .65;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-.block_timezoneclockconverterform  .icon {
+.block_timezoneclockconverterform .icon {
     margin-right: 0;
 }
 
-.block_timezoneclockconverterform  #id_toggletimestamp:not(:checked) ~ span > i:nth-child(1),
-.block_timezoneclockconverterform  #id_toggletimestamp:checked ~ span > i:nth-child(2) {
+.block_timezoneclockconverterform #id_toggletimestamp:not(:checked) ~ span > i:nth-child(1),
+.block_timezoneclockconverterform #id_toggletimestamp:checked ~ span > i:nth-child(2) {
     display: none;
+}
+
+.block_timezoneclockconverterform #fitem_id_timezone,
+.block_timezoneclockconverterform #fitem_id_timezones {
+    display: inline-block;
+}
+
+.block_timezoneclockconverterform #id_formheadercontainer.show {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.block_timezoneclockconverterform #fgroup_id_timeinput {
+    flex-basis: 100%;
 }

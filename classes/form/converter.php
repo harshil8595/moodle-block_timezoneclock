@@ -16,7 +16,7 @@
 
 namespace block_timezoneclock\form;
 
-use block_timezoneclock\output\timezones;
+use block_timezoneclock;
 use context;
 use context_block;
 use core_date;
@@ -34,14 +34,27 @@ use moodle_url;
 class converter extends dynamic_form {
 
     /**
+     * User's timezone
+     *
+     * @var string
+     */
+    protected static $usertimezone;
+
+    /**
+     * block instance
+     *
+     * @var block_timezoneclock
+     */
+    protected $blockinstance;
+
+    /**
      * Form definition
      *
      * @return void
      */
     public function definition() {
-        global $PAGE, $USER;
+        global $OUTPUT, $USER;
         $mform = $this->_form;
-        $renderer = $PAGE->get_renderer('block_timezoneclock');
 
         $this->set_display_vertical();
         $mform->updateAttributes(['data-random-ids' => 0, 'class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
@@ -50,7 +63,10 @@ class converter extends dynamic_form {
         $mform->setType('instanceid', PARAM_INT);
         $mform->setConstant('instanceid', $this->get_instanceid());
 
-        $usertimezone = core_date::get_user_timezone();
+        $mform->addElement('header', 'formheader', get_string('timezoneconveter', 'block_timezoneclock'));
+        $mform->setExpanded('formheader', false);
+
+        $usertimezone = self::get_usertimezone();
         $timezonelist = core_date::get_list_of_timezones();
         $timezoneoptions = ['GMT' => core_date::get_localised_timezone('GMT')];
         $timezoneoptions += [$usertimezone => get_string('timezoneuser', 'block_timezoneclock', $usertimezone)];
@@ -58,13 +74,18 @@ class converter extends dynamic_form {
         $mform->addElement('autocomplete', 'timezone', get_string('yourtimezone', 'block_timezoneclock'), $timezoneoptions);
         $mform->setType('timezone', PARAM_NOTAGS);
 
+        $servertimezonelist = core_date::get_list_of_timezones($USER->timezone, true);
+        $mform->addElement('autocomplete', 'timezones', get_string('timezones', 'block_timezoneclock'), $servertimezonelist,
+            ['multiple' => true]);
+        $mform->setType('timezones', PARAM_NOTAGS);
+
         $groupels[] = $mform->createElement('date_time_selector', 'selectedstamp', get_string('datestamp', 'block_timezoneclock'),
             ['optional' => true, 'timezone' => $this->optional_param('timezone', $usertimezone, PARAM_NOTAGS)]);
         $mform->setType('selectedstamp', PARAM_INT);
 
         $groupels[] = $mform->createElement('advcheckbox', 'toggletimestamp', null,
-            html_writer::span($renderer->pix_icon('checked', null, 'block_timezoneclock').
-            $renderer->pix_icon('unchecked', null, 'block_timezoneclock', ['class' => 'font-weight-light']), null,
+            html_writer::span($OUTPUT->pix_icon('checked', null, 'block_timezoneclock').
+            $OUTPUT->pix_icon('unchecked', null, 'block_timezoneclock', ['class' => 'font-weight-light']), null,
             ['title' => get_string('toggletimeinput', 'block_timezoneclock'), 'data-toggle' => 'tooltip']));
         $mform->setType('toggletimestamp', PARAM_INT);
 
@@ -79,12 +100,7 @@ class converter extends dynamic_form {
         $mform->disabledIf('timestamp', 'selectedstamp[enabled]', 'notchecked');
         $mform->hideIf('timestamp', 'toggletimestamp', 'notchecked');
 
-        $servertimezonelist = core_date::get_list_of_timezones($USER->timezone, true);
-        $mform->addElement('autocomplete', 'timezones', get_string('timezones', 'block_timezoneclock'), $servertimezonelist,
-            ['multiple' => true]);
-        $mform->setType('timezones', PARAM_NOTAGS);
-
-        $this->add_action_buttons(false, get_string('convert', 'block_timezoneclock'));
+        $mform->addElement('submit', 'submitbutton', get_string('convert', 'block_timezoneclock'));
     }
 
     /**
@@ -120,23 +136,23 @@ class converter extends dynamic_form {
      * @return void
      */
     public function process_dynamic_submission() {
-        global $PAGE;
+        global $PAGE, $OUTPUT;
         $formdata = $this->get_data();
 
-        $timestamp = $formdata->selectedstamp;
-        $timezonestab = new timezones([
-            'instanceid' => $formdata->instanceid,
-            'timezones' => $formdata->timezones ?? [],
-            'timestamp' => $timestamp,
-        ]);
-        $timezonestab->set_blockautoupdate(true);
-        $renderer = $PAGE->get_renderer('block_timezoneclock');
+        $timestamp = !empty($formdata->selectedstamp) ? $formdata->selectedstamp : null;
+        $context = (object) ['blockautoupdate' => !empty($timestamp)];
+        $context->isanalog = $this->get_block()->is_analog();
+        $context->additionaltimezones = $this->get_block()->timezones(
+            [self::get_usertimezone(), ...(array) $formdata->timezones], $timestamp
+        );
+        if (!empty($timestamp)) {
+            $context->contexttitle = $OUTPUT->heading(get_string('convertedtimes', 'block_timezoneclock'), 3, 'w-100');
+        }
 
-        $renderer->header();
+        $OUTPUT->header();
 
         $PAGE->start_collecting_javascript_requirements();
-        $html = html_writer::tag('h3', get_string('convertedtimes', 'block_timezoneclock'));
-        $html .= html_writer::div($renderer->render_timezones($timezonestab), 'additionaltimezones');
+        $html = $OUTPUT->render_from_template('block_timezoneclock/timezones', $context);
         $js = $PAGE->requires->get_end_code();
 
         return compact('html', 'js');
@@ -145,13 +161,15 @@ class converter extends dynamic_form {
     /**
      * function's body is empty as no data initially set
      *
+     * @param array additional formdata to pass
      * @return void
      */
-    public function set_data_for_dynamic_submission(): void {
-        $formdata['timezone'] = core_date::get_user_timezone();
+    public function set_data_for_dynamic_submission(array $formdata = []): void {
+        $formdata['timezone'] = self::get_usertimezone();
         $formdata['timestamp'] = time();
         $formdata['toggletimestamp'] = (int) debugging();
         $formdata['selectedstamp']['enabled'] = true;
+        $formdata['timezones'] = $this->get_block()->config->timezone ?? [];
         $this->set_data($formdata);
     }
 
@@ -178,6 +196,30 @@ class converter extends dynamic_form {
             $errors['timestamp'] = get_string('timestampnotentered', 'block_timezoneclock');
         }
         return $errors;
+    }
+
+    /**
+     * Get block instance
+     *
+     * @return block_timezoneclock
+     */
+    public function get_block() {
+        if (is_null($this->blockinstance)) {
+            $this->blockinstance = block_instance_by_id($this->get_instanceid());
+        }
+        return $this->blockinstance;
+    }
+
+    /**
+     * Get user's timezone
+     *
+     * @return string
+     */
+    public static function get_usertimezone() {
+        if (is_null(self::$usertimezone)) {
+            self::$usertimezone = core_date::get_user_timezone();
+        }
+        return self::$usertimezone;
     }
 
 }

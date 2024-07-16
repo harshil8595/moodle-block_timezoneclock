@@ -22,6 +22,7 @@
  */
 import DynamicForm from 'core_form/dynamicform';
 import {replaceNodeContents} from 'core/templates';
+import {processCollectedJavascript} from 'core/fragment';
 
 const dtOptions = {
     year: 'numeric',
@@ -84,7 +85,7 @@ export const registerForm = formUniqId => {
         });
         dForm.addEventListener(dForm.events.FORM_SUBMITTED, e => {
             e.preventDefault();
-            replaceNodeContents(form.nextElementSibling, e.detail.html, e.detail.js);
+            replaceNodeContents(form.nextElementSibling, e.detail.html, processCollectedJavascript(e.detail.js));
         });
         dForm.addEventListener('change', e => {
             const dateTimeNode = e.target.closest('[data-fieldtype="date_time_selector"]');
@@ -101,6 +102,7 @@ export const registerForm = formUniqId => {
                 const d = new Date(0);
                 d.setUTCSeconds(timestampInput.value);
                 const info = getDateInfo(timezoneSelection.value, d, {month: 'numeric', hour12: false});
+                info.hour = Number(info.hour);
                 dateTimeNode.querySelectorAll('select').forEach(sel => {
                     sel.value = info[getTypeFromElement(sel)];
                 });

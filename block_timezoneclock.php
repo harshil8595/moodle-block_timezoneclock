@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+use block_timezoneclock\form\converter;
+
 /**
  * Main timezoneclock rendering class.
  *
@@ -76,19 +78,16 @@ class block_timezoneclock extends block_base {
      * @return void
      */
     public function get_content() {
-        global $CFG;
-
-        require_once($CFG->libdir . '/formslib.php');
+        global $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
         $mainblock = new block_timezoneclock\output\main($this);
-        $renderer = $this->page->get_renderer('block_timezoneclock');
 
         $this->content = new stdClass;
-        $this->content->text = $renderer->render($mainblock);
+        $this->content->text = $OUTPUT->render($mainblock);
         $this->content->footer = '';
 
         return $this->content;
@@ -108,10 +107,14 @@ class block_timezoneclock extends block_base {
         $dateobj->setTimestamp($timestamp);
         // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase
         [$weekday, $month, $day, $year, $hour, $minute, $second, $dayPeriod] = explode(' ', $dateobj->format('D M d o h i s A'));
+        $timezone = $tz;
+        if ($tz === converter::get_usertimezone()) {
+            $timezone = get_string('timezoneuser', 'block_timezoneclock', $tz);
+        }
 
         $indicators = range(0, MINSECS - 1);
 
-        return compact('tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod', 'indicators');
+        return compact('timezone', 'tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod', 'indicators');
     }
 
     /**

@@ -47,13 +47,13 @@
     }
 }}
 <div class="blockwrapper"{{#isanalog}} data-isanalog="1"{{/isanalog}}>
-    <h2 class="sectiontitle">{{#str}} yourtimezone, block_timezoneclock {{/str}}</h2>
-    <div class="usertimezone">
-        {{#usertimezone}}
-            {{>block_timezoneclock/clock}}
-        {{/usertimezone}}
+    <div class="converterform" id="{{formuniqid}}" data-form-class="{{{formclass}}}"></div>
+    <div class="timezoneslist">
+        {{> block_timezoneclock/timezones }}
     </div>
-    {{{tabshtml}}}
+    {{#js}}
+        require(['block_timezoneclock/main'], amd => amd.registerForm('{{formuniqid}}'));
+    {{/js}}
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {

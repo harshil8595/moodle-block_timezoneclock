@@ -21,6 +21,7 @@
 
     Example context (json):
     {
+        "timezone": "Asia/Kolkata",
         "tz": "Asia/Kolkata",
         "blockautoupdate": false,
         "weekday": "Sun",
@@ -41,7 +42,7 @@
     }
 }}
 <div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}>
-    <small class="position-absolute badge tztitle">{{tz}}</small>
+    <small class="position-absolute badge tztitle">{{timezone}}</small>
     {{#isanalog}}
         <div class="clock analogclock">
             <div class="clock__inner">
