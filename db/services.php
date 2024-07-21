@@ -15,18 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Web service for Timezoneclock block
  *
- * @package    block_timezoneclock
- * @copyright  2022 Harshil Patel <harshil8595@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package block_timezoneclock
+ * @copyright 2024 Harshil Patel <harshil8595@gmail.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2024072100;
-$plugin->requires  = 2022041900;
-$plugin->supported = [400, 404];
-$plugin->component = 'block_timezoneclock';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.1.7';
+$functions = [
+    'block_timezoneclock_dynamic_form' => [
+        'classname' => 'block_timezoneclock\external\formsubmit',
+        'methodname' => 'process',
+        'description' => 'Process submission of a dynamic (modal) form',
+        'type' => 'read',
+        'ajax' => true,
+        'loginrequired' => false,
+    ],
+];
