@@ -32,6 +32,7 @@ $string['convert'] = 'Convert';
 $string['convertedtimes'] = 'Converted times';
 $string['datestamp'] = 'Select time';
 $string['entervalidtimestamp'] = 'Enter valid unix stamp';
+$string['pagetitle:converter'] = 'Timezone Converter';
 $string['pluginname'] = 'Timezone clock';
 $string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
 $string['toggletimeinput'] = 'Toggle unixstamp';

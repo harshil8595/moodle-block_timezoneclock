@@ -30,5 +30,15 @@
 function xmldb_block_timezoneclock_upgrade($oldversion) {
     global $CFG;
 
+    if ($oldversion < 2024072100) {
+        $page = new moodle_page();
+        $systemcontext = context_system::instance();
+        $page->set_context($systemcontext);
+        $page->blocks->add_region('content');
+        $page->blocks->add_block('timezoneclock', 'content', 0, false, 'blocks-timezoneclock-index', null);
+
+        upgrade_block_savepoint(true, 2024072100, 'timezoneclock');
+    }
+
     return true;
 }

@@ -15,18 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * This file sets up installation steps
  *
- * @package    block_timezoneclock
- * @copyright  2022 Harshil Patel <harshil8595@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package block_timezoneclock
+ * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2024072101;
-$plugin->requires  = 2022041900;
-$plugin->supported = [400, 404];
-$plugin->component = 'block_timezoneclock';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.1.7';
+/**
+ * Add the timezone clock block to the index page at time of installation
+ */
+function xmldb_block_timezoneclock_install() {
+    $page = new moodle_page();
+    $systemcontext = context_system::instance();
+    $page->set_context($systemcontext);
+    $page->blocks->add_region('content');
+    $page->blocks->add_block('timezoneclock', 'content', 0, false, 'blocks-timezoneclock-index', null);
+}
