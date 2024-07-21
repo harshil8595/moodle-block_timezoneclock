@@ -59,20 +59,22 @@ class converter extends dynamic_form {
         $this->set_display_vertical();
         $mform->updateAttributes(['data-random-ids' => 0, 'class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
 
-        $mform->addElement('hidden', 'instanceid');
-        $mform->setType('instanceid', PARAM_INT);
-        $mform->setConstant('instanceid', $this->get_instanceid());
+        $mform->addElement('hidden', 'contextid');
+        $mform->setType('contextid', PARAM_INT);
+        $mform->setConstant('contextid', $this->get_contextid());
 
         $mform->addElement('header', 'formheader', get_string('timezoneconveter', 'block_timezoneclock'));
-        $mform->setExpanded('formheader', false);
+        $mform->setExpanded('formheader', NO_MOODLE_COOKIES);
 
         $usertimezone = self::get_usertimezone();
         $timezonelist = core_date::get_list_of_timezones();
         $timezoneoptions = ['GMT' => core_date::get_localised_timezone('GMT')];
-        $timezoneoptions += [$usertimezone => get_string('timezoneuser', 'block_timezoneclock', $usertimezone)];
+        if (!NO_MOODLE_COOKIES) {
+            $timezoneoptions += [$usertimezone => get_string('timezoneuser', 'block_timezoneclock', $usertimezone)];
+        }
         $timezoneoptions += $timezonelist;
         $mform->addElement('autocomplete', 'timezone', get_string('yourtimezone', 'block_timezoneclock'), $timezoneoptions);
-        $mform->setType('timezone', PARAM_NOTAGS);
+        $mform->setType('timezone', PARAM_TIMEZONE);
 
         $servertimezonelist = core_date::get_list_of_timezones($USER->timezone, true);
         $mform->addElement('autocomplete', 'timezones', get_string('timezones', 'block_timezoneclock'), $servertimezonelist,
@@ -108,17 +110,17 @@ class converter extends dynamic_form {
      *
      * @return int
      */
-    private function get_instanceid(): int {
-        return $this->optional_param('instanceid', 0, PARAM_INT);
+    private function get_contextid(): int {
+        return $this->optional_param('contextid', 0, PARAM_INT);
     }
 
     /**
      * Get context for form from block instanceid
      *
-     * @return context
+     * @return context_block
      */
     protected function get_context_for_dynamic_submission(): context {
-        return context_block::instance($this->get_instanceid());
+        return context::instance_by_id($this->get_contextid());
     }
 
     /**
@@ -127,7 +129,9 @@ class converter extends dynamic_form {
      * @return void
      */
     protected function check_access_for_dynamic_submission(): void {
-        require_login();
+        if (!NO_MOODLE_COOKIES) {
+            require_login();
+        }
     }
 
     /**
@@ -138,13 +142,21 @@ class converter extends dynamic_form {
     public function process_dynamic_submission() {
         global $PAGE, $OUTPUT;
         $formdata = $this->get_data();
+        $selectedtimezones = (array) $formdata->timezones;
+        if (!NO_MOODLE_COOKIES) {
+            array_unshift($selectedtimezones, self::get_usertimezone());
+        } else if ($this->optional_param('firstload', null, PARAM_BOOL)) {
+            $formdata->selectedstamp = null;
+            if (empty($selectedtimezones)) {
+                $selectedtimezones = array_values(core_date::get_list_of_timezones());
+            }
+        }
 
         $timestamp = !empty($formdata->selectedstamp) ? $formdata->selectedstamp : null;
         $context = (object) ['blockautoupdate' => !empty($timestamp)];
         $context->isanalog = $this->get_block()->is_analog();
-        $context->additionaltimezones = $this->get_block()->timezones(
-            [self::get_usertimezone(), ...(array) $formdata->timezones], $timestamp
-        );
+        $context->additionaltimezones = $this->get_block()->timezones($selectedtimezones, $timestamp);
+        $context->indicators = range(0, MINSECS - 1);;
         if (!empty($timestamp)) {
             $context->contexttitle = $OUTPUT->heading(get_string('convertedtimes', 'block_timezoneclock'), 3, 'w-100');
         }
@@ -165,11 +177,15 @@ class converter extends dynamic_form {
      * @return void
      */
     public function set_data_for_dynamic_submission(array $formdata = []): void {
+        $formdata['contextid'] = $this->get_contextid();
         $formdata['timezone'] = self::get_usertimezone();
         $formdata['timestamp'] = time();
         $formdata['toggletimestamp'] = (int) debugging();
         $formdata['selectedstamp']['enabled'] = true;
         $formdata['timezones'] = $this->get_block()->config->timezone ?? [];
+        if (NO_MOODLE_COOKIES) {
+            $formdata['timezone'] = $this->optional_param('timezone', 'GMT', PARAM_TIMEZONE);
+        }
         $this->set_data($formdata);
     }
 
@@ -205,7 +221,8 @@ class converter extends dynamic_form {
      */
     public function get_block() {
         if (is_null($this->blockinstance)) {
-            $this->blockinstance = block_instance_by_id($this->get_instanceid());
+            $blockinstanceid = $this->get_context_for_dynamic_submission()->instanceid;
+            $this->blockinstance = block_instance_by_id($blockinstanceid);
         }
         return $this->blockinstance;
     }

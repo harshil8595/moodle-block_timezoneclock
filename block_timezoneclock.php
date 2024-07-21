@@ -59,7 +59,7 @@ class block_timezoneclock extends block_base {
      */
     public function specialization() {
         if (!empty($this->config->title)) {
-            $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+            $this->title = format_string($this->config->title, true, ['context' => $this->context]);
         }
     }
 
@@ -112,9 +112,7 @@ class block_timezoneclock extends block_base {
             $timezone = get_string('timezoneuser', 'block_timezoneclock', $tz);
         }
 
-        $indicators = range(0, MINSECS - 1);
-
-        return compact('timezone', 'tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod', 'indicators');
+        return compact('timezone', 'tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod');
     }
 
     /**

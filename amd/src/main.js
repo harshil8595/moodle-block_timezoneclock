@@ -20,9 +20,10 @@
  * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-import DynamicForm from 'core_form/dynamicform';
+import {BlockTimezoneclockDynamicForm as DynamicForm} from './dynamicform';
 import {replaceNodeContents} from 'core/templates';
-import {processCollectedJavascript} from 'core/fragment';
+import Fragment from 'core/fragment';
+import {exception as displayException} from 'core/notification';
 
 const dtOptions = {
     year: 'numeric',
@@ -42,7 +43,8 @@ const getDateInfo = (timeZone, timestamp = new Date(), customdateOptions = {}) =
     return {...dateInfo, day: dateInfo.day.padStart(2, 0)};
 };
 
-const updateTime = () => document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
+const updateTime = () => {
+    document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
     .forEach(clock => {
         const datefractions = getDateInfo(clock.dataset.timezone);
         clock.querySelectorAll('[data-fraction]').forEach(sp => {
@@ -53,10 +55,13 @@ const updateTime = () => document.querySelectorAll('[data-region="clock"]:not([d
                 sp.firstElementChild.innerText = datefractions[fraction].toString();
             }
         });
-});
+    });
+    setTimeout(updateTime, 1000);
+};
 
 export const initBlock = () => {
-    setInterval(updateTime, 1000);
+    const d = new Date();
+    setTimeout(updateTime, 1000 - d.getMilliseconds());
 };
 
 export const registerForm = formUniqId => {
@@ -80,12 +85,17 @@ export const registerForm = formUniqId => {
             const d = new Date(date + gmtOffset);
             timestampInput.value = Math.round(d.valueOf() / 1000);
         };
-        dForm.load({
-            instanceid: form.closest('[data-instance-id]').getAttribute('data-instance-id')
-        });
+        const clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        dForm.load({...form.dataset, timezone: clientTimezone}).then(() => {
+            if (form.nextElementSibling.childElementCount === 0) {
+                dForm.submitFormAjax({firstload: 1});
+            }
+            return;
+        }).catch(displayException);
         dForm.addEventListener(dForm.events.FORM_SUBMITTED, e => {
             e.preventDefault();
-            replaceNodeContents(form.nextElementSibling, e.detail.html, processCollectedJavascript(e.detail.js));
+            replaceNodeContents(form.nextElementSibling, e.detail.html,
+                Fragment.processCollectedJavascript(e.detail.js));
         });
         dForm.addEventListener('change', e => {
             const dateTimeNode = e.target.closest('[data-fieldtype="date_time_selector"]');
