@@ -73,12 +73,13 @@ class converter extends dynamic_form {
             $timezoneoptions += [$usertimezone => get_string('timezoneuser', 'block_timezoneclock', $usertimezone)];
         }
         $timezoneoptions += $timezonelist;
-        $mform->addElement('autocomplete', 'timezone', get_string('yourtimezone', 'block_timezoneclock'), $timezoneoptions);
+        $mform->addElement('select', 'timezone', get_string('fromtimezone', 'block_timezoneclock'), $timezoneoptions,
+            ['data-selectenhanced' => 1]);
         $mform->setType('timezone', PARAM_TIMEZONE);
 
         $servertimezonelist = core_date::get_list_of_timezones($USER->timezone, true);
-        $mform->addElement('autocomplete', 'timezones', get_string('timezones', 'block_timezoneclock'), $servertimezonelist,
-            ['multiple' => true]);
+        $mform->addElement('select', 'timezones', get_string('totimezones', 'block_timezoneclock'), $servertimezonelist,
+            ['multiple' => true, 'data-selectenhanced' => 1]);
         $mform->setType('timezones', PARAM_NOTAGS);
 
         $groupels[] = $mform->createElement('date_time_selector', 'selectedstamp', get_string('datestamp', 'block_timezoneclock'),

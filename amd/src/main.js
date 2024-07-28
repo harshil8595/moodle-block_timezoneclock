@@ -20,11 +20,15 @@
  * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+import $ from 'jquery';
+import './bootstrap-select';
 import {BlockTimezoneclockDynamicForm as DynamicForm} from './dynamicform';
 import {replaceNodeContents} from 'core/templates';
 import Fragment from 'core/fragment';
 import {exception as displayException} from 'core/notification';
+import {eventTypes} from 'core_filters/events';
 
+const GMTCONST = 'GMT';
 const dtOptions = {
     year: 'numeric',
     month: 'short',
@@ -35,6 +39,7 @@ const dtOptions = {
     second: 'numeric',
     hour12: true
 };
+let select2registered = false;
 
 const getDateInfo = (timeZone, timestamp = new Date(), customdateOptions = {}) => {
     customdateOptions = {...dtOptions, ...customdateOptions, timeZone};
@@ -62,6 +67,17 @@ const updateTime = () => {
 export const initBlock = () => {
     const d = new Date();
     setTimeout(updateTime, 1000 - d.getMilliseconds());
+    if (!select2registered) {
+        select2registered = true;
+        document.addEventListener(eventTypes.filterContentUpdated, e => {
+            const $spnodes = $(e.detail.nodes).find('[data-selectenhanced="1"]');
+            $spnodes.removeClass(['form-control', 'custom-select']);
+            $spnodes.selectpicker({
+                actionsBox: true, liveSearch: true, showTick: true,
+                size: 5, selectedTextFormat: 'count > 1',
+            });
+        });
+    }
 };
 
 export const registerForm = formUniqId => {
@@ -80,7 +96,7 @@ export const registerForm = formUniqId => {
 
             const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000`);
             const dateinfo = getDateInfo(timezoneSelection.value, date, {timeZoneName: 'longOffset'});
-            const gmtOffset = dateinfo.timeZoneName.split('GMT').pop();
+            const gmtOffset = dateinfo.timeZoneName.split(GMTCONST).pop();
 
             const d = new Date(date + gmtOffset);
             timestampInput.value = Math.round(d.valueOf() / 1000);

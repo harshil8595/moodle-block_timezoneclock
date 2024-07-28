@@ -269,3 +269,7 @@
 .block_timezoneclockconverterform #fgroup_id_timeinput {
     flex-basis: 100%;
 }
+
+.dropdown.bootstrap-select.show-tick .dropdown-item[aria-selected="true"]:before {
+    display: none;
+}
