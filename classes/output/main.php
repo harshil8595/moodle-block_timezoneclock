@@ -68,9 +68,10 @@ class main implements renderable, templatable {
         $context->blockcontextid = $this->block->context->id;
         $context->indicators = range(0, MINSECS - 1);
         $context->formuniqid = html_writer::random_id('form');
-        $context->additionaltimezones = $this->block->timezones(
-            (array) FormConverter::get_usertimezone()
-        );
+        $context->additionaltimezones = $this->block->timezones(array_merge(
+            (array) FormConverter::get_usertimezone(),
+            (array) ($this->block->config->timezone ?? [])
+        ));
         $context->blockautoupdate = false;
         return $context;
     }

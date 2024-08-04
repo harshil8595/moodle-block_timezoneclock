@@ -25,7 +25,7 @@
 $functions = [
     'block_timezoneclock_dynamic_form' => [
         'classname' => 'block_timezoneclock\external\formsubmit',
-        'methodname' => 'process',
+        'methodname' => 'execute',
         'description' => 'Process submission of a dynamic (modal) form',
         'type' => 'read',
         'ajax' => true,

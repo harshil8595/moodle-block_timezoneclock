@@ -17,8 +17,6 @@
 namespace block_timezoneclock\external;
 
 use context;
-use core_external\external_function_parameters;
-use core_external\external_single_structure;
 use core_form\external\dynamic_form;
 use moodle_exception;
 use moodle_url;
@@ -27,19 +25,10 @@ use moodle_url;
  * Webservice for processing form submission
  *
  * @package   block_timezoneclock
- * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
+ * @copyright 2024 Harshil Patel <harshil8595@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class formsubmit extends dynamic_form {
-
-    /**
-     * Parameters description for web service
-     *
-     * @return external_function_parameters
-     */
-    public static function process_parameters(): external_function_parameters {
-        return static::execute_parameters();
-    }
 
     /**
      * Submit a form from a modal dialogue.
@@ -49,17 +38,15 @@ class formsubmit extends dynamic_form {
      * @return array
      * @throws \moodle_exception
      */
-    public static function process(string $formclass, string $formdatastr): array {
+    public static function execute(string $formclass, string $formdatastr): array {
         global $PAGE, $OUTPUT, $USER;
 
-        $params = self::validate_parameters(self::process_parameters(), [
+        $params = self::validate_parameters(self::execute_parameters(), [
             'form' => $formclass,
             'formdata' => $formdatastr,
         ]);
         $formclass = $params['form'];
         parse_str($params['formdata'], $formdata);
-
-        self::autoload_block_edit_form($formclass);
 
         if (!class_exists($formclass) || !is_subclass_of($formclass, \core_form\dynamic_form::class)) {
             // For security reason we don't throw exception "class does not exist" but rather an access exception.
@@ -103,15 +90,6 @@ class formsubmit extends dynamic_form {
         $jsfooter = $PAGE->requires->get_end_code();
         $output = ['submitted' => false, 'html' => $data, 'javascript' => $jsfooter];
         return $output;
-    }
-
-    /**
-     * Return description for web service
-     *
-     * @return external_single_structure
-     */
-    public static function process_returns(): external_single_structure {
-        return static::execute_returns();
     }
 
 }

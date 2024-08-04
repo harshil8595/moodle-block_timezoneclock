@@ -102,6 +102,7 @@ class block_timezoneclock extends block_base {
      */
     public static function dateinfo(string $tz, ?int $timestamp = null): array {
         $timestamp = $timestamp ?? time();
+        $tz = core_date::normalise_timezone($tz);
         $dateobj = new DateTime();
         $dateobj->setTimezone(new DateTimeZone($tz));
         $dateobj->setTimestamp($timestamp);
@@ -125,7 +126,7 @@ class block_timezoneclock extends block_base {
     public function timezones(array $timezones = [], ?int $timestamp = null): array {
         return array_map(function ($tz) use ($timestamp) {
             return self::dateinfo($tz, $timestamp);
-        }, array_unique(array_merge($timezones, $this->config->timezone ?? [])));
+        }, array_unique($timezones));
     }
 
     /**

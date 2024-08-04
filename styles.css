@@ -3,8 +3,8 @@
 .block_timezoneclock .additionaltimezones {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     width: 100%;
+    gap: 1%;
 }
 .block_timezoneclock .sectiontitle {
     font-size: 1.6rem;
@@ -228,7 +228,7 @@
     border-radius: inherit;
 }
 
-.block_timezoneclockconverterform #id_toggletimestamp {
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -236,11 +236,11 @@
     width: 0;
 }
 
-.block_timezoneclockconverterform #id_toggletimestamp ~ span {
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] ~ span {
     cursor: pointer;
 }
 
-.block_timezoneclockconverterform #id_toggletimestamp:disabled ~ span {
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:disabled ~ span {
     opacity: .65;
     cursor: not-allowed;
     pointer-events: none;
@@ -250,23 +250,23 @@
     margin-right: 0;
 }
 
-.block_timezoneclockconverterform #id_toggletimestamp:not(:checked) ~ span > i:nth-child(1),
-.block_timezoneclockconverterform #id_toggletimestamp:checked ~ span > i:nth-child(2) {
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:not(:checked) ~ span > i:nth-child(1),
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:checked ~ span > i:nth-child(2) {
     display: none;
 }
 
-.block_timezoneclockconverterform #fitem_id_timezone,
-.block_timezoneclockconverterform #fitem_id_timezones {
+.block_timezoneclockconverterform .fitem[id^="id_timezone"] {
     display: inline-block;
 }
 
-.block_timezoneclockconverterform #id_formheadercontainer.show {
+.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].collapsing,
+.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].show {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
 
-.block_timezoneclockconverterform #fgroup_id_timeinput {
+.block_timezoneclockconverterform .fitem[id^="id_timeinput"] {
     flex-basis: 100%;
 }
 

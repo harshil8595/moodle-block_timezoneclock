@@ -17,6 +17,7 @@
 namespace block_timezoneclock\form;
 
 use block_timezoneclock;
+use block_timezoneclock\output\main;
 use context;
 use context_block;
 use core_date;
@@ -57,7 +58,7 @@ class converter extends dynamic_form {
         $mform = $this->_form;
 
         $this->set_display_vertical();
-        $mform->updateAttributes(['data-random-ids' => 0, 'class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
+        $mform->updateAttributes(['class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
 
         $mform->addElement('hidden', 'contextid');
         $mform->setType('contextid', PARAM_INT);
@@ -147,18 +148,17 @@ class converter extends dynamic_form {
         if (!NO_MOODLE_COOKIES) {
             array_unshift($selectedtimezones, self::get_usertimezone());
         } else if ($this->optional_param('firstload', null, PARAM_BOOL)) {
-            $formdata->selectedstamp = null;
             if (empty($selectedtimezones)) {
                 $selectedtimezones = array_values(core_date::get_list_of_timezones());
             }
         }
 
-        $timestamp = !empty($formdata->selectedstamp) ? $formdata->selectedstamp : null;
-        $context = (object) ['blockautoupdate' => !empty($timestamp)];
-        $context->isanalog = $this->get_block()->is_analog();
-        $context->additionaltimezones = $this->get_block()->timezones($selectedtimezones, $timestamp);
-        $context->indicators = range(0, MINSECS - 1);;
-        if (!empty($timestamp)) {
+        $selectedtimestamp = !empty($formdata->selectedstamp) ? $formdata->selectedstamp : null;
+        $main = new main($this->get_block());
+        $context = (object) $main->export_for_template($OUTPUT);
+        $context->blockautoupdate = !empty($selectedtimestamp);
+        $context->additionaltimezones = $this->get_block()->timezones($selectedtimezones, $selectedtimestamp);
+        if (!empty($selectedtimestamp)) {
             $context->contexttitle = $OUTPUT->heading(get_string('convertedtimes', 'block_timezoneclock'), 3, 'w-100');
         }
 
@@ -180,12 +180,24 @@ class converter extends dynamic_form {
     public function set_data_for_dynamic_submission(array $formdata = []): void {
         $formdata['contextid'] = $this->get_contextid();
         $formdata['timezone'] = self::get_usertimezone();
-        $formdata['timestamp'] = time();
         $formdata['toggletimestamp'] = (int) debugging();
-        $formdata['selectedstamp']['enabled'] = true;
-        $formdata['timezones'] = $this->get_block()->config->timezone ?? [];
+        $formdata['timezones'] = (array) $this->get_block()->config->timezone;
         if (NO_MOODLE_COOKIES) {
             $formdata['timezone'] = $this->optional_param('timezone', 'GMT', PARAM_TIMEZONE);
+            $formdata['timezone'] = core_date::normalise_timezone($formdata['timezone']);
+            $formdata['timezones'] = !empty($formdata['timezones']) ?
+                $formdata['timezones'] : (array) core_date::get_server_timezone();
+            $t = $this->optional_param('t', null, PARAM_INT);
+            if ($t > 0) {
+                $formdata['timestamp'] = $formdata['selectedstamp'] = $t;
+                if ($formdata['timezone'] !== 'GMT') {
+                    $formdata['timezones'] = (array) $formdata['timezone'];
+                    $formdata['timezone'] = 'GMT';
+                }
+            }
+        } else {
+            $formdata['timestamp'] = time();
+            $formdata['selectedstamp']['enabled'] = true;
         }
         $this->set_data($formdata);
     }
@@ -197,22 +209,6 @@ class converter extends dynamic_form {
      */
     protected function get_page_url_for_dynamic_submission(): moodle_url {
         return new moodle_url(get_local_referer());
-    }
-
-    /**
-     * Validation
-     * - Require any one unix timestamp or timeselection
-     *
-     * @param array $data
-     * @param array $files
-     * @return array $errors
-     */
-    public function validation($data, $files) {
-        $errors = parent::validation($data, $files);
-        if (empty($data['timestamp']) && empty($data['selectedstamp'])) {
-            $errors['timestamp'] = get_string('timestampnotentered', 'block_timezoneclock');
-        }
-        return $errors;
     }
 
     /**

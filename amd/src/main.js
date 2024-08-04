@@ -102,7 +102,11 @@ export const registerForm = formUniqId => {
             timestampInput.value = Math.round(d.valueOf() / 1000);
         };
         const clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        dForm.load({...form.dataset, timezone: clientTimezone}).then(() => {
+        const urlParams = new URLSearchParams([
+            ...(new URLSearchParams(location.search)).entries(),
+            ...Object.entries({...form.dataset, timezone: clientTimezone})
+        ]);
+        dForm.load(Object.fromEntries(urlParams)).then(() => {
             if (form.nextElementSibling.childElementCount === 0) {
                 dForm.submitFormAjax({firstload: 1});
             }

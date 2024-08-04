@@ -87,7 +87,10 @@ export class BlockTimezoneclockDynamicForm extends DynamicForm {
 
         // Convert all the form elements values to a serialised string.
         const form = this.container.querySelector('form');
-        const formData = new URLSearchParams([...(new FormData(form)).entries(), ...Object.entries(additionalFormData)]);
+        const formData = new URLSearchParams([
+            ...(new FormData(form)).entries(),
+            ...(new URLSearchParams(additionalFormData)).entries()
+        ]);
 
         // Now we can continue...
         this.getBody(formData.toString()).then((response) => {
