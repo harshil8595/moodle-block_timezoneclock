@@ -14,30 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace block_timezoneclock\output;
-
-use plugin_renderer_base;
-
 /**
- * Renderer for block_timezoneclock
+ * Block timezone clock plugin.
  *
  * @package   block_timezoneclock
- * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
+ * @copyright 2024 Harshil Patel <harshil8595@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class renderer extends plugin_renderer_base {
 
-    /**
-     * Renders timezones list
-     *
-     * @param timezones $widget
-     * @return string
-     */
-    public function render_timezones(timezones $widget) {
-        return $this->render_from_template(
-            $widget->get_template(),
-            $widget->export_for_template($this)
-        );
-    }
-
+/**
+ * Get icon mapping for font-awesome.
+ */
+function block_timezoneclock_get_fontawesome_icon_map() {
+    return [
+        'block_timezoneclock:checked' => 'fas fa-square-check',
+        'block_timezoneclock:unchecked' => 'far fa-square-check'
+    ];
 }

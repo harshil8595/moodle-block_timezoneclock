@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+use block_timezoneclock\form\converter;
+
 /**
  * Main timezoneclock rendering class.
  *
@@ -57,7 +59,7 @@ class block_timezoneclock extends block_base {
      */
     public function specialization() {
         if (!empty($this->config->title)) {
-            $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+            $this->title = format_string($this->config->title, true, ['context' => $this->context]);
         }
     }
 
@@ -76,19 +78,16 @@ class block_timezoneclock extends block_base {
      * @return void
      */
     public function get_content() {
-        global $CFG;
-
-        require_once($CFG->libdir . '/formslib.php');
+        global $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
         $mainblock = new block_timezoneclock\output\main($this);
-        $renderer = $this->page->get_renderer('block_timezoneclock');
 
         $this->content = new stdClass;
-        $this->content->text = $renderer->render($mainblock);
+        $this->content->text = $OUTPUT->render($mainblock);
         $this->content->footer = '';
 
         return $this->content;
@@ -103,14 +102,18 @@ class block_timezoneclock extends block_base {
      */
     public static function dateinfo(string $tz, ?int $timestamp = null): array {
         $timestamp = $timestamp ?? time();
+        $tz = core_date::normalise_timezone($tz);
         $dateobj = new DateTime();
         $dateobj->setTimezone(new DateTimeZone($tz));
         $dateobj->setTimestamp($timestamp);
-        [$day, $month, $date, $year, $hour, $minute, $second, $meridiem] = explode(' ', $dateobj->format('D M d o h i s A'));
+        // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase
+        [$weekday, $month, $day, $year, $hour, $minute, $second, $dayPeriod] = explode(' ', $dateobj->format('D M d o h i s A'));
+        $timezone = $tz;
+        if ($tz === converter::get_usertimezone()) {
+            $timezone = get_string('timezoneuser', 'block_timezoneclock', $tz);
+        }
 
-        $indicators = range(0, MINSECS - 1);
-
-        return compact('tz', 'day', 'month', 'date', 'year', 'hour', 'minute', 'second', 'meridiem', 'indicators');
+        return compact('timezone', 'tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod');
     }
 
     /**
@@ -123,7 +126,7 @@ class block_timezoneclock extends block_base {
     public function timezones(array $timezones = [], ?int $timestamp = null): array {
         return array_map(function ($tz) use ($timestamp) {
             return self::dateinfo($tz, $timestamp);
-        }, array_unique(array_merge($timezones, $this->config->timezone ?? [])));
+        }, array_unique($timezones));
     }
 
     /**

@@ -3,8 +3,8 @@
 .block_timezoneclock .additionaltimezones {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     width: 100%;
+    gap: 1%;
 }
 .block_timezoneclock .sectiontitle {
     font-size: 1.6rem;
@@ -193,7 +193,7 @@
     justify-content: center;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="meridiem"] {
+.block_timezoneclock .clockwrap .analogclock [data-fraction="dayPeriod"] {
     --width: 2em;
     position: absolute;
     display: inline-block;
@@ -226,4 +226,50 @@
     padding: 0.2em 0.8em;
     width: 100%;
     border-radius: inherit;
+}
+
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] ~ span {
+    cursor: pointer;
+}
+
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:disabled ~ span {
+    opacity: .65;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.block_timezoneclockconverterform .icon {
+    margin-right: 0;
+}
+
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:not(:checked) ~ span > i:nth-child(1),
+.block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"]:checked ~ span > i:nth-child(2) {
+    display: none;
+}
+
+.block_timezoneclockconverterform .fitem[id^="id_timezone"] {
+    display: inline-block;
+}
+
+.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].collapsing,
+.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].show {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.block_timezoneclockconverterform .fitem[id^="id_timeinput"] {
+    flex-basis: 100%;
+}
+
+.dropdown.bootstrap-select.show-tick .dropdown-item[aria-selected="true"]:before {
+    display: none;
 }
