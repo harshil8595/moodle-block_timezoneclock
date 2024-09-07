@@ -174,7 +174,7 @@ class converter extends dynamic_form {
     /**
      * function's body is empty as no data initially set
      *
-     * @param array additional formdata to pass
+     * @param array $formdata additional formdata to pass
      * @return void
      */
     public function set_data_for_dynamic_submission(array $formdata = []): void {

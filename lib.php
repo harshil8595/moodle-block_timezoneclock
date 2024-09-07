@@ -28,6 +28,6 @@
 function block_timezoneclock_get_fontawesome_icon_map() {
     return [
         'block_timezoneclock:checked' => 'fas fa-square-check',
-        'block_timezoneclock:unchecked' => 'far fa-square-check'
+        'block_timezoneclock:unchecked' => 'far fa-square-check',
     ];
 }
