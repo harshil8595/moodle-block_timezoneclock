@@ -37,7 +37,7 @@ class edit_form extends block_edit_form {
      * @return void
      */
     public function specific_definition($mform) {
-        global $USER;
+        global $PAGE, $USER;
 
         $mform->addElement('text', 'config_title', get_string('configtitle', 'block_timezoneclock'),
                 ['placeholder' => get_string('configtitle_placeholder', 'block_timezoneclock')]);
@@ -52,6 +52,8 @@ class edit_form extends block_edit_form {
         $mform->addElement('select', 'config_timezone', get_string('preferred_timezones', 'block_timezoneclock'), $choices,
             ['multiple' => true, 'data-selectenhanced' => 1]);
         $mform->setType('timezone', PARAM_TIMEZONE);
+
+        $PAGE->requires->js_call_amd('block_timezoneclock/main', 'makeSelectEnhanced');
     }
 
     /**

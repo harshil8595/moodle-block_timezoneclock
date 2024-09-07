@@ -64,18 +64,24 @@ const updateTime = () => {
     setTimeout(updateTime, 1000);
 };
 
+export const makeSelectEnhanced = (parentNode = document) => {
+    require(['theme_boost/index'], () => {
+        const $spnodes = $(parentNode).find('[data-selectenhanced="1"]');
+        $spnodes.removeClass(['form-control', 'custom-select']);
+        $spnodes.selectpicker({
+            actionsBox: true, liveSearch: true, showTick: true,
+            size: 5, selectedTextFormat: 'count > 1',
+        });
+    });
+};
+
 export const initBlock = () => {
     const d = new Date();
     setTimeout(updateTime, 1000 - d.getMilliseconds());
     if (!select2registered) {
         select2registered = true;
         document.addEventListener(eventTypes.filterContentUpdated, e => {
-            const $spnodes = $(e.detail.nodes).find('[data-selectenhanced="1"]');
-            $spnodes.removeClass(['form-control', 'custom-select']);
-            $spnodes.selectpicker({
-                actionsBox: true, liveSearch: true, showTick: true,
-                size: 5, selectedTextFormat: 'count > 1',
-            });
+            makeSelectEnhanced(e.detail.nodes);
         });
     }
 };
