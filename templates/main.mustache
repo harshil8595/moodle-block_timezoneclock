@@ -57,12 +57,10 @@
             {{> block_timezoneclock/timezones }}
         {{/userloggedin}}
     </div>
-    {{#js}}
-        require(['block_timezoneclock/main'], amd => amd.registerForm('{{formuniqid}}'));
-    {{/js}}
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
         amd.initBlock();
+        amd.registerForm('{{formuniqid}}');
     });
 {{/js}}

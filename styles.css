@@ -1,4 +1,4 @@
-@import url('../../../../blocks/timezoneclock/bootstrap-select.min.css');
+@import url('../../../../blocks/timezoneclock/bootstrap-select/css/bootstrap-select.min.css');
 
 .block_timezoneclock .additionaltimezones {
     display: flex;

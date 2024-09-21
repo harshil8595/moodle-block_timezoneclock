@@ -21,7 +21,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 import $ from 'jquery';
-import './bootstrap-select';
 import DynamicForm from 'core_form/dynamicform';
 import {replaceNodeContents} from 'core/templates';
 import Fragment from 'core/fragment';
@@ -65,7 +64,7 @@ const updateTime = () => {
 };
 
 export const makeSelectEnhanced = (parentNode = document) => {
-    require(['theme_boost/index'], () => {
+    require(['theme_boost/index', `${M.cfg.wwwroot}/blocks/timezoneclock/bootstrap-select/js/bootstrap-select.min.js`], () => {
         const $spnodes = $(parentNode).find('[data-selectenhanced="1"]');
         $spnodes.removeClass(['form-control', 'custom-select']);
         $spnodes.selectpicker({

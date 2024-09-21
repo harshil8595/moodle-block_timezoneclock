@@ -1,18 +1,7 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>amd/src/bootstrap-select.js</location>
-        <name>bootstrap-select</name>
-        <description>The jQuery plugin that brings select elements with intuitive multiselection, searching, etc..</description>
-        <version>1.13.18</version>
-        <license>MIT</license>
-        <repository>https://github.com/snapappointments/bootstrap-select/</repository>
-        <copyrights>
-            <copyright>2012-2018 SnapAppointments, LLC</copyright>
-        </copyrights>
-    </library>
-    <library>
-        <location>bootstrap-select.min.css</location>
+        <location>bootstrap-select</location>
         <name>bootstrap-select</name>
         <description>The jQuery plugin that brings select elements with intuitive multiselection, searching, etc..</description>
         <version>1.13.18</version>
