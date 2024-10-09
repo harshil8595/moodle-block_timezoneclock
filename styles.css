@@ -270,6 +270,19 @@
     flex-basis: 100%;
 }
 
+/* Moodle 4.0 version label fix */
+.block_timezoneclockconverterform [data-groupname="selectedstamp"] > label.col-form-label:not(.sr-only) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .dropdown.bootstrap-select.show-tick .dropdown-item[aria-selected="true"]:before {
     display: none;
 }
