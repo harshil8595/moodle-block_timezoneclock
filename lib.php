@@ -26,6 +26,13 @@
  * Get icon mapping for font-awesome.
  */
 function block_timezoneclock_get_fontawesome_icon_map() {
+    global $CFG;
+    if ($CFG->branch < 402) {
+        return [
+            'block_timezoneclock:checked' => 'fa-check-square',
+            'block_timezoneclock:unchecked' => 'fa-check-square-o',
+        ];
+    }
     return [
         'block_timezoneclock:checked' => 'fas fa-square-check',
         'block_timezoneclock:unchecked' => 'far fa-square-check',
