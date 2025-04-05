@@ -70,8 +70,8 @@ export const makeSelectEnhanced = (parentNode = document) => {
             $spnodes.forEach(node => {
                 node.classList.remove('custom-select');
                 new TomSelect(node, {
-                    openOnFocus: true,
-                    plugins: ['caret_position', 'no_backspace_delete','remove_button',],
+                    openOnFocus: true, maxOptions: null,
+                    plugins: ['caret_position'],
                 });
             });
         });
