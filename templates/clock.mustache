@@ -38,10 +38,16 @@
             2,
             3,
             4
+        ],
+        "attributes": [
+            {
+                "name": "data-action",
+                "value": "replacecomputertimezone"
+            }
         ]
     }
 }}
-<div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}>
+<div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}{{#attributes}} {{name}}="{{value}}" {{/attributes}}>
     <small class="position-absolute badge tztitle">{{timezone}}</small>
     {{#isanalog}}
         <div class="clock analogclock">

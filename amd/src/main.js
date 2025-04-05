@@ -87,6 +87,13 @@ export const initBlock = () => {
             makeSelectEnhanced(e.detail.nodes);
         });
     }
+    const replacecomputertznode = document.querySelector('[data-action="replacecomputertimezone"]');
+    if (replacecomputertznode) {
+        const computrertz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        replacecomputertznode.setAttribute('data-timezone', computrertz);
+        updateTime();
+        replacecomputertznode.removeAttribute('data-action');
+    }
 };
 
 export const registerForm = formUniqId => {

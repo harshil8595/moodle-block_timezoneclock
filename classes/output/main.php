@@ -18,6 +18,7 @@ namespace block_timezoneclock\output;
 
 use block_timezoneclock;
 use block_timezoneclock\form\converter as FormConverter;
+use core_date;
 use html_writer;
 use lang_string;
 use renderable;
@@ -69,10 +70,30 @@ class main implements renderable, templatable {
         $context->indicators = range(0, MINSECS - 1);
         $context->formuniqid = html_writer::random_id('form');
         $context->additionaltimezones = $this->block->timezones(array_merge(
-            (array) FormConverter::get_usertimezone(),
+            // (array) FormConverter::get_usertimezone(),
             (array) ($this->block->config->timezone ?? [])
         ));
         $context->blockautoupdate = false;
+        $context->information['server'] = $this->block::dateinfo(core_date::get_user_timezone());
+        $context->information['server']['timezone'] = get_string('tzinformation:serverlabel', 'block_timezoneclock');
+        $context->information['server']['isanalog'] = false;
+
+        $context->information['computer'] = $this->block::dateinfo(core_date::get_user_timezone());
+        $context->information['computer']['timezone'] = get_string('tzinformation:computerlabel', 'block_timezoneclock');
+        $context->information['computer']['isanalog'] = false;
+        $context->information['computer']['attributes'] = [[
+            'name' => 'data-action',
+            'value' => 'replacecomputertimezone',
+        ]];
+
+        $context->information['toggler'] = [
+            'header' => get_string('tzinformation:title', 'block_timezoneclock'),
+            'id' => html_writer::random_id('toggler'),
+            'collapseable' => true,
+            'collapsed' => false,
+            'helpbutton' => null,
+        ];
+
         return $context;
     }
 

@@ -51,4 +51,7 @@ $string['toggletimeinput_checkicons'] = '<i class="fa-regular fa-square-check"><
 $string['totimezones'] = 'To Timezones';
 $string['typeanalog'] = 'Analogue';
 $string['typedigital'] = 'Digital';
+$string['tzinformation:computerlabel'] = '💻 Computer';
+$string['tzinformation:serverlabel'] = 'Server';
+$string['tzinformation:title'] = 'Clock';
 $string['yourtimezone'] = 'Your timezone';

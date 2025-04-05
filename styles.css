@@ -269,3 +269,14 @@
 .ts-wrapper .ts-control > input[role="combobox"] {
     min-width: 12.3rem;
 }
+
+.tzinformation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tzinformation [data-action="replacecomputertimezone"] {
+    visibility: hidden;
+}
