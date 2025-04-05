@@ -1,5 +1,3 @@
-@import url('../../../../blocks/timezoneclock/bootstrap-select/css/bootstrap-select.min.css');
-
 .block_timezoneclock .additionaltimezones {
     display: flex;
     flex-wrap: wrap;
@@ -255,21 +253,6 @@
     display: none;
 }
 
-.block_timezoneclockconverterform .fitem[id^="id_timezone"] {
-    display: inline-block;
-}
-
-.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].collapsing,
-.block_timezoneclockconverterform .fcontainer[id^="id_formheader"].show {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.block_timezoneclockconverterform .fitem[id^="id_timeinput"] {
-    flex-basis: 100%;
-}
-
 /* Moodle 4.0 version label fix */
 .block_timezoneclockconverterform [data-groupname="selectedstamp"] > label.col-form-label:not(.sr-only) {
     position: absolute;
@@ -283,6 +266,6 @@
     border: 0;
 }
 
-.dropdown.bootstrap-select.show-tick .dropdown-item[aria-selected="true"]:before {
-    display: none;
+.ts-wrapper .ts-control > input[role="combobox"] {
+    min-width: 12.3rem;
 }

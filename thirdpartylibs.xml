@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>bootstrap-select</location>
-        <name>bootstrap-select</name>
-        <description>The jQuery plugin that brings select elements with intuitive multiselection, searching, etc..</description>
-        <version>1.13.18</version>
-        <license>MIT</license>
-        <repository>https://github.com/snapappointments/bootstrap-select/</repository>
-        <copyrights>
-            <copyright>2012-2018 SnapAppointments, LLC</copyright>
-        </copyrights>
+        <location>tom-select</location>
+        <name>tom-select</name>
+        <description>Tom Select is a lightweight (~16kb gzipped) hybrid of a textbox and select box. Forked from selectize.js to provide a framework agnostic autocomplete widget with native-feeling keyboard navigation. Useful for tagging, contact lists, etc.</description>
+        <description>Tom Select is a lightweight (~16kb gzipped) hybrid of a textbox and select box. Forked from selectize.js to provide a framework agnostic autocomplete widget with native-feeling keyboard navigation. Useful for tagging, contact lists, etc.</description>
+        <version>2.4.3</version>
+        <license>Apache</license>
+        <licenseversion>2.0</licenseversion>
+        <repository>https://github.com/orchidjs/tom-select/</repository>
     </library>
 </libraries>

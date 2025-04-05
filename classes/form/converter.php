@@ -57,7 +57,6 @@ class converter extends dynamic_form {
         global $OUTPUT, $USER;
         $mform = $this->_form;
 
-        $this->set_display_vertical();
         $mform->updateAttributes(['class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
 
         $mform->addElement('hidden', 'contextid');

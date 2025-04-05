@@ -20,7 +20,6 @@
  * @copyright 2022 Harshil Patel <harshil8595@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-import $ from 'jquery';
 import DynamicForm from 'core_form/dynamicform';
 import {replaceNodeContents} from 'core/templates';
 import Fragment from 'core/fragment';
@@ -64,12 +63,17 @@ const updateTime = () => {
 };
 
 export const makeSelectEnhanced = (parentNode = document) => {
-    require(['theme_boost/index', `${M.cfg.wwwroot}/blocks/timezoneclock/bootstrap-select/js/bootstrap-select.min.js`], () => {
-        const $spnodes = $(parentNode).find('[data-selectenhanced="1"]');
-        $spnodes.removeClass(['form-control', 'custom-select']);
-        $spnodes.selectpicker({
-            actionsBox: true, liveSearch: true, showTick: true,
-            size: 5, selectedTextFormat: 'count > 1',
+    require(['theme_boost/index',
+        `${M.cfg.wwwroot}/blocks/timezoneclock/tom-select/js/tom-select.complete.min.js`], (_, TomSelect) => {
+        [].concat(parentNode).forEach(pNode => {
+            const $spnodes = pNode.querySelectorAll('[data-selectenhanced="1"]');
+            $spnodes.forEach(node => {
+                node.classList.remove('custom-select');
+                new TomSelect(node, {
+                    openOnFocus: true,
+                    plugins: ['caret_position', 'no_backspace_delete','remove_button',],
+                });
+            });
         });
     });
 };

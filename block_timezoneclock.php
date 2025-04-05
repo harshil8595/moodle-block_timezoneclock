@@ -78,7 +78,7 @@ class block_timezoneclock extends block_base {
      * @return void
      */
     public function get_content() {
-        global $OUTPUT;
+        global $CFG, $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
@@ -89,6 +89,12 @@ class block_timezoneclock extends block_base {
         $this->content = new stdClass;
         $this->content->text = $OUTPUT->render($mainblock);
         $this->content->footer = '';
+
+        // Load library css file for correct bootstrap version.
+        $bsversion = version_compare(moodle_major_version(), '5', '<') ? '4' : '5';
+        $cssurl = new moodle_url("/blocks/timezoneclock/tom-select/css/tom-select.bootstrap{$bsversion}.min.css");
+        $cssurl->param('rev', $CFG->themerev);
+        $this->page->requires->css($cssurl);
 
         return $this->content;
     }
