@@ -27,39 +27,103 @@ import {exception as displayException} from 'core/notification';
 import {eventTypes} from 'core_filters/events';
 
 const GMTCONST = 'GMT';
-const dtOptions = {
-    year: 'numeric',
-    month: 'short',
-    weekday: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: true
-};
 let select2registered = false;
+let monthNames;
 
-const getDateInfo = (timeZone, timestamp = new Date(), customdateOptions = {}) => {
-    customdateOptions = {...dtOptions, ...customdateOptions, timeZone};
-    const t1 = new Intl.DateTimeFormat('en-us', customdateOptions);
-    const dateInfo = t1.formatToParts(timestamp).reduce((a, i) => ({...a, [i.type]: i.value}), {});
-    return {...dateInfo, day: dateInfo.day.padStart(2, 0)};
+const getLangCode = () => 'en';
+
+const to24Hour = (hour, period) => {
+    let h = parseInt(hour, 10);
+    if (period === 'AM' && h === 12) {
+        return '00';
+    }
+    if (period === 'PM' && h < 12) {
+        h += 12;
+    }
+    return String(h).padStart(2, '0');
 };
 
-const updateTime = () => {
+const monthsForLocale = (monthFormat = 'long') => {
+    const format = new Intl.DateTimeFormat(getLangCode(), {month: monthFormat}).format;
+    return [...Array(12)].map((_, i) => {
+        const d = new Date();
+        d.setMonth(i);
+        return format(d);
+    });
+};
+
+const getNumericMonth = (monthName) => {
+    monthNames = monthNames || monthsForLocale();
+    const index = monthNames.indexOf(monthName);
+    return index !== -1 ? String(index + 1).padStart(2, '0') : '';
+};
+
+const getDateInfo = (timeZone, dateFormat, date = new Date()) => {
+    const is12Hour = /[hagA]/.test(dateFormat);
+    const needsWeekday = /[Dl]/.test(dateFormat);
+    const needsMonthName = /[FM]/.test(dateFormat);
+
+    const formatter = new Intl.DateTimeFormat(getLangCode(), {
+        timeZone,
+        year: 'numeric',
+        month: needsMonthName ? 'long' : '2-digit',
+        day: '2-digit',
+        weekday: needsWeekday ? 'long' : undefined,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: is12Hour,
+        timeZoneName: 'longOffset'
+    });
+
+    const parts = formatter.formatToParts(date).reduce((acc, part) => {
+        if (part.type !== 'literal') {
+            acc[part.type] = part.value;
+        }
+        return acc;
+    }, {});
+
+    const shortWeekday = parts.weekday?.slice(0, 3);
+    const shortMonth = parts.month?.slice(0, 3);
+    const twoDigitYear = parts.year?.slice(-2);
+
+    const replacements = {
+        Y: parts.year,
+        y: twoDigitYear,
+        m: /^\d+$/.test(parts.month) ? parts.month : getNumericMonth(parts.month),
+        F: parts.month || '',
+        M: shortMonth || '',
+        d: parts.day,
+        H: is12Hour ? to24Hour(parts.hour, parts.dayPeriod) : parts.hour,
+        h: parts.hour,
+        g: String(parseInt(parts.hour, 10)),
+        i: parts.minute,
+        s: parts.second,
+        A: parts.dayPeriod?.toUpperCase() || '',
+        a: parts.dayPeriod?.toLowerCase() || '',
+        D: shortWeekday || '',
+        l: parts.weekday || '',
+    };
+
+    replacements.timeZoneName = parts.timeZoneName;
+
+    return replacements;
+};
+
+const updateTime = (dateFormat) => {
     document.querySelectorAll('[data-region="clock"]:not([data-autoupdate="false"])')
     .forEach(clock => {
-        const datefractions = getDateInfo(clock.dataset.timezone);
+        const datefractions = getDateInfo(clock.dataset.timezone, dateFormat);
         clock.querySelectorAll('[data-fraction]').forEach(sp => {
             const {fraction, unit} = sp.dataset;
-            if (unit?.toString() !== datefractions[fraction].toString()) {
+            if (fraction in datefractions && unit != datefractions[fraction]) {
                 sp.style.setProperty(`--unit`, datefractions[fraction]);
                 sp.setAttribute('data-unit', datefractions[fraction]);
-                sp.firstElementChild.innerText = datefractions[fraction].toString();
+                sp.firstElementChild.innerText = datefractions[fraction];
             }
         });
     });
-    setTimeout(updateTime, 1000);
+    setTimeout(() => updateTime(dateFormat), 1000);
 };
 
 export const makeSelectEnhanced = (parentNode = document) => {
@@ -71,16 +135,16 @@ export const makeSelectEnhanced = (parentNode = document) => {
                 node.classList.remove('custom-select');
                 new TomSelect(node, {
                     openOnFocus: true, maxOptions: null,
-                    plugins: ['caret_position'],
+                    plugins: [],
                 });
             });
         });
     });
 };
 
-export const initBlock = () => {
+export const initBlock = (dateFormat) => {
     const d = new Date();
-    setTimeout(updateTime, 1000 - d.getMilliseconds());
+    setTimeout(() => updateTime(dateFormat), 1000 - d.getMilliseconds());
     if (!select2registered) {
         select2registered = true;
         document.addEventListener(eventTypes.filterContentUpdated, e => {
@@ -91,12 +155,12 @@ export const initBlock = () => {
     if (replacecomputertznode) {
         const computrertz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         replacecomputertznode.setAttribute('data-timezone', computrertz);
-        updateTime();
+        updateTime(dateFormat);
         replacecomputertznode.removeAttribute('data-action');
     }
 };
 
-export const registerForm = formUniqId => {
+export const registerForm = (formUniqId, dateFormat) => {
     const form = document.getElementById(formUniqId);
     const r = new RegExp(`(day|month|year|hour|minute)`);
     if (form) {
@@ -111,7 +175,7 @@ export const registerForm = formUniqId => {
             const {year, month, day, hour, minute} = fractions;
 
             const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000`);
-            const dateinfo = getDateInfo(timezoneSelection.value, date, {timeZoneName: 'longOffset'});
+            const dateinfo = getDateInfo(timezoneSelection.value, dateFormat, date);
             const gmtOffset = dateinfo.timeZoneName.split(GMTCONST).pop();
 
             const d = new Date(date + gmtOffset);
@@ -147,7 +211,7 @@ export const registerForm = formUniqId => {
             if (timestampInput) {
                 const d = new Date(0);
                 d.setUTCSeconds(timestampInput.value);
-                const info = getDateInfo(timezoneSelection.value, d, {month: 'numeric', hour12: false});
+                const info = getDateInfo(timezoneSelection.value, dateFormat, d);
                 info.hour = Number(info.hour);
                 dateTimeNode.querySelectorAll('select').forEach(sel => {
                     sel.value = info[getTypeFromElement(sel)];

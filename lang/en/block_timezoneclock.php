@@ -55,3 +55,89 @@ $string['tzinformation:computerlabel'] = '💻 Computer';
 $string['tzinformation:serverlabel'] = 'Server';
 $string['tzinformation:title'] = 'Clock';
 $string['yourtimezone'] = 'Your timezone';
+$string['dateformat_help'] = '<table>
+   <thead>
+      <tr>
+         <th>Token</th>
+         <th>Meaning</th>
+         <th>Example</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><code>Y</code></td>
+         <td>4-digit year</td>
+         <td><code>2025</code></td>
+      </tr>
+      <tr>
+         <td><code>y</code></td>
+         <td>2-digit year</td>
+         <td><code>25</code></td>
+      </tr>
+      <tr>
+         <td><code>m</code></td>
+         <td>2-digit month</td>
+         <td><code>04</code></td>
+      </tr>
+      <tr>
+         <td><code>F</code></td>
+         <td>Full month name</td>
+         <td><code>April</code></td>
+      </tr>
+      <tr>
+         <td><code>M</code></td>
+         <td>Short month name</td>
+         <td><code>Apr</code></td>
+      </tr>
+      <tr>
+         <td><code>d</code></td>
+         <td>2-digit day</td>
+         <td><code>05</code></td>
+      </tr>
+      <tr>
+         <td><code>H</code></td>
+         <td>24-hour</td>
+         <td><code>13</code></td>
+      </tr>
+      <tr>
+         <td><code>h</code></td>
+         <td>12-hour (padded)</td>
+         <td><code>01</code></td>
+      </tr>
+      <tr>
+         <td><code>g</code></td>
+         <td>12-hour (unpadded)</td>
+         <td><code>1</code></td>
+      </tr>
+      <tr>
+         <td><code>i</code></td>
+         <td>Minutes</td>
+         <td><code>45</code></td>
+      </tr>
+      <tr>
+         <td><code>s</code></td>
+         <td>Seconds</td>
+         <td><code>30</code></td>
+      </tr>
+      <tr>
+         <td><code>A</code></td>
+         <td>AM/PM (uppercase)</td>
+         <td><code>PM</code></td>
+      </tr>
+      <tr>
+         <td><code>a</code></td>
+         <td>am/pm (lowercase)</td>
+         <td><code>pm</code></td>
+      </tr>
+      <tr>
+         <td><code>D</code></td>
+         <td>Short weekday</td>
+         <td><code>Sat</code></td>
+      </tr>
+      <tr>
+         <td><code>l</code></td>
+         <td>Full weekday</td>
+         <td><code>Saturday</code></td>
+      </tr>
+   </tbody>
+</table>';

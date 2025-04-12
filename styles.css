@@ -37,6 +37,7 @@
     border-radius: 0.3em;
     margin: 0.5em auto;
     max-width: calc(100% - .1em);
+    white-space: pre;
 }
 .block_timezoneclock .clockwrap .clock {
     display: flex;
@@ -108,9 +109,9 @@
 }
 
 .block_timezoneclock .clockwrap .analogclock .clock__indicator,
-.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"],
-.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"],
-.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+.block_timezoneclock .clockwrap .analogclock .clock__hour,
+.block_timezoneclock .clockwrap .analogclock .clock__minute,
+.block_timezoneclock .clockwrap .analogclock .clock__second {
     position: absolute;
     color: black;
     transform-origin: bottom center;
@@ -118,9 +119,9 @@
     display: block;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"],
-.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"],
-.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+.block_timezoneclock .clockwrap .analogclock .clock__hour,
+.block_timezoneclock .clockwrap .analogclock .clock__minute,
+.block_timezoneclock .clockwrap .analogclock .clock__second {
     --gudder: 0;
     --divider: 60;
     --unit: 1;
@@ -136,16 +137,16 @@
     background-color: black;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="hour"] {
+.block_timezoneclock .clockwrap .analogclock .clock__hour {
     --divider: 12;
     --gudder: 50px;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="minute"] {
+.block_timezoneclock .clockwrap .analogclock .clock__minute {
     --gudder: 40px;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="second"] {
+.block_timezoneclock .clockwrap .analogclock .clock__second {
     --gudder: 20px;
     --hand-width: 3px;
     background-color: #7084ca;
@@ -154,7 +155,7 @@
     z-index: 1;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="second"]::after {
+.block_timezoneclock .clockwrap .analogclock .clock__second::after {
     height: 20px;
     width: 4px;
     content: " ";
@@ -191,7 +192,7 @@
     justify-content: center;
 }
 
-.block_timezoneclock .clockwrap .analogclock [data-fraction="dayPeriod"] {
+.block_timezoneclock .clockwrap .analogclock .clock__dayPeriod {
     --width: 2em;
     position: absolute;
     display: inline-block;
@@ -224,6 +225,7 @@
     padding: 0.2em 0.8em;
     width: 100%;
     border-radius: inherit;
+    white-space: pre;
 }
 
 .block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] {

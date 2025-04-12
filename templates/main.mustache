@@ -117,7 +117,7 @@
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
-        amd.initBlock();
-        amd.registerForm('{{formuniqid}}');
+        amd.initBlock('{{{dateformat}}}');
+        amd.registerForm('{{formuniqid}}', '{{{dateformat}}}');
     });
 {{/js}}

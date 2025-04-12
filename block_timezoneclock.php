@@ -26,6 +26,14 @@ use block_timezoneclock\form\converter;
 class block_timezoneclock extends block_base {
 
     /**
+     * @var array List of supported date time characters
+     */
+    const SUPPORTEDCHARS = [
+        'date' => ['Y', 'y', 'm', 'n', 'F', 'M', 'd', 'j', 'D', 'l'],
+        'time' => ['H', 'h', 'g', 'i', 's', 'A', 'a']
+    ];
+
+    /**
      * Initialize block and set block's title
      *
      * @return void
@@ -103,23 +111,50 @@ class block_timezoneclock extends block_base {
      * Format timestamp according to timezone
      *
      * @param string $tz
+     * @param string $format
+     * @param bool $showtime
      * @param int|null $timestamp
      * @return array
      */
-    public static function dateinfo(string $tz, ?int $timestamp = null): array {
+    public static function dateinfo(string $tz, string $format, bool $showtime, ?int $timestamp = null): array {
         $timestamp = $timestamp ?? time();
         $tz = core_date::normalise_timezone($tz);
         $dateobj = new DateTime();
         $dateobj->setTimezone(new DateTimeZone($tz));
         $dateobj->setTimestamp($timestamp);
-        // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase
-        [$weekday, $month, $day, $year, $hour, $minute, $second, $dayPeriod] = explode(' ', $dateobj->format('D M d o h i s A'));
         $timezone = $tz;
         if ($tz === converter::get_usertimezone()) {
             $timezone = get_string('timezoneuser', 'block_timezoneclock', $tz);
         }
 
-        return compact('timezone', 'tz', 'weekday', 'month', 'day', 'year', 'hour', 'minute', 'second', 'dayPeriod');
+        $allcharacters = array_merge(static::SUPPORTEDCHARS['date'], static::SUPPORTEDCHARS['time']);
+
+        $namedfractions = $fractions = [];
+        $pattern = '/('.join('|', $allcharacters).')/'; // supported format characters
+
+        // Split format string into tokens (format parts and separators)
+        preg_match_all('/('.join('|', $allcharacters).'|[^'.join('', $allcharacters).']+)/', $format, $matches);
+
+        foreach ($matches[0] as $token) {
+            if (in_array($token, $allcharacters)) {
+                $value = $dateobj->format($token);
+                $fractions[] = [
+                    'fraction' => $token,
+                    'value' => $value,
+                    'hide' => !in_array($token, static::SUPPORTEDCHARS['date']) && !$showtime
+                ];
+                $namedfractions[$token] = $value;
+            } else {
+                // Treat as separator (e.g. space, :, -, /)
+                $fractions[] = [
+                    'fraction' => 'seperator',
+                    'value' => htmlspecialchars($token),
+                    'hide' => !empty(end($fractions)['hide'])
+                ];
+            }
+        }
+
+        return compact('timezone', 'tz', 'namedfractions', 'fractions');
     }
 
     /**
@@ -130,9 +165,14 @@ class block_timezoneclock extends block_base {
      * @return array
      */
     public function timezones(array $timezones = [], ?int $timestamp = null): array {
-        return array_map(function ($tz) use ($timestamp) {
-            return self::dateinfo($tz, $timestamp);
-        }, array_unique($timezones));
+        $dateinfos = [];
+        $timezones = array_unique($timezones);
+        $format = $this->get_format();
+        $showtime = !$this->is_analog();
+        foreach ($timezones as $tz) {
+            $dateinfos[] = self::dateinfo($tz, $format, $showtime, $timestamp);
+        }
+        return $dateinfos;
     }
 
     /**
@@ -146,6 +186,19 @@ class block_timezoneclock extends block_base {
             $clocktype = $this->config->clocktype;
         }
         return $clocktype == block_timezoneclock\output\main::TYPEANALOG;
+    }
+
+    /**
+     * Get date format
+     *
+     * @return string
+     */
+    public function get_format(): string {
+        $format = $this->config->format ?? null;
+        if (empty($format)) {
+            $format = 'D F d Y h:i:s A';
+        }
+        return $format;
     }
 
 }

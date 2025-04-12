@@ -63,21 +63,28 @@ class main implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         $context = new stdClass;
+        $context->dateformat = $this->block->get_format();
         $context->isanalog = $this->block->is_analog();
         $context->formclass = FormConverter::class;
         $context->userloggedin = isloggedin();
         $context->blockcontextid = $this->block->context->id;
         $context->indicators = range(0, MINSECS - 1);
         $context->formuniqid = html_writer::random_id('form');
-        $context->additionaltimezones = $this->block->timezones((array) ($this->block->config->timezone ?? []));
+        $context->additionaltimezones = $this->block->timezones(
+            (array) ($this->block->config->timezone ?? [])
+        );
         $context->blockautoupdate = false;
-        $context->information['server'] = $this->block::dateinfo(core_date::get_user_timezone());
+        $context->information['server'] = $this->block::dateinfo(
+            core_date::get_user_timezone(),
+            $context->dateformat,
+            !$context->isanalog
+        );
         $context->information['server']['timezone'] = get_string('tzinformation:serverlabel', 'block_timezoneclock');
-        $context->information['server']['isanalog'] = false;
 
-        $context->information['computer'] = $this->block::dateinfo(core_date::get_user_timezone());
-        $context->information['computer']['timezone'] = get_string('tzinformation:computerlabel', 'block_timezoneclock');
-        $context->information['computer']['isanalog'] = false;
+        $context->information['computer'] = array_merge(
+            $context->information['server'],
+            ['timezone' => get_string('tzinformation:computerlabel', 'block_timezoneclock')]
+        );
         $context->information['computer']['attributes'] = [[
             'name' => 'data-action',
             'value' => 'replacecomputertimezone',
