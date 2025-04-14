@@ -123,9 +123,9 @@ class block_timezoneclock extends block_base {
         $allcharacters = array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']);
 
         $namedfractions = $fractions = [];
-        $pattern = '/('.join('|', $allcharacters).')/'; // supported format characters
+        $pattern = '/('.join('|', $allcharacters).')/'; // Supported format characters.
 
-        // Split format string into tokens (format parts and separators)
+        // Split format string into tokens (format parts and separators).
         preg_match_all('/('.join('|', $allcharacters).'|[^'.join('', $allcharacters).']+)/', $format, $matches);
 
         foreach ($matches[0] as $token) {
@@ -134,15 +134,15 @@ class block_timezoneclock extends block_base {
                 $fractions[] = [
                     'fraction' => $token,
                     'value' => $value,
-                    'hide' => !in_array($token, util::SUPPORTEDCHARS['date']) && !$showtime
+                    'hide' => !in_array($token, util::SUPPORTEDCHARS['date']) && !$showtime,
                 ];
                 $namedfractions[$token] = $value;
             } else {
-                // Treat as separator (e.g. space, :, -, /)
+                // Treat as separator (e.g. space, :, -, /).
                 $fractions[] = [
                     'fraction' => 'seperator',
                     'value' => htmlspecialchars($token),
-                    'hide' => !empty(end($fractions)['hide'])
+                    'hide' => !empty(end($fractions)['hide']),
                 ];
             }
         }

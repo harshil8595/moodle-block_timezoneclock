@@ -38,7 +38,6 @@ class util {
     /**
      * @var string Default date format
      */
-
     const DEFAULTFORMAT = 'D F d Y h:i:s A';
 
     /** @var string */
