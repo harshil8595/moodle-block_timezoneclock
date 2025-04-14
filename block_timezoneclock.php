@@ -187,7 +187,7 @@ class block_timezoneclock extends block_base {
      * @return string
      */
     public function get_format(): string {
-        $format = $this->config->format ?? null;
+        $format = $this->config->datetimeformat ?? null;
         if (empty($format)) {
             $format = util::DEFAULTFORMAT;
         }

@@ -53,6 +53,14 @@ class edit_form extends block_edit_form {
             ['multiple' => true, 'data-selectenhanced' => 1]);
         $mform->setType('timezone', PARAM_TIMEZONE);
 
+        $allcharacterstring = join('', array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']));
+        $regex = '/^(?!.*\b(['.$allcharacterstring.'])\b.*\b\1\b)['.$allcharacterstring.'\/:,\-\s]+$/';
+        $mform->addElement('text', 'config_datetimeformat', get_string('datetimeformat', 'block_timezoneclock'));
+        $mform->setType('config_datetimeformat', PARAM_TEXT);
+        $mform->setDefault('config_datetimeformat', util::DEFAULTFORMAT);
+        $mform->addHelpButton('config_datetimeformat', 'datetimeformat', 'block_timezoneclock');
+        $mform->addRule('config_datetimeformat', get_string('invalid_datetimeformat', 'block_timezoneclock'), 'regex', $regex);
+
         $PAGE->requires->js_call_amd('block_timezoneclock/main', 'makeSelectEnhanced');
     }
 

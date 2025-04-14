@@ -31,31 +31,8 @@ $string['configtitle_placeholder'] = 'Default: Timezone clock';
 $string['convert'] = 'Convert';
 $string['convertedtimes'] = 'Converted times';
 $string['datestamp'] = 'Select time';
-$string['entervalidtimestamp'] = 'Enter valid unix stamp';
-$string['fromtimezone'] = 'From timezone';
-$string['pagetitle:converter'] = 'Timezone Converter';
-$string['pluginname'] = 'Timezone clock';
-$string['preferred_timezones'] = 'Preferred Timezones';
-$string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
-$string['timestamp'] = 'Unix stamp';
-$string['timestamp_placeholder'] = 'Input unixstamp';
-$string['timestampnotentered'] = 'Either you have to enter unix Stamp Or select time';
-$string['timezoneclock:addinstance'] = 'Add a timezone clock block';
-$string['timezoneclock:myaddinstance'] = 'Add a timezone clock block to dashboard';
-$string['timezoneconveter'] = 'Converter';
-$string['timezones'] = 'Timezones';
-$string['timezoneuser'] = 'Your timezone ({$a})';
-$string['title'] = 'Timezone clock';
-$string['toggletimeinput'] = 'Toggle unixstamp';
-$string['toggletimeinput_checkicons'] = '<i class="fa-regular fa-square-check"></i><i class="fa-solid fa-square-check"></i>';
-$string['totimezones'] = 'To Timezones';
-$string['typeanalog'] = 'Analogue';
-$string['typedigital'] = 'Digital';
-$string['tzinformation:computerlabel'] = '💻 Computer';
-$string['tzinformation:serverlabel'] = 'Server';
-$string['tzinformation:title'] = 'Clock';
-$string['yourtimezone'] = 'Your timezone';
-$string['dateformat_help'] = '<table>
+$string['datetimeformat'] = 'Format';
+$string['datetimeformat_help'] = '<table class="generaltable table-sm">
    <thead>
       <tr>
          <th>Token</th>
@@ -141,3 +118,28 @@ $string['dateformat_help'] = '<table>
       </tr>
    </tbody>
 </table>';
+$string['entervalidtimestamp'] = 'Enter valid unix stamp';
+$string['fromtimezone'] = 'From timezone';
+$string['invalid_datetimeformat'] = 'Invalid date format defined. See help for valid tokens. Extra characters ",", "/", ":", "-" or space allowed as seperator.';
+$string['pagetitle:converter'] = 'Timezone Converter';
+$string['pluginname'] = 'Timezone clock';
+$string['preferred_timezones'] = 'Preferred Timezones';
+$string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
+$string['timestamp'] = 'Unix stamp';
+$string['timestamp_placeholder'] = 'Input unixstamp';
+$string['timestampnotentered'] = 'Either you have to enter unix Stamp Or select time';
+$string['timezoneclock:addinstance'] = 'Add a timezone clock block';
+$string['timezoneclock:myaddinstance'] = 'Add a timezone clock block to dashboard';
+$string['timezoneconveter'] = 'Converter';
+$string['timezones'] = 'Timezones';
+$string['timezoneuser'] = 'Your timezone ({$a})';
+$string['title'] = 'Timezone clock';
+$string['toggletimeinput'] = 'Toggle unixstamp';
+$string['toggletimeinput_checkicons'] = '<i class="fa-regular fa-square-check"></i><i class="fa-solid fa-square-check"></i>';
+$string['totimezones'] = 'To Timezones';
+$string['typeanalog'] = 'Analogue';
+$string['typedigital'] = 'Digital';
+$string['tzinformation:computerlabel'] = '💻 Computer';
+$string['tzinformation:serverlabel'] = 'Server';
+$string['tzinformation:title'] = 'Clock';
+$string['yourtimezone'] = 'Your timezone';
