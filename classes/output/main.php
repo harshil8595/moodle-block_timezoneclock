@@ -35,12 +35,6 @@ use templatable;
  */
 class main implements renderable, templatable {
 
-    /** @var string */
-    const TYPEDIGITAL = 'digital';
-
-    /** @var string */
-    const TYPEANALOG = 'analog';
-
     /**
      * @var block_timezoneclock
      */
@@ -101,15 +95,4 @@ class main implements renderable, templatable {
         return $context;
     }
 
-    /**
-     * Get clock types
-     *
-     * @return array
-     */
-    public static function get_clocktypes() {
-        return [
-            self::TYPEDIGITAL => new lang_string('typedigital', 'block_timezoneclock'),
-            self::TYPEANALOG => new lang_string('typeanalog', 'block_timezoneclock'),
-        ];
-    }
 }

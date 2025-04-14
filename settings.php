@@ -29,6 +29,6 @@ if ($ADMIN->fulltree) {
     $title = get_string('clocktype', 'block_timezoneclock');
     $description = get_string('clocktype_desc', 'block_timezoneclock');
     $setting = new admin_setting_configselect($name, $title, $description,
-        block_timezoneclock\output\main::TYPEDIGITAL, block_timezoneclock\output\main::get_clocktypes());
+        block_timezoneclock\util::TYPEDIGITAL, block_timezoneclock\util::get_clocktypes());
     $settings->add($setting);
 }

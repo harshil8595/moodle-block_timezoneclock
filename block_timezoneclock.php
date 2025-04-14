@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use block_timezoneclock\form\converter;
+use block_timezoneclock\util;
 
 /**
  * Main timezoneclock rendering class.
@@ -24,14 +25,6 @@ use block_timezoneclock\form\converter;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_timezoneclock extends block_base {
-
-    /**
-     * @var array List of supported date time characters
-     */
-    const SUPPORTEDCHARS = [
-        'date' => ['Y', 'y', 'm', 'n', 'F', 'M', 'd', 'j', 'D', 'l'],
-        'time' => ['H', 'h', 'g', 'i', 's', 'A', 'a']
-    ];
 
     /**
      * Initialize block and set block's title
@@ -127,7 +120,7 @@ class block_timezoneclock extends block_base {
             $timezone = get_string('timezoneuser', 'block_timezoneclock', $tz);
         }
 
-        $allcharacters = array_merge(static::SUPPORTEDCHARS['date'], static::SUPPORTEDCHARS['time']);
+        $allcharacters = array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']);
 
         $namedfractions = $fractions = [];
         $pattern = '/('.join('|', $allcharacters).')/'; // supported format characters
@@ -141,7 +134,7 @@ class block_timezoneclock extends block_base {
                 $fractions[] = [
                     'fraction' => $token,
                     'value' => $value,
-                    'hide' => !in_array($token, static::SUPPORTEDCHARS['date']) && !$showtime
+                    'hide' => !in_array($token, util::SUPPORTEDCHARS['date']) && !$showtime
                 ];
                 $namedfractions[$token] = $value;
             } else {
@@ -185,7 +178,7 @@ class block_timezoneclock extends block_base {
         if (!empty($this->config->clocktype)) {
             $clocktype = $this->config->clocktype;
         }
-        return $clocktype == block_timezoneclock\output\main::TYPEANALOG;
+        return $clocktype == util::TYPEANALOG;
     }
 
     /**
@@ -196,7 +189,7 @@ class block_timezoneclock extends block_base {
     public function get_format(): string {
         $format = $this->config->format ?? null;
         if (empty($format)) {
-            $format = 'D F d Y h:i:s A';
+            $format = util::DEFAULTFORMAT;
         }
         return $format;
     }
