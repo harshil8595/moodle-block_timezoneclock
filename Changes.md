@@ -60,3 +60,15 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Removed
 
 - Remove show digits option
+
+## [1.1.9] - 2023-04-14
+
+### Added
+
+- Add clock section to get difference between server and device timezone
+- Add option to define date and time format
+
+### Changed
+
+- Replace `bootstrap-select` with `tom-select` library
+- Update add timezone button string
