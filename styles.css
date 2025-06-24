@@ -282,3 +282,12 @@
 .tzinformation [data-action="replacecomputertimezone"] {
     visibility: hidden;
 }
+
+/* RTL Fixes */
+html[dir="rtl"] .block_timezoneclock .clockwrap .digitalclock {
+    direction: rtl;
+}
+
+html[dir="rtl"] .block_timezoneclock .clockwrap .analogclock .clock__axis {
+    transform: translateX(6px) translateY(-6px);
+}
