@@ -72,3 +72,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 
 - Replace `bootstrap-select` with `tom-select` library
 - Update add timezone button string
+
+## [1.2.0] - 2025-06-25
+
+### Fixed
+
+- Fix UI issues in RTL Mode
