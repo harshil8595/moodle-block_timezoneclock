@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025062500;
+$plugin->version   = 2025101200;
 $plugin->requires  = 2022041900;
-$plugin->supported = [400, 500];
+$plugin->supported = [400, 501];
 $plugin->component = 'block_timezoneclock';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 'v1.2.0';
