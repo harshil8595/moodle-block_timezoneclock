@@ -121,12 +121,28 @@ class block_timezoneclock extends block_base {
         }
 
         $allcharacters = array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']);
+        $timeunitsmap = [
+            util::SUPPORTEDCHARS['time'][2] => 'hour',
+            util::SUPPORTEDCHARS['time'][3] => 'minute',
+            util::SUPPORTEDCHARS['time'][4] => 'second',
+            util::SUPPORTEDCHARS['time'][5] => 'dayPeriod',
+        ];
 
+        $timeunits = [];
         $namedfractions = $fractions = [];
         $pattern = '/('.join('|', $allcharacters).')/'; // Supported format characters.
 
         // Split format string into tokens (format parts and separators).
         preg_match_all('/('.join('|', $allcharacters).'|[^'.join('', $allcharacters).']+)/', $format, $matches);
+
+        if (!$showtime) {
+            $matches[0] = array_unique(
+                array_merge(
+                    $matches[0],
+                    array_keys($timeunitsmap)
+                )
+            );
+        }
 
         foreach ($matches[0] as $token) {
             if (in_array($token, $allcharacters)) {
@@ -137,7 +153,10 @@ class block_timezoneclock extends block_base {
                     'hide' => !in_array($token, util::SUPPORTEDCHARS['date']) && !$showtime,
                 ];
                 $namedfractions[$token] = $value;
-            } else {
+                if (!$showtime && isset($timeunitsmap[$token])) {
+                    $timeunits[$timeunitsmap[$token]] = $value;
+                }
+            } else if ($showtime) {
                 // Treat as separator (e.g. space, :, -, /).
                 $fractions[] = [
                     'fraction' => 'seperator',
@@ -147,7 +166,7 @@ class block_timezoneclock extends block_base {
             }
         }
 
-        return compact('timezone', 'tz', 'namedfractions', 'fractions');
+        return compact('timezone', 'tz', 'namedfractions', 'fractions', 'timeunits');
     }
 
     /**

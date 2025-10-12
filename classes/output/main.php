@@ -68,7 +68,7 @@ class main implements renderable, templatable {
             (array) ($this->block->config->timezone ?? [])
         );
         $context->blockautoupdate = false;
-        $context->information['server'] = $this->block::dateinfo(
+        $context->information['server'] = block_timezoneclock::dateinfo(
             core_date::get_user_timezone(),
             $context->dateformat,
             !$context->isanalog

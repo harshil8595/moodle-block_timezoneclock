@@ -110,6 +110,12 @@
                 "hide": false
             }
         ],
+        "timeunits": {
+            "minute": "06",
+            "second": "30",
+            "dayPeriod": "AM",
+            "hour": "1"
+        },
         "attributes": [
             {
                 "name": "data-action",
@@ -123,6 +129,7 @@
     {{#isanalog}}
         <div class="clock analogclock">
             <div class="clock__inner">
+                {{#timeunits}}
                 <span data-fraction="g" class="hand clock__hour" data-unit="{{hour}}" style="--unit: {{hour}}">
                     <span class="sr-only">{{hour}}</span>
                 </span>
@@ -133,13 +140,16 @@
                     <span class="sr-only">{{second}}</span>
                 </span>
                 <span class="center hand clock__axis"></span>
+                {{/timeunits}}
                 {{#indicators}}
                     <span class="clock__indicator" style="--nth-child: {{{.}}}"></span>
                 {{/indicators}}
             </div>
+            {{#timeunits}}
             <span data-fraction="A" class="clock__dayPeriod unitdisplay" data-unit="{{dayPeriod}}">
                 <span class="sr-only">{{dayPeriod}}</span>
             </span>
+            {{/timeunits}}
         </div>
         <p class="dateline badge mx-auto">
             {{#fractions}}
@@ -147,6 +157,7 @@
                 <span class="unitdisplay" data-fraction="{{{fraction}}}" data-unit="{{{value}}}">
                     <span class="sr-only">{{{value}}}</span>
                 </span>
+                <span class="unitdisplay" data-fraction="seperator" data-unit=" "></span>
                 {{/hide}}
             {{/fractions}}
         </p>

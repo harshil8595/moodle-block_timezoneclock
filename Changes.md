@@ -78,3 +78,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Fixed
 
 - Fix UI issues in RTL Mode
+
+## [1.2.1] - 2025-10-12
+
+### Fixed
+
+- Fix converted time display
