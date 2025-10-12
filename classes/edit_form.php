@@ -29,7 +29,6 @@ use MoodleQuickForm;
  * @property-read \block_timezoneclock $block
  */
 class edit_form extends block_edit_form {
-
     /**
      * Define block specific form elements
      *
@@ -39,22 +38,35 @@ class edit_form extends block_edit_form {
     public function specific_definition($mform) {
         global $PAGE, $USER;
 
-        $mform->addElement('text', 'config_title', get_string('configtitle', 'block_timezoneclock'),
-                ['placeholder' => get_string('configtitle_placeholder', 'block_timezoneclock')]);
+        $mform->addElement(
+            'text',
+            'config_title',
+            get_string('configtitle', 'block_timezoneclock'),
+            ['placeholder' => get_string('configtitle_placeholder', 'block_timezoneclock')]
+        );
         $mform->setType('config_title', PARAM_TEXT);
 
-        $mform->addElement('select', 'config_clocktype', get_string('clocktype', 'block_timezoneclock'),
-                util::get_clocktypes());
+        $mform->addElement(
+            'select',
+            'config_clocktype',
+            get_string('clocktype', 'block_timezoneclock'),
+            util::get_clocktypes()
+        );
         $mform->setType('config_clocktype', PARAM_ALPHA);
         $mform->setDefault('config_clocktype', get_config('block_timezoneclock', 'clocktype'));
 
         $choices = core_date::get_list_of_timezones($USER->timezone, true);
-        $mform->addElement('select', 'config_timezone', get_string('preferred_timezones', 'block_timezoneclock'), $choices,
-            ['multiple' => true, 'data-selectenhanced' => 1]);
+        $mform->addElement(
+            'select',
+            'config_timezone',
+            get_string('preferred_timezones', 'block_timezoneclock'),
+            $choices,
+            ['multiple' => true, 'data-selectenhanced' => 1]
+        );
         $mform->setType('timezone', PARAM_TIMEZONE);
 
         $allcharacterstring = join('', array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']));
-        $regex = '/^(?!.*\b(['.$allcharacterstring.'])\b.*\b\1\b)['.$allcharacterstring.'\/:,\-\s]+$/';
+        $regex = '/^(?!.*\b([' . $allcharacterstring . '])\b.*\b\1\b)[' . $allcharacterstring . '\/:,\-\s]+$/';
         $mform->addElement('text', 'config_datetimeformat', get_string('datetimeformat', 'block_timezoneclock'));
         $mform->setType('config_datetimeformat', PARAM_TEXT);
         $mform->setDefault('config_datetimeformat', util::DEFAULTFORMAT);
@@ -81,5 +93,4 @@ class edit_form extends block_edit_form {
         }
         return $data;
     }
-
 }

@@ -26,7 +26,6 @@ use lang_string;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class util {
-
     /**
      * @var array List of supported date time characters
      */
@@ -57,5 +56,4 @@ class util {
             static::TYPEANALOG => new lang_string('typeanalog', 'block_timezoneclock'),
         ];
     }
-
 }

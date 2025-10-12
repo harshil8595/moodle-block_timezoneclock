@@ -25,7 +25,6 @@ use block_timezoneclock\util;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_timezoneclock extends block_base {
-
     /**
      * Initialize block and set block's title
      *
@@ -87,7 +86,7 @@ class block_timezoneclock extends block_base {
 
         $mainblock = new block_timezoneclock\output\main($this);
 
-        $this->content = new stdClass;
+        $this->content = new stdClass();
         $this->content->text = $OUTPUT->render($mainblock);
         $this->content->footer = '';
 
@@ -130,10 +129,10 @@ class block_timezoneclock extends block_base {
 
         $timeunits = [];
         $namedfractions = $fractions = [];
-        $pattern = '/('.join('|', $allcharacters).')/'; // Supported format characters.
+        $pattern = '/(' . join('|', $allcharacters) . ')/'; // Supported format characters.
 
         // Split format string into tokens (format parts and separators).
-        preg_match_all('/('.join('|', $allcharacters).'|[^'.join('', $allcharacters).']+)/', $format, $matches);
+        preg_match_all('/(' . join('|', $allcharacters) . '|[^' . join('', $allcharacters) . ']+)/', $format, $matches);
 
         if (!$showtime) {
             $matches[0] = array_unique(
@@ -212,5 +211,4 @@ class block_timezoneclock extends block_base {
         }
         return $format;
     }
-
 }

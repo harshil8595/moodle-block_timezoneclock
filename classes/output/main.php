@@ -34,7 +34,6 @@ use templatable;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class main implements renderable, templatable {
-
     /**
      * @var block_timezoneclock
      */
@@ -56,7 +55,7 @@ class main implements renderable, templatable {
      * @return void
      */
     public function export_for_template(renderer_base $output) {
-        $context = new stdClass;
+        $context = new stdClass();
         $context->dateformat = $this->block->get_format();
         $context->isanalog = $this->block->is_analog();
         $context->formclass = FormConverter::class;
@@ -94,5 +93,4 @@ class main implements renderable, templatable {
 
         return $context;
     }
-
 }

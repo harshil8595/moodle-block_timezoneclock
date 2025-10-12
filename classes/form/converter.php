@@ -33,7 +33,6 @@ use moodle_url;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class converter extends dynamic_form {
-
     /**
      * User's timezone
      *
@@ -73,28 +72,53 @@ class converter extends dynamic_form {
             $timezoneoptions += [$usertimezone => get_string('timezoneuser', 'block_timezoneclock', $usertimezone)];
         }
         $timezoneoptions += $timezonelist;
-        $mform->addElement('select', 'timezone', get_string('fromtimezone', 'block_timezoneclock'), $timezoneoptions,
-            ['data-selectenhanced' => 1]);
+        $mform->addElement(
+            'select',
+            'timezone',
+            get_string('fromtimezone', 'block_timezoneclock'),
+            $timezoneoptions,
+            ['data-selectenhanced' => 1]
+        );
         $mform->setType('timezone', PARAM_TIMEZONE);
 
         $servertimezonelist = core_date::get_list_of_timezones($USER->timezone, true);
-        $mform->addElement('select', 'timezones', get_string('totimezones', 'block_timezoneclock'), $servertimezonelist,
-            ['multiple' => true, 'data-selectenhanced' => 1]);
+        $mform->addElement(
+            'select',
+            'timezones',
+            get_string('totimezones', 'block_timezoneclock'),
+            $servertimezonelist,
+            ['multiple' => true, 'data-selectenhanced' => 1]
+        );
         $mform->setType('timezones', PARAM_NOTAGS);
 
-        $groupels[] = $mform->createElement('date_time_selector', 'selectedstamp', get_string('datestamp', 'block_timezoneclock'),
-            ['optional' => true, 'timezone' => $this->optional_param('timezone', $usertimezone, PARAM_NOTAGS)]);
+        $groupels[] = $mform->createElement(
+            'date_time_selector',
+            'selectedstamp',
+            get_string('datestamp', 'block_timezoneclock'),
+            ['optional' => true, 'timezone' => $this->optional_param('timezone', $usertimezone, PARAM_NOTAGS)]
+        );
         $mform->setType('selectedstamp', PARAM_INT);
 
-        $groupels[] = $mform->createElement('advcheckbox', 'toggletimestamp', null,
-            html_writer::span($OUTPUT->pix_icon('checked', null, 'block_timezoneclock').
-            $OUTPUT->pix_icon('unchecked', null, 'block_timezoneclock', ['class' => 'font-weight-light']), null,
-            ['title' => get_string('toggletimeinput', 'block_timezoneclock'), 'data-toggle' => 'tooltip']));
+        $groupels[] = $mform->createElement(
+            'advcheckbox',
+            'toggletimestamp',
+            null,
+            html_writer::span(
+                $OUTPUT->pix_icon('checked', null, 'block_timezoneclock') .
+                $OUTPUT->pix_icon('unchecked', null, 'block_timezoneclock', ['class' => 'font-weight-light']),
+                null,
+                ['title' => get_string('toggletimeinput', 'block_timezoneclock'), 'data-toggle' => 'tooltip']
+            )
+        );
         $mform->setType('toggletimestamp', PARAM_INT);
 
-        $groupels[] = $mform->createElement('text', 'timestamp', get_string('timestamp', 'block_timezoneclock'),
-            'size="10" maxlength="10" minlength="10" pattern="[0-9]{10}" '.
-            'placeholder="' . get_string('timestamp_placeholder', 'block_timezoneclock') . '"');
+        $groupels[] = $mform->createElement(
+            'text',
+            'timestamp',
+            get_string('timestamp', 'block_timezoneclock'),
+            'size="10" maxlength="10" minlength="10" pattern="[0-9]{10}" ' .
+            'placeholder="' . get_string('timestamp_placeholder', 'block_timezoneclock') . '"'
+        );
         $mform->setType('timestamp', PARAM_INT);
 
         $mform->addGroup($groupels, 'timeinput', get_string('datestamp', 'block_timezoneclock'), null, false);
@@ -234,5 +258,4 @@ class converter extends dynamic_form {
         }
         return self::$usertimezone;
     }
-
 }

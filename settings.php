@@ -24,11 +24,15 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-
     $name = 'block_timezoneclock/clocktype';
     $title = get_string('clocktype', 'block_timezoneclock');
     $description = get_string('clocktype_desc', 'block_timezoneclock');
-    $setting = new admin_setting_configselect($name, $title, $description,
-        block_timezoneclock\util::TYPEDIGITAL, block_timezoneclock\util::get_clocktypes());
+    $setting = new admin_setting_configselect(
+        $name,
+        $title,
+        $description,
+        block_timezoneclock\util::TYPEDIGITAL,
+        block_timezoneclock\util::get_clocktypes()
+    );
     $settings->add($setting);
 }
