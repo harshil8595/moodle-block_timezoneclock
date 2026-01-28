@@ -279,6 +279,10 @@
     gap: 0.5rem;
 }
 
+.tzinformation [data-action="replaceusertimezone"] {
+    visibility: hidden;
+}
+
 .tzinformation [data-action="replacecomputertimezone"] {
     visibility: hidden;
 }

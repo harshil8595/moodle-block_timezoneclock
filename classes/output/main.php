@@ -72,15 +72,17 @@ class main implements renderable, templatable {
             $context->dateformat,
             !$context->isanalog
         );
-        // TODO replace serverlabel?
-        $context->information['moodle']['timezone'] = get_string('tzinformation:serverlabel', 'block_timezoneclock');
+        $context->information['moodle']['timezone'] = get_string('tzinformation:moodlelabel', 'block_timezoneclock');
 
-        // TODO change to user
-        $context->information['server'] = array_merge(
+        $context->information['user'] = array_merge(
             $context->information['moodle'],
-            // TODO replace serverlabel
-            ['timezone' => get_string('tzinformation:serverlabel', 'block_timezoneclock')]
+            ['timezone' => get_string('tzinformation:userlabel', 'block_timezoneclock')]
         );
+
+        $context->information['user']['attributes'] = [[
+            'name' => 'data-action',
+            'value' => 'replaceusertimezone',
+        ]];
 
         $context->information['computer'] = array_merge(
             $context->information['moodle'],
