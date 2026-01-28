@@ -151,6 +151,8 @@ export const initBlock = (dateFormat) => {
             makeSelectEnhanced(e.detail.nodes);
         });
     }
+
+    // Replace the computer timezone
     const replacecomputertznode = document.querySelector('[data-action="replacecomputertimezone"]');
     if (replacecomputertznode) {
         const computrertz = Intl.DateTimeFormat().resolvedOptions().timeZone;

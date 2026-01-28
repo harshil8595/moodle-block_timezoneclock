@@ -68,21 +68,19 @@ class main implements renderable, templatable {
         );
         $context->blockautoupdate = false;
         $context->information['moodle'] = block_timezoneclock::dateinfo(
-            core_date::get_user_timezone(),
+            core_date::get_server_timezone_object()->getName(),
+            // core_date::get_user_timezone(),
             $context->dateformat,
             !$context->isanalog
         );
         $context->information['moodle']['timezone'] = get_string('tzinformation:moodlelabel', 'block_timezoneclock');
 
-        $context->information['user'] = array_merge(
-            $context->information['moodle'],
-            ['timezone' => get_string('tzinformation:userlabel', 'block_timezoneclock')]
+        $context->information['user'] = block_timezoneclock::dateinfo(
+            core_date::get_user_timezone(),
+            $context->dateformat,
+            !$context->isanalog
         );
-
-        $context->information['user']['attributes'] = [[
-            'name' => 'data-action',
-            'value' => 'replaceusertimezone',
-        ]];
+        $context->information['user']['timezone'] = get_string('tzinformation:userlabel', 'block_timezoneclock');
 
         $context->information['computer'] = array_merge(
             $context->information['moodle'],
