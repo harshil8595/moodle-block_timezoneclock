@@ -389,6 +389,9 @@
             <fieldset class="clearfix collapsible">
                 {{> core_form/element-header }}
                 <div class="tzinformation w-100">
+                    {{#moodle}}
+                        {{>block_timezoneclock/clock}}
+                    {{/moodle}}
                     {{#server}}
                         {{>block_timezoneclock/clock}}
                     {{/server}}
