@@ -66,7 +66,7 @@ class edit_form extends block_edit_form {
         $mform->setType('timezone', PARAM_TIMEZONE);
 
         $allcharacterstring = join('', array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']));
-        $regex = '/^(?!.*\b([' . $allcharacterstring . '])\b.*\b\1\b)[' . $allcharacterstring . '\/:,\-\s]+$/';
+        $regex = '/^[' . $allcharacterstring . '\\/:,\-\s]+$/';
         $mform->addElement('text', 'config_datetimeformat', get_string('datetimeformat', 'block_timezoneclock'));
         $mform->setType('config_datetimeformat', PARAM_TEXT);
         $mform->setDefault('config_datetimeformat', util::DEFAULTFORMAT);
