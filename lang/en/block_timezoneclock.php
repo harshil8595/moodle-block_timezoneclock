@@ -139,8 +139,7 @@ $string['toggletimeinput_checkicons'] = '<i class="fa-regular fa-square-check"><
 $string['totimezones'] = 'To Timezones';
 $string['typeanalog'] = 'Analogue';
 $string['typedigital'] = 'Digital';
-$string['tzinformation:moodlelabel'] = 'Moodle';
-$string['tzinformation:userlabel'] = 'User';
 $string['tzinformation:computerlabel'] = '💻 Your device';
-$string['tzinformation:title'] = 'Moodle default';
-$string['yourtimezone'] = '📆 Your user (calendar/events)';
+$string['tzinformation:serverlabel'] = 'Server';
+$string['tzinformation:title'] = 'Clock';
+$string['tzinformation:userlabel'] = 'User';
