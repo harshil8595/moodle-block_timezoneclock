@@ -65,6 +65,8 @@ class converter extends dynamic_form {
         $mform->addElement('header', 'formheader', get_string('timezoneconveter', 'block_timezoneclock'));
         $mform->setExpanded('formheader', NO_MOODLE_COOKIES);
 
+        $mform->addElement('html', '<div class="choices-js-wrapper">');
+
         $usertimezone = self::get_usertimezone();
         $timezonelist = core_date::get_list_of_timezones();
         $timezoneoptions = ['GMT' => core_date::get_localised_timezone('GMT')];
@@ -90,6 +92,8 @@ class converter extends dynamic_form {
             ['multiple' => true, 'data-selectenhanced' => 1]
         );
         $mform->setType('timezones', PARAM_NOTAGS);
+
+        $mform->addElement('html', '</div>');
 
         $groupels[] = $mform->createElement(
             'date_time_selector',

@@ -128,15 +128,12 @@ const updateTime = (dateFormat) => {
 
 export const makeSelectEnhanced = (parentNode = document) => {
     require(['theme_boost/index',
-        `${M.cfg.wwwroot}/blocks/timezoneclock/tom-select/js/tom-select.complete.min.js`], (_, TomSelect) => {
+        `${M.cfg.wwwroot}/blocks/timezoneclock/choices/assets/scripts/choices.min.js`], (_, Choices) => {
         [].concat(parentNode).forEach(pNode => {
             const $spnodes = pNode.querySelectorAll('[data-selectenhanced="1"]');
             $spnodes.forEach(node => {
                 node.classList.remove('custom-select');
-                new TomSelect(node, {
-                    openOnFocus: true, maxOptions: null,
-                    plugins: [],
-                });
+                new Choices(node);
             });
         });
     });
@@ -151,8 +148,6 @@ export const initBlock = (dateFormat) => {
             makeSelectEnhanced(e.detail.nodes);
         });
     }
-
-    // Replace the computer timezone
     const replacecomputertznode = document.querySelector('[data-action="replacecomputertimezone"]');
     if (replacecomputertznode) {
         const computrertz = Intl.DateTimeFormat().resolvedOptions().timeZone;

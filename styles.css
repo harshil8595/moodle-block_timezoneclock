@@ -291,3 +291,11 @@ html[dir="rtl"] .block_timezoneclock .clockwrap .digitalclock {
 html[dir="rtl"] .block_timezoneclock .clockwrap .analogclock .clock__axis {
     transform: translateX(6px) translateY(-6px);
 }
+
+.choices-js-wrapper .choices {
+    width: 100%;
+}
+
+.choices-js-wrapper [data-selectenhanced="1"] {
+    visibility: hidden;
+}

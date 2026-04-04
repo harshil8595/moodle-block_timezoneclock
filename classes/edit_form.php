@@ -55,6 +55,8 @@ class edit_form extends block_edit_form {
         $mform->setType('config_clocktype', PARAM_ALPHA);
         $mform->setDefault('config_clocktype', get_config('block_timezoneclock', 'clocktype'));
 
+        $mform->addElement('html', '<div class="choices-js-wrapper">');
+
         $choices = core_date::get_list_of_timezones($USER->timezone, true);
         $mform->addElement(
             'select',
@@ -64,6 +66,8 @@ class edit_form extends block_edit_form {
             ['multiple' => true, 'data-selectenhanced' => 1]
         );
         $mform->setType('timezone', PARAM_TIMEZONE);
+
+        $mform->addElement('html', '</div>');
 
         $allcharacterstring = join('', array_merge(util::SUPPORTEDCHARS['date'], util::SUPPORTEDCHARS['time']));
         $regex = '/^[' . $allcharacterstring . '\\/:,\-\s]+$/';

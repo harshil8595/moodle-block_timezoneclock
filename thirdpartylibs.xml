@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>tom-select</location>
-        <name>tom-select</name>
-        <description>Tom Select is a lightweight (~16kb gzipped) hybrid of a textbox and select box. Forked from selectize.js to provide a framework agnostic autocomplete widget with native-feeling keyboard navigation. Useful for tagging, contact lists, etc.</description>
-        <description>Tom Select is a lightweight (~16kb gzipped) hybrid of a textbox and select box. Forked from selectize.js to provide a framework agnostic autocomplete widget with native-feeling keyboard navigation. Useful for tagging, contact lists, etc.</description>
-        <version>2.4.3</version>
-        <license>Apache</license>
-        <licenseversion>2.0</licenseversion>
-        <repository>https://github.com/orchidjs/tom-select/</repository>
+        <location>choices</location>
+        <name>choices.js</name>
+        <description>A vanilla JS customisable text input/select box plugin.</description>
+        <version>11.2.1</version>
+        <license>MIT</license>
+        <licenseversion></licenseversion>
+        <repository>https://github.com/Choices-js/Choices</repository>
     </library>
 </libraries>

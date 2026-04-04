@@ -90,9 +90,7 @@ class block_timezoneclock extends block_base {
         $this->content->text = $OUTPUT->render($mainblock);
         $this->content->footer = '';
 
-        // Load library css file for correct bootstrap version.
-        $bsversion = version_compare(moodle_major_version(), '5', '<') ? '4' : '5';
-        $cssurl = new moodle_url("/blocks/timezoneclock/tom-select/css/tom-select.bootstrap{$bsversion}.min.css");
+        $cssurl = new moodle_url('/blocks/timezoneclock/choices/assets/styles/choices.min.css');
         $cssurl->param('rev', $CFG->themerev);
         $this->page->requires->css($cssurl);
 
