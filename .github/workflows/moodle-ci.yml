@@ -1,6 +1,7 @@
 name: Moodle Plugin CI
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -69,6 +70,10 @@ jobs:
             extensions: xmlrpc-beta
           - php: '8.4'
             moodle-branch: 'MOODLE_501_STABLE'
+            database: pgsql
+            extensions: xmlrpc-beta
+          - php: '8.4'
+            moodle-branch: 'MOODLE_502_STABLE'
             database: pgsql
             extensions: xmlrpc-beta
 

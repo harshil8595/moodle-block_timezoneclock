@@ -84,3 +84,13 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Fixed
 
 - Fix converted time display
+
+## [1.2.2] - 2025-04-05
+
+### Added
+
+- Added user profile timezone in clock section
+
+### Changed
+
+- Allow to repeat date and time identifier in datetime format
