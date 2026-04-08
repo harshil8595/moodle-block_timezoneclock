@@ -213,7 +213,7 @@ class block_timezoneclock extends block_base {
     /**
      * Get show server time
      *
-     * @return string
+     * @return bool
      */
     public function get_showservertime(): bool {
         $showserver = $this->config->showservertime ?? util::DEFAULTSHOWSERVER;
@@ -223,7 +223,7 @@ class block_timezoneclock extends block_base {
     /**
      * Get show user time
      *
-     * @return string
+     * @return bool
      */
     public function get_showusertime(): bool {
         $showuser = $this->config->showusertime ?? util::DEFAULTSHOWUSER;
@@ -233,7 +233,7 @@ class block_timezoneclock extends block_base {
     /**
      * Get show device time
      *
-     * @return string
+     * @return bool
      */
     public function get_showdevicetime(): bool {
         $showdevice = $this->config->showdevicetime ?? util::DEFAULTSHOWDEVICE;
