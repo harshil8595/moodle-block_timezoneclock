@@ -58,6 +58,9 @@ class main implements renderable, templatable {
         $context = new stdClass();
         $context->dateformat = $this->block->get_format();
         $context->isanalog = $this->block->is_analog();
+        $context->showserver = $this->block->get_showservertime();
+        $context->showuser = $this->block->get_showusertime();
+        $context->showdevice = $this->block->get_showdevicetime();
         $context->formclass = FormConverter::class;
         $context->userloggedin = isloggedin();
         $context->blockcontextid = $this->block->context->id;
@@ -98,6 +101,9 @@ class main implements renderable, templatable {
             'collapsed' => false,
             'helpbutton' => null,
         ];
+
+        if (!($context->showserver || $context->showuser || $context->showdevice))
+            $context->information = [];
 
         return $context;
     }

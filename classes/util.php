@@ -45,6 +45,15 @@ class util {
     /** @var string */
     const TYPEANALOG = 'analog';
 
+    /** @var bool */
+    const DEFAULTSHOWSERVER = true;
+
+    /** @var bool */
+    const DEFAULTSHOWUSER = true;
+
+    /** @var bool */
+    const DEFAULTSHOWDEVICE = false;
+
     /**
      * Get clock types
      *

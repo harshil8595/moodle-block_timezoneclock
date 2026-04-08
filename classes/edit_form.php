@@ -17,6 +17,7 @@
 namespace block_timezoneclock;
 
 use block_edit_form;
+use block_timeline;
 use core_date;
 use MoodleQuickForm;
 
@@ -76,6 +77,16 @@ class edit_form extends block_edit_form {
         $mform->setDefault('config_datetimeformat', util::DEFAULTFORMAT);
         $mform->addHelpButton('config_datetimeformat', 'datetimeformat', 'block_timezoneclock');
         $mform->addRule('config_datetimeformat', get_string('invalid_datetimeformat', 'block_timezoneclock'), 'regex', $regex);
+
+        /** @var string $checkboxprompt */
+        $checkboxprompt = get_string('timedisplayprompt', 'block_timezoneclock');
+
+        $mform->addElement('advcheckbox', 'config_showservertime', get_string('servertimecheckbox', 'block_timezoneclock'), $checkboxprompt, null, array(false, true));
+        $mform->setDefault('config_showservertime', util::DEFAULTSHOWSERVER);
+        $mform->addElement('advcheckbox', 'config_showusertime', get_string('usertimecheckbox', 'block_timezoneclock'), $checkboxprompt, null, array(false, true));
+        $mform->setDefault('config_showusertime', util::DEFAULTSHOWUSER);
+        $mform->addElement('advcheckbox', 'config_showdevicetime', get_string('devicetimecheckbox', 'block_timezoneclock'), $checkboxprompt, null, array(false, true));
+        $mform->setDefault('config_showdevicetime', util::DEFAULTSHOWDEVICE);
 
         $PAGE->requires->js_call_amd('block_timezoneclock/main', 'makeSelectEnhanced');
     }

@@ -480,15 +480,15 @@
             <fieldset class="clearfix collapsible">
                 {{> core_form/element-header }}
                 <div class="tzinformation w-100">
-                    {{#server}}
+                    {{#showserver}} {{#server}}
                         {{>block_timezoneclock/clock}}
-                    {{/server}}
-                    {{#user}}
+                    {{/server}} {{/showserver}}
+                    {{#showuser}} {{#user}}
                         {{>block_timezoneclock/clock}}
-                    {{/user}}
-                    {{#computer}}
+                    {{/user}} {{/showuser}}
+                    {{#showdevice}} {{#computer}}
                         {{>block_timezoneclock/clock}}
-                    {{/computer}}
+                    {{/computer}} {{/showdevice}}
                 </div>
                 </div><!-- this line needed as div started in header template -->
             </fieldset>

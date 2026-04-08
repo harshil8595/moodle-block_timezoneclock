@@ -209,4 +209,34 @@ class block_timezoneclock extends block_base {
         }
         return $format;
     }
+
+    /**
+     * Get show server time
+     *
+     * @return string
+     */
+    public function get_showservertime(): bool {
+        $showserver = $this->config->showservertime ?? util::DEFAULTSHOWSERVER;
+        return $showserver;
+    }
+
+    /**
+     * Get show user time
+     *
+     * @return string
+     */
+    public function get_showusertime(): bool {
+        $showuser = $this->config->showusertime ?? util::DEFAULTSHOWUSER;
+        return $showuser;
+    }
+
+    /**
+     * Get show device time
+     *
+     * @return string
+     */
+    public function get_showdevicetime(): bool {
+        $showdevice = $this->config->showdevicetime ?? util::DEFAULTSHOWDEVICE;
+        return $showdevice;
+    }
 }

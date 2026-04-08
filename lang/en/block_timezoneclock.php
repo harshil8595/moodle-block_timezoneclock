@@ -139,6 +139,10 @@ $string['toggletimeinput_checkicons'] = '<i class="fa-regular fa-square-check"><
 $string['totimezones'] = 'To Timezones';
 $string['typeanalog'] = 'Analogue';
 $string['typedigital'] = 'Digital';
+$string['servertimecheckbox'] = 'Server time';
+$string['usertimecheckbox'] = 'User time';
+$string['devicetimecheckbox'] = 'Device time';
+$string['timedisplayprompt'] = 'Display';
 $string['tzinformation:computerlabel'] = '💻 Your device';
 $string['tzinformation:serverlabel'] = 'Server';
 $string['tzinformation:title'] = 'Clock';
