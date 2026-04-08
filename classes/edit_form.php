@@ -17,7 +17,6 @@
 namespace block_timezoneclock;
 
 use block_edit_form;
-use block_timeline;
 use core_date;
 use MoodleQuickForm;
 
