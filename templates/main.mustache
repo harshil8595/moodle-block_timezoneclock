@@ -483,11 +483,9 @@
                     {{#server}}
                         {{>block_timezoneclock/clock}}
                     {{/server}}
-                    {{#userloggedin}}
                     {{#user}}
                         {{>block_timezoneclock/clock}}
                     {{/user}}
-                    {{/userloggedin}}
                     {{#computer}}
                         {{>block_timezoneclock/clock}}
                     {{/computer}}
@@ -499,17 +497,16 @@
     {{/information}}
     {{#userloggedin}}
     <div class="converterform" id="{{formuniqid}}" data-form-class="{{{formclass}}}"{{!
-    }}data-user-loggedin="1" data-contextid="{{{ blockcontextid }}}"></div>
-    <div class="timezoneslist">
-            {{> block_timezoneclock/timezones }}
+    }} data-user-loggedin="1" data-contextid="{{{ blockcontextid }}}">
     </div>
     {{/userloggedin}}
+    <div class="timezoneslist">
+        {{> block_timezoneclock/timezones }}
+    </div>
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
         amd.initBlock('{{{dateformat}}}');
-        {{#userloggedin}}
         amd.registerForm('{{formuniqid}}', '{{{dateformat}}}');
-        {{/userloggedin}}
     });
 {{/js}}
