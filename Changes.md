@@ -94,3 +94,9 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Changed
 
 - Allow to repeat date and time identifier in datetime format
+
+## [1.2.3] - 2026-06-21
+
+### Fixed
+
+- Fix forcing login if block added on site home page
