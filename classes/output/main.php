@@ -99,6 +99,10 @@ class main implements renderable, templatable {
             'helpbutton' => null,
         ];
 
+        if (!$context->userloggedin) {
+            unset($context->information['user']);
+        }
+
         return $context;
     }
 }
