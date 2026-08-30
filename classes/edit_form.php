@@ -18,6 +18,7 @@ namespace block_timezoneclock;
 
 use block_edit_form;
 use core_date;
+use moodle_url;
 use MoodleQuickForm;
 
 /**
@@ -36,7 +37,7 @@ class edit_form extends block_edit_form {
      * @return void
      */
     public function specific_definition($mform) {
-        global $PAGE, $USER;
+        global $CFG, $PAGE, $USER;
 
         $mform->addElement(
             'text',
@@ -77,6 +78,9 @@ class edit_form extends block_edit_form {
         $mform->addHelpButton('config_datetimeformat', 'datetimeformat', 'block_timezoneclock');
         $mform->addRule('config_datetimeformat', get_string('invalid_datetimeformat', 'block_timezoneclock'), 'regex', $regex);
 
+        $cssurl = new moodle_url('/blocks/timezoneclock/choices/assets/styles/choices.min.css');
+        $cssurl->param('rev', $CFG->themerev);
+        $PAGE->requires->css($cssurl);
         $PAGE->requires->js_call_amd('block_timezoneclock/main', 'makeSelectEnhanced');
     }
 
