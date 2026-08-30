@@ -39,7 +39,16 @@ function block_timezoneclock_get_fontawesome_icon_map() {
     ];
 }
 
-function block_timezoneclock_myprofile_navigation(\core_user\output\myprofile\tree $tree, $user, $iscurrentuser) {
+/**
+ * Add nodes to myprofile page.
+ *
+ * @param \core_user\output\myprofile\tree $tree Tree object
+ * @param stdClass $user User object
+ * @param bool $iscurrentuser
+ * @param stdClass $course Course object
+ * @return void
+ */
+function block_timezoneclock_myprofile_navigation(\core_user\output\myprofile\tree $tree, $user, $iscurrentuser, $course) {
     global $PAGE, $OUTPUT;
 
     /** @var \block_timezoneclock $block */

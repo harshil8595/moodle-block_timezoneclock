@@ -47,6 +47,7 @@ class main implements renderable, templatable {
      * Constructor
      *
      * @param block_timezoneclock $block
+     * @param object|null $user
      */
     public function __construct(block_timezoneclock $block, ?object $user = null) {
         global $USER;
