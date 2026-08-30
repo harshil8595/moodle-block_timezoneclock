@@ -17,10 +17,9 @@
 namespace block_timezoneclock\output;
 
 use block_timezoneclock;
-use block_timezoneclock\form\converter as FormConverter;
+use block_timezoneclock\form\converter as converterForm;
 use core_date;
 use html_writer;
-use lang_string;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -40,46 +39,57 @@ class main implements renderable, templatable {
     protected $block;
 
     /**
+     * @var object
+     */
+    protected $user;
+
+    /**
      * Constructor
      *
      * @param block_timezoneclock $block
      */
-    public function __construct(block_timezoneclock $block) {
+    public function __construct(block_timezoneclock $block, ?object $user = null) {
+        global $USER;
         $this->block = $block;
+        $this->user = $user ?? $USER;
     }
 
     /**
      * Generates data needed for template
      *
      * @param renderer_base $output
-     * @return void
+     * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
         $context = new stdClass();
         $context->dateformat = $this->block->get_format();
         $context->isanalog = $this->block->is_analog();
-        $context->formclass = FormConverter::class;
+        $context->formclass = converterForm::class;
         $context->userloggedin = isloggedin();
-        $context->blockcontextid = $this->block->context->id;
+        $context->blockcontextid = !empty($this->block->context) ? $this->block->context->id : SYSCONTEXTID;
         $context->indicators = range(0, MINSECS - 1);
         $context->formuniqid = html_writer::random_id('form');
         $context->additionaltimezones = $this->block->timezones(
             (array) ($this->block->config->timezone ?? [])
         );
         $context->blockautoupdate = false;
+        $usertimezone = core_date::get_user_timezone($this->user->timezone);
+        $context->information['user'] = block_timezoneclock::dateinfo(
+            $usertimezone,
+            $context->dateformat,
+            !$context->isanalog
+        );
+        $context->information['user']['timezone'] = get_string('tzinformation:userlabel', 'block_timezoneclock');
+        if ($this->block->check_showingonprofile()) {
+            $context->information['user']['timezone'] = $usertimezone;
+            return $context;
+        }
         $context->information['server'] = block_timezoneclock::dateinfo(
             core_date::get_server_timezone_object()->getName(),
             $context->dateformat,
             !$context->isanalog
         );
         $context->information['server']['timezone'] = get_string('tzinformation:serverlabel', 'block_timezoneclock');
-
-        $context->information['user'] = block_timezoneclock::dateinfo(
-            core_date::get_user_timezone(),
-            $context->dateformat,
-            !$context->isanalog
-        );
-        $context->information['user']['timezone'] = get_string('tzinformation:userlabel', 'block_timezoneclock');
 
         $context->information['computer'] = array_merge(
             $context->information['server'],

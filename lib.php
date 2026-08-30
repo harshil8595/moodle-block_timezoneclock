@@ -38,3 +38,38 @@ function block_timezoneclock_get_fontawesome_icon_map() {
         'block_timezoneclock:unchecked' => 'far fa-square-check',
     ];
 }
+
+function block_timezoneclock_myprofile_navigation(\core_user\output\myprofile\tree $tree, $user, $iscurrentuser) {
+    global $PAGE, $OUTPUT;
+
+    /** @var \block_timezoneclock $block */
+    $block = block_instance('timezoneclock', null, $PAGE);
+    if ($block->check_hiddenonprofile()) {
+        return;
+    }
+    $block->set_showingonprofile(true);
+
+    $widget = new block_timezoneclock\output\main($block, $user);
+    $template = $OUTPUT->render_from_template(
+        'block_timezoneclock/profileclock',
+        $widget->export_for_template($OUTPUT)
+    );
+
+    $clockcategory = new core_user\output\myprofile\category(
+        'timezoneclock',
+        get_string('clock', 'block_timezoneclock'),
+        null,
+        'block_timezoneclock'
+    );
+    $tree->add_category($clockcategory);
+
+    $node = new core_user\output\myprofile\node(
+        'timezoneclock',
+        'userclock',
+        null,
+        null,
+        null,
+        $template
+    );
+    $tree->add_node($node);
+}

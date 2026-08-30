@@ -35,4 +35,19 @@ if ($ADMIN->fulltree) {
         block_timezoneclock\util::get_clocktypes()
     );
     $settings->add($setting);
+
+    $name = 'block_timezoneclock/profileclocktype';
+    $title = get_string('profileclocktype', 'block_timezoneclock');
+    $description = get_string('profileclocktype_desc', 'block_timezoneclock');
+    $setting = new admin_setting_configselect(
+        $name,
+        $title,
+        $description,
+        block_timezoneclock\util::TYPEANALOG,
+        array_merge(
+            ['hidden' => get_string('hidden', 'block_timezoneclock')],
+            block_timezoneclock\util::get_clocktypes()
+        )
+    );
+    $settings->add($setting);
 }

@@ -24,6 +24,7 @@
 
 $string['additionaltimezones'] = 'Timezones';
 $string['addtimezone'] = 'Add {no} timezone(s) to form';
+$string['clock'] = 'Clock';
 $string['clocktype'] = 'Clock type';
 $string['clocktype_desc'] = 'Default clock type i.e, digital or analogue';
 $string['configtitle'] = 'Block title';
@@ -120,11 +121,14 @@ $string['datetimeformat_help'] = '<table class="generaltable table-sm">
 </table>';
 $string['entervalidtimestamp'] = 'Enter valid unix stamp';
 $string['fromtimezone'] = 'From timezone';
+$string['hidden'] = 'Hidden';
 $string['invalid_datetimeformat'] = 'Invalid date format defined. See help for valid tokens. Extra characters ",", "/", ":", "-" or space allowed as seperator.';
 $string['pagetitle:converter'] = 'Timezone Converter';
 $string['pluginname'] = 'Timezone clock';
 $string['preferred_timezones'] = 'Preferred Timezones';
 $string['privacy:metadata'] = 'The timezone clock block only shows data stored in other locations.';
+$string['profileclocktype'] = 'User Profile Clock type';
+$string['profileclocktype_desc'] = 'Default clock type to show on user profile i.e, digital or analogue';
 $string['timestamp'] = 'Unix stamp';
 $string['timestamp_placeholder'] = 'Input unixstamp';
 $string['timestampnotentered'] = 'Either you have to enter unix Stamp Or select time';

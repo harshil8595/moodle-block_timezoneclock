@@ -26,6 +26,11 @@ use block_timezoneclock\util;
  */
 class block_timezoneclock extends block_base {
     /**
+     * Checks if block is shown in user profile navigation.
+     */
+    private bool $showingonprofile = false;
+
+    /**
      * Initialize block and set block's title
      *
      * @return void
@@ -190,7 +195,8 @@ class block_timezoneclock extends block_base {
      * @return bool
      */
     public function is_analog(): bool {
-        $clocktype = get_config('block_timezoneclock', 'clocktype');
+        $settingkey = $this->check_showingonprofile() ? 'profileclocktype' : 'clocktype';
+        $clocktype = get_config('block_timezoneclock', $settingkey);
         if (!empty($this->config->clocktype)) {
             $clocktype = $this->config->clocktype;
         }
@@ -208,5 +214,33 @@ class block_timezoneclock extends block_base {
             $format = util::DEFAULTFORMAT;
         }
         return $format;
+    }
+
+    /**
+     * Sets whether the block is showing on user profile.
+     *
+     * @param bool $showingonprofile
+     * @return void
+     */
+    public function set_showingonprofile(bool $showingonprofile = false): void {
+        $this->showingonprofile = $showingonprofile;
+    }
+
+    /**
+     * Checks if the block is showing on user profile.
+     *
+     * @return bool
+     */
+    public function check_showingonprofile(): bool {
+        return $this->showingonprofile;
+    }
+
+    /**
+     * Checks if the block is hidden on user profile.
+     *
+     * @return bool
+     */
+    public function check_hiddenonprofile(): bool {
+        return get_config('block_timezoneclock', 'profileclocktype') === 'hidden';
     }
 }
