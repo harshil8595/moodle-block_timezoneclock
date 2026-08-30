@@ -80,6 +80,7 @@ class main implements renderable, templatable {
             $context->dateformat,
             !$context->isanalog
         );
+        $context->information['user']['defaultselected'] = true;
         $context->information['user']['timezone'] = get_string('tzinformation:userlabel', 'block_timezoneclock');
         if ($this->block->check_showingonprofile()) {
             $context->information['user']['timezone'] = $usertimezone;

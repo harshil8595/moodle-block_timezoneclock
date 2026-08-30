@@ -124,7 +124,10 @@
         ]
     }
 }}
-<div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}{{#attributes}} {{name}}="{{value}}" {{/attributes}}>
+<div class="position-relative clockwrap" data-region="clock" data-timezone="{{tz}}"{{!
+}}{{#defaultselected}} data-defaultselected="true"{{/defaultselected}}{{!
+}}{{#blockautoupdate}} data-autoupdate="false"{{/blockautoupdate}}{{!
+}}{{#attributes}} {{name}}="{{value}}" {{/attributes}}>
     <small class="position-absolute badge tztitle">{{timezone}}</small>
     {{#isanalog}}
         <div class="clock analogclock">

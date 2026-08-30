@@ -473,7 +473,7 @@
         }
     }
 }}
-<div class="blockwrapper"{{#isanalog}} data-isanalog="1"{{/isanalog}}>
+<div id="blockwrppaer-{{{uniqid}}}" class="blockwrapper"{{#isanalog}} data-isanalog="1"{{/isanalog}}>
     {{#information}}
     <div class="tzinformationwrapper">
         {{#toggler}}
@@ -506,7 +506,7 @@
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
-        amd.initBlock('{{{dateformat}}}');
+        amd.initBlock('{{{dateformat}}}', 'blockwrppaer-{{{uniqid}}}');
         amd.registerForm('{{formuniqid}}', '{{{dateformat}}}');
     });
 {{/js}}

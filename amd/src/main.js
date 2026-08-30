@@ -139,7 +139,7 @@ export const makeSelectEnhanced = (parentNode = document) => {
     });
 };
 
-export const initBlock = (dateFormat) => {
+export const initBlock = (dateFormat, blockwrappaerhtmlid) => {
     const d = new Date();
     setTimeout(() => updateTime(dateFormat), 1000 - d.getMilliseconds());
     if (!select2registered) {
@@ -217,6 +217,9 @@ export const initBlock = (dateFormat) => {
                 });
             }
         });
+    }
+    if (blockwrappaerhtmlid) {
+        document.querySelector(`#${blockwrappaerhtmlid} [data-defaultselected="true"]`)?.click();
     }
 };
 
