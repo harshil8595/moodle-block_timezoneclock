@@ -242,6 +242,7 @@ class block_timezoneclock extends block_base {
      * @return bool
      */
     public function check_hiddenonprofile(): bool {
-        return get_config('block_timezoneclock', 'profileclocktype') === 'hidden';
+        $configprofileclocktype = get_config('block_timezoneclock', 'profileclocktype');
+        return empty($configprofileclocktype) || $configprofileclocktype === 'hidden';
     }
 }
