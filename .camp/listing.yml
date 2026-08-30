@@ -1,0 +1,18 @@
+name: Timezone clock
+summary: Moodle block plugin for viewing/converting time accross different timezones.
+description: |
+  This plugin helpful for tutors, learners and administrators to convert between timezones.
+  Features
+
+  - Clock Section: Displays the current time in both the user's device and the server's timezone better clarity.
+  - Timezone Converter: Easily convert any date and time from one timezone to another, making scheduling and global collaboration seamless.
+  - Watch Face Options: Choose between analog and digital watch displays to match your style or interface preferences.
+  - Custom Date & Time Format: Define your preferred date and time format for personalized and region-specific display.
+  - Supports RTL (Right-to-Left) languages: Fully compatible with RTL languages such as Arabic and Hebrew.
+labels:
+  - fully-free
+  - donation-supported
+links:
+  docs: https://github.com/harshil8595/moodle-block_timezoneclock#readme
+  issues: https://github.com/harshil8595/moodle-block_timezoneclock/issues
+  changelog: https://github.com/harshil8595/moodle-block_timezoneclock/releases
