@@ -100,3 +100,11 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 ### Fixed
 
 - Fix forcing login if block added on site home page
+
+## [1.2.4] - 2026-08-30
+
+### Added
+
+- Added option to show clock in user profile page
+- Selecting timezone card now shows difference of hours on other timezone cards
+- Added camp listing and workflow
