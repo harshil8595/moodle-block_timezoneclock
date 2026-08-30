@@ -25,6 +25,13 @@
     flex-basis: 50%;
     font-size: 1.2em;
     margin-top: 1em;
+    cursor: pointer;
+}
+.block_timezoneclock .clockwrap.isselected {
+    border-color: #7084ca;
+    box-sizing: border-box;
+    border-width: 0.2em;
+    border-radius: 1.2em;
 }
 .block_timezoneclock .clockwrap .dateline {
     display: flex;
@@ -51,6 +58,14 @@
     background-color: #7084ca;
     transform: translateX(0.8em) translateY(-1.2em);
     color: white;
+}
+.block_timezoneclock .clockwrap .tztitle .offset-info {
+    margin-left: .2rem;
+    background-color: white;
+    border-radius: 0.4rem;
+    color: #7084ca;
+    padding: 0.1rem .4rem;
+    display: inline-block;
 }
 .block_timezoneclock .tab-pane {
     padding-left: 0;

@@ -155,6 +155,69 @@ export const initBlock = (dateFormat) => {
         updateTime(dateFormat);
         replacecomputertznode.removeAttribute('data-action');
     }
+    const getTzOffset = (timezone) => {
+        const offset = getDateInfo(timezone, dateFormat).timeZoneName;
+        const match = offset?.match(
+            /GMT([+-])(\d{1,2})(?::(\d{2}))?/
+        );
+
+        if (!match) {
+            return 0;
+        }
+
+        const sign = match[1] === "-" ? -1 : 1;
+        const hours = Number(match[2] || 0);
+        const minutes = Number(match[3] || 0);
+
+        return sign * (hours * 60 + minutes);
+    };
+    const formatOffset = (minutes) => {
+        if (minutes === 0) {
+            return "+0:00";
+        }
+
+        const sign = minutes >= 0 ? "+" : "-";
+        const absolute = Math.abs(minutes);
+
+        const hours = Math.floor(absolute / 60);
+        const mins = absolute % 60;
+
+        return `${sign}${hours}:${String(mins).padStart(2, "0")}`;
+    };
+    if (!initBlock.clickEventRegistered) {
+        initBlock.clickEventRegistered = true;
+        document.addEventListener('click', e => {
+            const clockwrapper = e.target.closest('[data-region="clock"]');
+            const clockwrapperoffset = getTzOffset(clockwrapper.dataset.timezone);
+            if (clockwrapper) {
+                const otherclockwrappers = clockwrapper.closest('.blockwrapper').querySelectorAll('[data-region="clock"]');
+                if (otherclockwrappers.length === 1) {
+                    return;
+                }
+                const isselected = clockwrapper.classList.contains('isselected');
+                if (isselected) {
+                    clockwrapper.classList.remove('isselected');
+                } else {
+                    clockwrapper.classList.add('isselected');
+                }
+                otherclockwrappers.forEach(otherclockwrapper => {
+                    const titlediv = otherclockwrapper.querySelector('.tztitle');
+                    if (!titlediv.dataset.origTitle) {
+                        titlediv.dataset.origTitle = titlediv.innerText;
+                    }
+                    if (isselected || clockwrapper === otherclockwrapper) {
+                        titlediv.innerHTML = titlediv.dataset.origTitle;
+                        return;
+                    }
+                    otherclockwrapper.classList.remove('isselected');
+                    const otherclockwrapperoffset = getTzOffset(otherclockwrapper.dataset.timezone);
+                    const difference = otherclockwrapperoffset - clockwrapperoffset;
+                    const offsetHTML = `<span class="offset-info">${formatOffset(difference)}</span>`;
+                    titlediv.innerHTML = `${titlediv.dataset.origTitle}${offsetHTML}`;
+                });
+            }
+        });
+    }
 };
 
 export const registerForm = (formUniqId, dateFormat) => {
