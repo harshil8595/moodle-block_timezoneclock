@@ -27,8 +27,9 @@ use block_timezoneclock\util;
 class block_timezoneclock extends block_base {
     /**
      * Checks if block is shown in user profile navigation.
+     * @var bool
      */
-    private bool $showingonprofile = false;
+    private $showingonprofile = false;
 
     /**
      * Initialize block and set block's title
