@@ -59,7 +59,7 @@ function block_timezoneclock_myprofile_navigation(\core_user\output\myprofile\tr
         'timezoneclock',
         get_string('clock', 'block_timezoneclock'),
         null,
-        'block_timezoneclock'
+        ' block_timezoneclock'
     );
     $tree->add_category($clockcategory);
 
