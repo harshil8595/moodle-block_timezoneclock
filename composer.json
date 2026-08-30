@@ -1,0 +1,29 @@
+{
+    "name": "harshil8595/moodle-block_timezoneclock",
+    "description": "Moodle block plugin for viewing/converting time accross different timezones.",
+    "type": "moodle-block",
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+        "moodle",
+        "timezone",
+        "clock",
+        "moodle-block"
+    ],
+    "authors": [
+        {
+            "name": "Harshil Patel",
+            "email": "harshil8595@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/harshil8595/moodle-block_timezoneclock/issues",
+        "source": "https://github.com/harshil8595/moodle-block_timezoneclock"
+    },
+    "require": {
+        "php": ">=7.3",
+        "moodle/moodle": ">=4.0 <5.3",
+        "moodle/composer-installer": "*"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
