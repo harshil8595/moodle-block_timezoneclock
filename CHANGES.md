@@ -108,3 +108,18 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 - Added option to show clock in user profile page
 - Selecting timezone card now shows difference of hours on other timezone cards
 - Added camp listing and workflow
+
+## [1.2.5] - 2026-09-13
+
+### Added
+
+- Add demo link in readme
+
+### Changed
+
+- Improved converter form styling
+
+### Fixed
+
+- Remove double timezone
+- Fix selected timezone difference not applied to converter form timezones
