@@ -66,7 +66,7 @@ class edit_form extends block_edit_form {
             $choices,
             ['multiple' => true, 'data-selectenhanced' => 1]
         );
-        $mform->setType('timezone', PARAM_TIMEZONE);
+        $mform->setType('config_timezone', PARAM_TIMEZONE);
 
         $mform->addElement('html', '</div>');
 
