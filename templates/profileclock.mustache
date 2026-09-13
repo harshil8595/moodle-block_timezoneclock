@@ -164,7 +164,7 @@
     }
 }}
 
-<div class="blockwrapper"{{#isanalog}} data-isanalog="1"{{/isanalog}}>
+<div id="blockwrapper-{{{uniqid}}}" class="blockwrapper"{{#isanalog}} data-dateformat={{#quote}}{{{dateformat}}}{{/quote}} data-isanalog="1"{{/isanalog}}>
     {{#information}}
     <div class="tzinformationwrapper">
         <div class="tzinformation w-100">
@@ -177,6 +177,6 @@
 </div>
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
-        amd.initBlock('{{{dateformat}}}');
+        amd.initBlock('blockwrapper-{{{uniqid}}}');
     });
 {{/js}}

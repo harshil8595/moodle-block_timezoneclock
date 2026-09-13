@@ -207,40 +207,47 @@ export const makeSelectEnhanced = (parentNode = document) => {
     });
 };
 
-export const initBlock = (dateFormat, blockwrappaerhtmlid) => {
-    const d = new Date();
-    setTimeout(() => updateTime(dateFormat), 1000 - d.getMilliseconds());
+export const initBlock = (blockwrappaerhtmlid, defaultselected = false) => {
     if (!select2registered) {
         select2registered = true;
         document.addEventListener(eventTypes.filterContentUpdated, e => {
             makeSelectEnhanced(e.detail.nodes);
         });
     }
-    const replacecomputertznode = document.querySelector('[data-action="replacecomputertimezone"]');
+    const blockwrapper = document.getElementById(blockwrappaerhtmlid);
+    if (!blockwrapper) {
+        return;
+    }
+    const dateFormat = blockwrapper.dataset.dateformat;
+    const d = new Date();
+    setTimeout(() => updateTime(dateFormat), 1000 - d.getMilliseconds());
+    const replacecomputertznode = blockwrapper.querySelector('[data-action="replacecomputertimezone"]');
     if (replacecomputertznode) {
         const computrertz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         replacecomputertznode.setAttribute('data-timezone', computrertz);
         updateTime(dateFormat);
         replacecomputertznode.removeAttribute('data-action');
     }
-    if (!initBlock.clickEventRegistered) {
-        initBlock.clickEventRegistered = true;
-        document.addEventListener('click', e => {
-            const clockwrapper = e.target.closest('[data-region="clock"]');
-            if (clockwrapper) {
-                selectOrDeselectClock(clockwrapper);
-            }
-        });
-    }
-    if (blockwrappaerhtmlid) {
-        document.querySelector(`#${blockwrappaerhtmlid} [data-defaultselected="true"]`)?.click();
+    blockwrapper.addEventListener('click', e => {
+        const clockwrapper = e.target.closest('[data-region="clock"]');
+        if (clockwrapper) {
+            selectOrDeselectClock(clockwrapper);
+        }
+    });
+    if (defaultselected) {
+        blockwrapper.querySelector('[data-defaultselected="true"]')?.click();
     }
 };
 
-export const registerForm = (formUniqId, dateFormat, blockwrappaerhtmlid) => {
+export const registerForm = (formUniqId) => {
     const form = document.getElementById(formUniqId);
     const r = new RegExp(`(day|month|year|hour|minute)`);
     if (form) {
+        const blockwrapper = form.closest('.blockwrapper');
+        if (!blockwrapper) {
+            return;
+        }
+        const dateFormat = blockwrapper.dataset.dateformat;
         const dForm = new DynamicForm(form, form.dataset.formClass);
         const getTypeFromElement = sel => sel.name.match(r).pop();
         const generateTimeStamp = () => {
@@ -276,8 +283,8 @@ export const registerForm = (formUniqId, dateFormat, blockwrappaerhtmlid) => {
                 e.detail.html,
                 Fragment.processCollectedJavascript(e.detail.js)
             );
-            if (blockwrappaerhtmlid && lastSelectedTz) {
-                const clockwrapper = document.querySelector(`#${blockwrappaerhtmlid} [data-timezone="${lastSelectedTz}"]`);
+            if (lastSelectedTz) {
+                const clockwrapper = blockwrapper.querySelector(`[data-timezone="${lastSelectedTz}"]`);
                 if (clockwrapper) {
                     selectOrDeselectClock(clockwrapper, dateFormat, true);
                 }
