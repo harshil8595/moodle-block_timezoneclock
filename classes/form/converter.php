@@ -54,6 +54,8 @@ class converter extends dynamic_form {
      */
     public function definition() {
         global $OUTPUT, $USER;
+        $this->set_display_vertical();
+
         $mform = $this->_form;
 
         $mform->updateAttributes(['class' => $mform->getAttribute('class') . ' block_timezoneclockconverterform']);
@@ -95,12 +97,13 @@ class converter extends dynamic_form {
 
         $mform->addElement('html', '</div>');
 
-        $groupels[] = $mform->createElement(
+        $groupels[] = $dateselecctor = $mform->createElement(
             'date_time_selector',
             'selectedstamp',
             get_string('datestamp', 'block_timezoneclock'),
             ['optional' => true, 'timezone' => $this->optional_param('timezone', $usertimezone, PARAM_NOTAGS)]
         );
+        $dateselecctor->_separator = html_writer::span('');
         $mform->setType('selectedstamp', PARAM_INT);
 
         $groupels[] = $mform->createElement(

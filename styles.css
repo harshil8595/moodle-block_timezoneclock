@@ -255,6 +255,10 @@
     white-space: pre;
 }
 
+.block_timezoneclockconverterform {
+    --choices-guttering: 0;
+}
+
 .block_timezoneclockconverterform .form-check-input[id^="id_toggletimestamp"] {
     position: absolute;
     opacity: 0;
