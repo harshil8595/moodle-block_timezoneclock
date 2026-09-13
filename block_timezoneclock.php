@@ -133,7 +133,6 @@ class block_timezoneclock extends block_base {
 
         $timeunits = [];
         $namedfractions = $fractions = [];
-        $pattern = '/(' . join('|', $allcharacters) . ')/'; // Supported format characters.
 
         // Split format string into tokens (format parts and separators).
         preg_match_all('/(' . join('|', $allcharacters) . '|[^' . join('', $allcharacters) . ']+)/', $format, $matches);
@@ -242,7 +241,7 @@ class block_timezoneclock extends block_base {
      * @return bool
      */
     public function check_hiddenonprofile(): bool {
-        $configprofileclocktype = get_config('block_timezoneclock', 'profileclocktype');
-        return empty($configprofileclocktype) || $configprofileclocktype === 'hidden';
+        $profileclockconfig = get_config('block_timezoneclock', 'profileclocktype');
+        return empty($profileclockconfig) || $profileclockconfig === 'hidden';
     }
 }

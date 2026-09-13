@@ -28,7 +28,5 @@
  * @param int $oldversion
  */
 function xmldb_block_timezoneclock_upgrade($oldversion) {
-    global $CFG;
-
     return true;
 }
