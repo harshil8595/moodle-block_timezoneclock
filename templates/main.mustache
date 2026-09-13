@@ -507,6 +507,6 @@
 {{#js}}
     require(['block_timezoneclock/main'], function(amd) {
         amd.initBlock('{{{dateformat}}}', 'blockwraper-{{{uniqid}}}');
-        amd.registerForm('{{formuniqid}}', '{{{dateformat}}}');
+        amd.registerForm('{{formuniqid}}', '{{{dateformat}}}', 'blockwraper-{{{uniqid}}}');
     });
 {{/js}}
