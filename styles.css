@@ -33,6 +33,9 @@
     border-width: 0.2em;
     border-radius: 1.2em;
 }
+.block_timezoneclock .clockwrap.isselected .digitalclock {
+    border-radius: 1em;
+}
 .block_timezoneclock .clockwrap .dateline {
     display: flex;
     flex-wrap: wrap;
