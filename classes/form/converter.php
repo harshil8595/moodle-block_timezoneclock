@@ -234,7 +234,8 @@ class converter extends dynamic_form {
      * @return moodle_url
      */
     protected function get_page_url_for_dynamic_submission(): moodle_url {
-        return new moodle_url(get_local_referer());
+        $refererurl = '/' . ltrim((string) get_local_referer(), '/');
+        return new moodle_url($refererurl);
     }
 
     /**
