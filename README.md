@@ -19,7 +19,7 @@ running in the browser, with no local install. The demo includes a course
 with a preloaded certificate activity so you can edit the template, issue
 and download a PDF immediately.
 
-<a href="https://moodle-playground.com/?blueprint-url=https://raw.githubusercontent.com/harshil8595/moodle-block_timezoneclock/refs/heads/develop/blueprint.json" target="_blank" rel="noopener"><img src=".github/assets/playground-preview-button.svg" alt="Preview in Moodle Playground" width="200"></a>
+<a href="https://moodle-playground.com/?blueprint-url=https://raw.githubusercontent.com/harshil8595/moodle-block_timezoneclock/refs/heads/main/blueprint.json" target="_blank" rel="noopener"><img src=".github/assets/playground-preview-button.svg" alt="Preview in Moodle Playground" width="200"></a>
 
 > **Demo credentials:** log in as **student** / **test** to view block functionality or
 > as **admin** / **test** to update block functionality.

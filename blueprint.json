@@ -36,7 +36,7 @@
       "step": "installMoodlePlugin",
       "pluginType": "block",
       "pluginName": "timezoneclock",
-      "url": "https://github.com/harshil8595/moodle-block_timezoneclock/archive/refs/heads/develop.zip"
+      "url": "https://github.com/harshil8595/moodle-block_timezoneclock/archive/refs/heads/main.zip"
     },
     {
         "step": "setConfigs",
