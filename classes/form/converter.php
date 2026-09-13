@@ -175,12 +175,8 @@ class converter extends dynamic_form {
         global $PAGE, $OUTPUT;
         $formdata = $this->get_data();
         $selectedtimezones = (array) $formdata->timezones;
-        if (!NO_MOODLE_COOKIES) {
-            array_unshift($selectedtimezones, self::get_usertimezone());
-        } else if ($this->optional_param('firstload', null, PARAM_BOOL)) {
-            if (empty($selectedtimezones)) {
-                $selectedtimezones = array_values(core_date::get_list_of_timezones());
-            }
+        if ($this->optional_param('firstload', null, PARAM_BOOL) && empty($selectedtimezones)) {
+            $selectedtimezones = array_values(core_date::get_list_of_timezones());
         }
 
         $selectedtimestamp = !empty($formdata->selectedstamp) ? $formdata->selectedstamp : null;
