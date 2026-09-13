@@ -4,6 +4,7 @@
 [![GitHub License](https://img.shields.io/github/license/harshil8595/moodle-block_timezoneclock?label=License&color=blue
 )](https://github.com/harshil8595/moodle-block_timezoneclock/blob/main/LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/harshil8595/moodle-block_timezoneclock?label=Release&color=blue)](https://github.com/harshil8595/moodle-block_timezoneclock/releases/latest)
+[![MDL Shield](https://img.shields.io/endpoint?url=https%3A%2F%2Fmdlshield.com%2Fapi%2Fbadge%2Fblock_timezoneclock)](https://mdlshield.com/plugins/block_timezoneclock)
 
 Moodle block plugin for viewing/converting time in different timezones
 

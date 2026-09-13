@@ -16,3 +16,6 @@ links:
   docs: https://github.com/harshil8595/moodle-block_timezoneclock#readme
   issues: https://github.com/harshil8595/moodle-block_timezoneclock/issues
   changelog: https://github.com/harshil8595/moodle-block_timezoneclock/releases
+badges:
+  - endpoint: https://mdlshield.com/api/badge/block_timezoneclock
+    link: https://mdlshield.com/plugins/block_timezoneclock
