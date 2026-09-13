@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ateeducacion/moodle-playground/refs/heads/main/assets/blueprints/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.3",
+    "moodle": "MOODLE_503_STABLE"
+  },
+  "landingPage": "/my/",
+  "constants": {
+    "ADMIN_USER": "admin",
+    "ADMIN_PASS": "test",
+    "ADMIN_EMAIL": "admin@example.com"
+  },
+  "steps": [
+    {
+      "step": "installMoodle",
+      "options": {
+        "adminUser": "{{ADMIN_USER}}",
+        "adminPass": "{{ADMIN_PASS}}",
+        "adminEmail": "{{ADMIN_EMAIL}}",
+        "siteName": "Block Timezone Clock Demo",
+        "locale": "en",
+        "timezone": "UTC"
+      }
+    },
+    {
+      "step": "setAdminAccount",
+      "username": "{{ADMIN_USER}}",
+      "password": "{{ADMIN_PASS}}",
+      "email": "{{ADMIN_EMAIL}}"
+    },
+    {
+      "step": "login",
+      "username": "{{ADMIN_USER}}"
+    },
+    {
+      "step": "installMoodlePlugin",
+      "pluginType": "block",
+      "pluginName": "timezoneclock",
+      "url": "https://github.com/harshil8595/moodle-block_timezoneclock/archive/refs/heads/develop.zip"
+    },
+    {
+        "step": "setConfigs",
+        "configs": [
+            {"name": "clocktype", "value": "digital", "plugin": "block_timezoneclock"},
+            {"name": "profileclocktype", "value": "analog", "plugin": "block_timezoneclock"}
+        ]
+    },
+    {
+      "step": "createUser",
+      "username": "student",
+      "password": "test",
+      "email": "student@example.com",
+      "firstname": "Demo",
+      "lastname": "Student"
+    },
+    {
+      "step": "runPhpCode",
+      "code": "<?php if (!defined('CLI_SCRIPT')) { define('CLI_SCRIPT', true); } require('/www/moodle/config.php'); require_once($CFG->dirroot . '/my/lib.php'); $PAGE->set_context(null); $blockmanager = $PAGE->blocks; $blockmanager->add_region('content'); if (!$currentpage = my_get_page(null, MY_PAGE_PRIVATE)) { throw new moodle_exception('mymoodlesetup'); } $admin = get_admin(); \\core\\session\\manager::set_user($admin); $firstinstanceconfig = (object) ['title' => 'Analogue clock', 'clocktype' => block_timezoneclock\\util::TYPEANALOG, 'timezone' => ['America/Denver', 'Asia/Dubai', 'Asia/Kolkata', 'Australia/Perth', 'Europe/London'], 'datetimeformat' => 'D F d Y h:i:s A']; $firstblockinstance = $blockmanager->add_block('timezoneclock', 'content', -10, true, 'my-index', $currentpage->id); $firstblockinstance->instance_config_save($firstinstanceconfig); $secondinstanceconfig = (object) array_merge((array) $firstinstanceconfig, ['title' => 'Digital clock', 'clocktype' => block_timezoneclock\\util::TYPEDIGITAL]); $secondblockinstance = $blockmanager->add_block('timezoneclock', 'content', -9, true, 'my-index', $currentpage->id); $secondblockinstance->instance_config_save($secondinstanceconfig); my_reset_page_for_all_users(MY_PAGE_PRIVATE, 'my-index'); echo 'Seeded 2 blocks on dashboard page ';"
+    }
+  ]
+}
