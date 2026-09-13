@@ -4,11 +4,13 @@
     width: 100%;
     gap: 1%;
 }
+
 .block_timezoneclock .sectiontitle {
     font-size: 1.6rem;
     border-bottom: 0.08em solid #ccc;
     margin-bottom: 0.6em;
 }
+
 .block_timezoneclock .clockwrap {
     --size: 200px;
     display: flex;
@@ -27,15 +29,18 @@
     margin-top: 1em;
     cursor: pointer;
 }
+
 .block_timezoneclock .clockwrap.isselected {
     border-color: #7084ca;
     box-sizing: border-box;
     border-width: 0.2em;
     border-radius: 1.2em;
 }
+
 .block_timezoneclock .clockwrap.isselected .digitalclock {
     border-radius: 1em;
 }
+
 .block_timezoneclock .clockwrap .dateline {
     display: flex;
     flex-wrap: wrap;
@@ -49,6 +54,7 @@
     max-width: calc(100% - .1em);
     white-space: pre;
 }
+
 .block_timezoneclock .clockwrap .clock {
     display: flex;
     flex-wrap: wrap;
@@ -57,11 +63,13 @@
     color: white;
     margin-bottom: 0;
 }
+
 .block_timezoneclock .clockwrap .tztitle {
     background-color: #7084ca;
     transform: translateX(0.8em) translateY(-1.2em);
     color: white;
 }
+
 .block_timezoneclock .clockwrap .tztitle .offset-info {
     margin-left: .2rem;
     background-color: white;
@@ -70,6 +78,7 @@
     padding: 0.1rem .4rem;
     display: inline-block;
 }
+
 .block_timezoneclock .tab-pane {
     padding-left: 0;
     padding-right: 0;
