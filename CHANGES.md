@@ -4,42 +4,82 @@ All notable changes to this project will be documented in this file.
 
 Note - All hash comments refer to the issue number. Eg. #2 refers to https://github.com/harshil8595/moodle-block_timezoneclock/issues/2.
 
-## [1.1.1] - 2023-01-09
-
-### Fixed
-
-- Fix Camel case in strings [#2](https://github.com/harshil8595/moodle-block_timezoneclock/issues/2).
-
-## [1.1.2] - 2023-03-19
+## [1.2.5] - 2026-09-13
 
 ### Added
 
-- Intoduce option to change watch type [#3](https://github.com/harshil8595/moodle-block_timezoneclock/issues/3).
+- Add demo link in readme
 
-## [1.1.3] - 2023-03-29
+### Changed
 
-### Fixed
-
-- Error when removing timezone [#4](https://github.com/harshil8595/moodle-block_timezoneclock/issues/4).
-- Layout disturbed when block moved to block drawer [#5](https://github.com/harshil8595/moodle-block_timezoneclock/issues/5).
-
-## [1.1.4] - 2023-04-20
+- Improved converter form styling
 
 ### Fixed
 
-- Fix timezone selection autocomplete field in configuration modal form [#7](https://github.com/harshil8595/moodle-block_timezoneclock/issues/7).
+- Remove double timezone
+- Fix selected timezone difference not applied to converter form timezones
 
-## [1.1.5] - 2023-05-10
+---
 
-### Fixed
-
-- Fix Configuration changes do not stick [#8](https://github.com/harshil8595/moodle-block_timezoneclock/issues/8).
-
-## [1.1.6] - 2024-04-20
+## [1.2.4] - 2026-08-30
 
 ### Added
 
-- Add supported version numbers in version information
+- Added option to show clock in user profile page
+- Selecting timezone card now shows difference of hours on other timezone cards
+- Added camp listing and workflow
+
+---
+
+## [1.2.3] - 2026-06-21
+
+### Fixed
+
+- Fix forcing login if block added on site home page
+
+---
+
+## [1.2.2] - 2025-04-05
+
+### Added
+
+- Added user profile timezone in clock section
+
+### Changed
+
+- Allow to repeat date and time identifier in datetime format
+
+---
+
+## [1.2.1] - 2025-10-12
+
+### Fixed
+
+- Fix converted time display
+
+---
+
+## [1.2.0] - 2025-06-25
+
+### Fixed
+
+- Fix UI issues in RTL Mode
+
+---
+
+## [1.1.9] - 2025-04-14
+
+### Added
+
+- Add clock section to get difference between server and device timezone
+- Add option to define date and time format
+
+### Changed
+
+- Replace `bootstrap-select` with `tom-select` library
+- Update add timezone button string
+
+---
 
 ## [1.1.7] - 2024-06-20
 
@@ -61,65 +101,49 @@ Note - All hash comments refer to the issue number. Eg. #2 refers to https://git
 
 - Remove show digits option
 
-## [1.1.9] - 2025-04-14
+---
+
+## [1.1.6] - 2024-04-20
 
 ### Added
 
-- Add clock section to get difference between server and device timezone
-- Add option to define date and time format
+- Add supported version numbers in version information
 
-### Changed
+---
 
-- Replace `bootstrap-select` with `tom-select` library
-- Update add timezone button string
-
-## [1.2.0] - 2025-06-25
+## [1.1.5] - 2023-05-10
 
 ### Fixed
 
-- Fix UI issues in RTL Mode
+- Fix Configuration changes do not stick [#8](https://github.com/harshil8595/moodle-block_timezoneclock/issues/8).
 
-## [1.2.1] - 2025-10-12
+---
+
+## [1.1.4] - 2023-04-20
 
 ### Fixed
 
-- Fix converted time display
+- Fix timezone selection autocomplete field in configuration modal form [#7](https://github.com/harshil8595/moodle-block_timezoneclock/issues/7).
 
-## [1.2.2] - 2025-04-05
+---
+
+## [1.1.3] - 2023-03-29
+
+### Fixed
+
+- Error when removing timezone [#4](https://github.com/harshil8595/moodle-block_timezoneclock/issues/4).
+- Layout disturbed when block moved to block drawer [#5](https://github.com/harshil8595/moodle-block_timezoneclock/issues/5).
+
+---
+
+## [1.1.2] - 2023-03-19
 
 ### Added
 
-- Added user profile timezone in clock section
+- Intoduce option to change watch type [#3](https://github.com/harshil8595/moodle-block_timezoneclock/issues/3).
 
-### Changed
+---
 
-- Allow to repeat date and time identifier in datetime format
-
-## [1.2.3] - 2026-06-21
-
+## [1.1.1] - 2023-01-09
 ### Fixed
-
-- Fix forcing login if block added on site home page
-
-## [1.2.4] - 2026-08-30
-
-### Added
-
-- Added option to show clock in user profile page
-- Selecting timezone card now shows difference of hours on other timezone cards
-- Added camp listing and workflow
-
-## [1.2.5] - 2026-09-13
-
-### Added
-
-- Add demo link in readme
-
-### Changed
-
-- Improved converter form styling
-
-### Fixed
-
-- Remove double timezone
-- Fix selected timezone difference not applied to converter form timezones
+- Fix Camel case in strings [#2](https://github.com/harshil8595/moodle-block_timezoneclock/issues/2).
