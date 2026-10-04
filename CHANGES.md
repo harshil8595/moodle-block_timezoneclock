@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 Note - All hash comments refer to the issue number. Eg. #2 refers to https://github.com/harshil8595/moodle-block_timezoneclock/issues/2.
 
+## [1.2.6] - 2026-10-04
+
+### Fixed
+
+- Reversed the order of versions to show the most recent releases at the top
+
+---
+
 ## [1.2.5] - 2026-09-13
 
 ### Added
